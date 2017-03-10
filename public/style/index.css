@@ -1,0 +1,23 @@
+@import '~antd/dist/antd.css';
+
+body, html, #root, .ant-layout, .ant-layout-sider{
+    height: 100%;
+}
+
+.ant-menu{
+    /*height: calc(100% - 200px);*/
+    height: calc(100% - 200px);
+}
+
+.user-info{
+    height: 200px;
+    background-color: #fff;
+}
+
+.main-content{
+    position: absolute;
+    width: calc(100% - 240px);
+    left: 200px;
+    margin: 20px;
+    background-color: #fff;
+}
