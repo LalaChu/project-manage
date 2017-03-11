@@ -28,6 +28,7 @@ var useYarn = fs.existsSync(paths.yarnLockFile);
 var cli = useYarn ? 'yarn' : 'npm';
 var isInteractive = process.stdout.isTTY;
 
+
 // Warn and crash if required files are missing
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
@@ -126,6 +127,7 @@ function setupCompiler(host, port, protocol) {
   });
 }
 
+
 // We need to provide a custom onError function for httpProxyMiddleware.
 // It allows us to log custom error messages on the console.
 function onProxyError(proxy) {
@@ -220,6 +222,7 @@ function addMiddleware(devServer) {
 }
 
 function runDevServer(host, port, protocol) {
+  
   var devServer = new WebpackDevServer(compiler, {
     // Enable gzip compression of generated files.
     compress: true,
@@ -262,6 +265,8 @@ function runDevServer(host, port, protocol) {
     https: protocol === "https",
     host: host
   });
+
+
 
   // Our custom middleware proxies requests to /index.html or a remote API.
   addMiddleware(devServer);

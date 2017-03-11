@@ -7,11 +7,10 @@ import Process from './components/Process'
 import Project from './components/Project'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import '../public/style/index.css'
-import { createStore } from 'redux'
-import ProjectApp from './reducers'
 import { Provider } from 'react-redux'
+import configStore from './store'
 
-let store = createStore(ProjectApp)
+let store = configStore()
 
 render(
     <Provider store={store}>
