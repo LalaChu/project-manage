@@ -4,7 +4,7 @@ import App from './components/App'
 import View from './components/View'
 import Personal from './components/Personal'
 import Process from './components/Process'
-import Project from './components/Project'
+import ProjectContainer from './containers/Project'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import '../public/style/index.css'
 import { Provider } from 'react-redux'
@@ -20,7 +20,7 @@ render(
                 <Route path='view' component={View} />
                 <Route path='personal' component={Personal} />
                 <Route path='process' component={Process} />
-                <Route path='project' component={Project} />
+                <Route path='project' component={ProjectContainer} />
             </Route>
         </Router>
     </Provider>,
