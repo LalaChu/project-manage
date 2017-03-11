@@ -21,9 +21,14 @@ body, html, #root, .ant-layout, .ant-layout-sider{
     left: 200px;
     margin: 20px;
     background-color: #fff;
+    text-align: right;
 }
 
 .project-list{
     padding: 10px;
     height: 100%;
+}
+
+.add-item{
+    margin-bottom: 5px;
 }
