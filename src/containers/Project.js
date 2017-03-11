@@ -4,7 +4,12 @@ import * as Status from '../constants/status'
 import Project from '../components/Project'
 
 const mapStateToProps = (state, ownProps) => {
-    return state
+    const { ProjectState } = state
+    const { status, list } = ProjectState
+    return {
+        status,
+        list
+    }
 }
 const mapDispatchToProps = (dispatch) => {
     return {

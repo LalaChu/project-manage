@@ -9,13 +9,11 @@ let initialState = {
 const ProjectState = (state = initialState, action ) => {
     switch (action.type) {
         case projectAction.GET_PROJECT_LIST:
-            return [
+            return {
                 ...state,
-                {
-                    status: action.status,
-                    list: action.list
-                }
-            ]
+                status: action.status,
+                list: action.list
+            }
         default:
             return state
     }

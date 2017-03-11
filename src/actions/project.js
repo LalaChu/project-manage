@@ -12,16 +12,22 @@ const getProjectList = (status, list) => {
 }
 
 export const fetchProjectList = () => {
-    console.log(secretKey)
     return function(dispatch){
         dispatch(getProjectList(Status.LOADING))
-        let url = `http://cloud.bmob.cn/${secretKey}/test`
+        let url = `http://cloud.bmob.cn/${secretKey}/getProjectList`
         return fetch(url)
-                .then((response) => { console.log(response)})
+                .then((response) => { return response.json()})
+                .then(json =>{ dispatch(getProjectList(Status.SUCCESS, filterData(json)))})
                 .catch(function(err){
                     console.log(err)
                 })
-                //.then(json =>{ dispatch(getProjectList(Status.SUCCESS, json))
-                //})
+                
     }
+}
+
+function filterData(list){
+    if(list){
+        return list.results
+    }
+    return []
 }

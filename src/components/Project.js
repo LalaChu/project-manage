@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
+import Table from 'antd/lib/table'
 
 class Project extends Component{
     componentWillMount(){
         this.props.getProjectList()
     }
     render(){
+        console.log('project:',this.props)
         return (
-            <div>this is project</div>
+            <div>
+                <Table></Table>
+            </div>
         )
     }
 }
