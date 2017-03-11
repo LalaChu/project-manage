@@ -1,7 +1,7 @@
 import * as Status from '../constants/status'
 import * as projectAction from '../constants/project' 
 
-export const getProjectList = (status, list) => {
+const getProjectList = (status, list) => {
     return {
         type: projectAction.GET_PROJECT_LIST,
         status,
