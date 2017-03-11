@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Table from 'antd/lib/table'
+import Button from 'antd/lib/button'
+import columns from '../tableStructure/project'
 
 class Project extends Component{
     componentWillMount(){
@@ -8,8 +10,11 @@ class Project extends Component{
     render(){
         console.log('project:',this.props)
         return (
-            <div>
-                <Table></Table>
+            <div className='project-list'>
+                <Button></Button>
+                <Table 
+                    columns={columns} 
+                    bordered/>
             </div>
         )
     }
