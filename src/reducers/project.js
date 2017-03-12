@@ -14,6 +14,11 @@ const ProjectState = (state = initialState, action ) => {
                 status: action.status,
                 list: action.list
             }
+        case projectAction.SET_P_TYPE_SELECT_VISIBLE:
+            return {
+                ...state,
+                visible: action.visible
+            }
         default:
             return state
     }

@@ -6,3 +6,10 @@ export const setCurrentMenu = (currentMenu) => {
         currentMenu
     }
 }
+
+export const setPTypeSelectVisible = (visible) => {
+    return {
+        type: UIType.SET_P_TYPE_SELECT_VISIBLE,
+        typeSelectVisible: visible
+    }
+}

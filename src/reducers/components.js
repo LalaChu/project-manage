@@ -7,10 +7,15 @@ let initialState = {
 const UIState = (state = initialState, action ) => {
     switch (action.type) {
         case UIType.SET_CURRENT_MENU:
-            return [
+            return {
                 ...state,
-                {currentMenu: action.currentMenu}
-            ]
+                currentMenu: action.currentMenu
+            }
+        case UIType.SET_P_TYPE_SELECT_VISIBLE:
+            return {
+                ...state,
+                typeSelectVisible: action.typeSelectVisible
+            }
         default:
             return state
     }
