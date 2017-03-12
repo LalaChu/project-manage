@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-class Daily extends Component{
+class MyDaily extends Component{
     render(){
         return (
             <div>
-                this is daily
+                this is MyDaily
             </div>
         )
     }
 }
 
-export default daily
+export default MyDaily

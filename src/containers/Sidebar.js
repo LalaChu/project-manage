@@ -3,15 +3,19 @@ import { setCurrentMenu } from '../actions/components'
 import Sidebar from '../components/Sidebar'
 
 const mapStateToProps = (state, ownProps) => {
-    const { currentMenu } = ownProps
+    // console.log(state , ownProps)
+    const { currentMenu, openNow } = ownProps
     return {
-        currentMenu: currentMenu || 'view'
+        currentMenu: currentMenu || 'view',
+        openNow:openNow === '/' ? '' : openNow 
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
         onClick: (e) => {
-            dispatch(setCurrentMenu(e.key))
+            // console.log(e)
+            let opennow = e.keyPath[e.keyPath.length-1]
+            dispatch(setCurrentMenu(e.key, opennow))
         }
     }
 }
@@ -19,3 +23,4 @@ const mapDispatchToProps = (dispatch) => {
 const SidebarContainer = connect(mapStateToProps ,mapDispatchToProps)(Sidebar)
 
 export default SidebarContainer
+                                 

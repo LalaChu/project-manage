@@ -2,6 +2,7 @@ import * as UIType from '../constants/components'
 
 let initialState = {
     currentMenu: 'view',
+    openNow: '',
     typeSelectVisible: false,
     addProjectVisible: false,
     addCategoryVisible: false,
@@ -13,7 +14,8 @@ const UIState = (state = initialState, action ) => {
         case UIType.SET_CURRENT_MENU:
             return {
                 ...state,
-                currentMenu: action.currentMenu
+                currentMenu: action.currentMenu,
+                openNow: action.openNow
             }
         case UIType.SET_P_TYPE_SELECT_VISIBLE:
             return {

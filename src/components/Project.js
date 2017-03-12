@@ -14,11 +14,10 @@ class Project extends Component{
         this.props.getProjectList()
     }
     handleOpenClick = () => {
-        console.log('test')
         this.props.setTypeSelectVisible(true)
     }
     render(){
-        console.log(this.props)
+        // console.log(this.props)
         const dataSource = addKeyColumns(this.props.list)
         const { typeSelectVisible, addProjectVisible, addCategoryVisible, addTaskVisible } = this.props
         const { setAddProjectVisible, setAddCategoryVisible, setAddTaskVisible } = this.props

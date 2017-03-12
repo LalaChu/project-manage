@@ -22,7 +22,7 @@ class ItemTypeSelect extends Component{
         this.props.setAddTaskVisible(true)
     }
     render(){
-        const { visible, onCancle } = this.props
+        const { visible } = this.props
         return (
             <Modal
                 onCancel={this.handleCancel} 

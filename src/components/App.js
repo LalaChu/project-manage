@@ -7,9 +7,10 @@ class App extends Component{
     render(){
         let children = this.props.children
         let currentMenu = this.props.routes[this.props.routes.length-1].path
+        let openNow = this.props.routes[this.props.routes.length-2].path
         return (
             <Layout>
-                <SidebarContainer currentMenu={currentMenu}/>
+                <SidebarContainer currentMenu={currentMenu} openNow={openNow}/>
                 <MainSection children={children}></MainSection>
             </Layout>
         )
