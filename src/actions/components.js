@@ -13,3 +13,25 @@ export const setPTypeSelectVisible = (visible) => {
         typeSelectVisible: visible
     }
 }
+
+export const setAddProjectVisible = (visible) => {
+    return {
+        type: UIType.SET_ADD_PROJECT_VISIBLE,
+        addProjectVisible: visible
+    }
+}
+
+export const setAddCategoryVisible = (visible) => {
+    return {
+        type: UIType.SET_ADD_CATEGORY_VISIBLE,
+        addCategoryVisible: visible
+    }
+}
+
+export const setAddTaskVisible = (visible) => {
+    return {
+        type: UIType.SET_ADD_TASK_VISIBLE,
+        addTaskVisible: visible
+    }
+}
+

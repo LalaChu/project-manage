@@ -20,7 +20,8 @@ class Project extends Component{
     render(){
         console.log(this.props)
         const dataSource = addKeyColumns(this.props.list)
-        const { typeSelectVisible } = this.props
+        const { typeSelectVisible, addProjectVisible, addCategoryVisible, addTaskVisible } = this.props
+        const { setAddProjectVisible, setAddCategoryVisible, setAddTaskVisible } = this.props
         return (
             <div className='project-list'>
                 <Button 
@@ -33,10 +34,19 @@ class Project extends Component{
                     bordered/>
                 <ItemTypeSelect 
                     onCancel={this.props.setTypeSelectVisible}
-                    visible={typeSelectVisible}></ItemTypeSelect>
-                <AddProject></AddProject>
-                <AddCategory></AddCategory>
-                <AddTask></AddTask>
+                    setAddCategoryVisible={setAddCategoryVisible}
+                    setAddProjectVisible={setAddProjectVisible}
+                    setAddTaskVisible={setAddTaskVisible}
+                    visible={typeSelectVisible} />
+                <AddProject
+                    onCancel={setAddProjectVisible}
+                    visible={addProjectVisible} />
+                <AddCategory
+                    onCancel={setAddCategoryVisible}
+                    visible={addCategoryVisible}/>
+                <AddTask 
+                    onCancel={setAddTaskVisible}
+                    visible={addTaskVisible}/>
             </div>
         )
     }

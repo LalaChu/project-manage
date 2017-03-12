@@ -9,6 +9,18 @@ class ItemTypeSelect extends Component{
     handleCancel = () => {
         this.props.onCancel(false)
     }
+    handleProjectSelect = () => {
+        this.props.onCancel(false)
+        this.props.setAddProjectVisible(true)
+    }
+    handleCategorySelect = () => {
+        this.props.onCancel(false)
+        this.props.setAddCategoryVisible(true)
+    }
+    handleTaskSelect = () => {
+        this.props.onCancel(false)
+        this.props.setAddTaskVisible(true)
+    }
     render(){
         const { visible, onCancle } = this.props
         return (
@@ -17,9 +29,24 @@ class ItemTypeSelect extends Component{
                 visible={visible}
                 footer={null}>
                 <Row className='select-row'>
-                    <Col span='8'><Card className='select-card'><Icon type="folder" className='select-icon'/></Card></Col>
-                    <Col span='8'><Card className='select-card'><Icon type="copy" className='select-icon'/></Card></Col>
-                    <Col span='8'><Card className='select-card'><Icon type="file-text" className='select-icon'/></Card></Col>
+                    <Col span='8'>
+                        <Card onClick={this.handleProjectSelect}
+                            className='select-card'>
+                            <Icon type="folder" className='select-icon'/>
+                        </Card>
+                    </Col>
+                    <Col span='8'>
+                        <Card onClick={this.handleCategorySelect}
+                            className='select-card'>
+                            <Icon type="copy" className='select-icon'/>
+                        </Card>
+                    </Col>
+                    <Col span='8'>
+                        <Card onClick={this.handleTaskSelect}
+                            className='select-card'>
+                            <Icon type="file-text" className='select-icon'/>
+                        </Card>
+                    </Col>
                 </Row>
             </Modal>
         )

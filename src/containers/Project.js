@@ -8,11 +8,21 @@ const mapStateToProps = (state, ownProps) => {
     console.log('container:', state)
     const { ProjectState } = state
     const { status, list } = ProjectState
-    const {UIState : {typeSelectVisible} } = state
+    const {UIState : 
+            {
+                typeSelectVisible,
+                addProjectVisible,
+                addTaskVisible,
+                addCategoryVisible
+            } 
+          } = state
     return {
         status,
         list,
-        typeSelectVisible
+        typeSelectVisible,
+        addCategoryVisible,
+        addProjectVisible,
+        addTaskVisible
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -22,6 +32,15 @@ const mapDispatchToProps = (dispatch) => {
         },
         setTypeSelectVisible: (visible) => {
             dispatch(UIType.setPTypeSelectVisible(visible))
+        },
+        setAddProjectVisible: (visible) => {
+            dispatch(UIType.setAddProjectVisible(visible))
+        },
+        setAddCategoryVisible: (visible) => {
+            dispatch(UIType.setAddCategoryVisible(visible))
+        },
+        setAddTaskVisible: (visible) => {
+            dispatch(UIType.setAddTaskVisible(visible))
         }
     }
 }

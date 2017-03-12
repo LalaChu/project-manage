@@ -1,7 +1,11 @@
 import * as UIType from '../constants/components'
 
 let initialState = {
-    currentMenu: 'view'
+    currentMenu: 'view',
+    typeSelectVisible: false,
+    addProjectVisible: false,
+    addCategoryVisible: false,
+    addTaskVisible: false
 }
 
 const UIState = (state = initialState, action ) => {
@@ -15,6 +19,21 @@ const UIState = (state = initialState, action ) => {
             return {
                 ...state,
                 typeSelectVisible: action.typeSelectVisible
+            }
+        case UIType.SET_ADD_PROJECT_VISIBLE:
+            return {
+                ...state,
+                addProjectVisible: action.addProjectVisible
+            }
+        case UIType.SET_ADD_CATEGORY_VISIBLE:
+            return {
+                ...state,
+                addCategoryVisible: action.addCategoryVisible
+            }
+        case UIType.SET_ADD_TASK_VISIBLE:
+            return {
+                ...state,
+                addTaskVisible: action.addTaskVisible
             }
         default:
             return state
