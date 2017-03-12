@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import Modal from 'antd/lib/modal'
+import Card from 'antd/lib/card'
+import Col from 'antd/lib/col'
+import Row from 'antd/lib/row'
+import Icon from 'antd/lib/icon'
 
 class ItemTypeSelect extends Component{
     handleCancel = () => {
@@ -10,7 +14,14 @@ class ItemTypeSelect extends Component{
         return (
             <Modal
                 onCancel={this.handleCancel} 
-                visible={visible}>add item select</Modal>
+                visible={visible}
+                footer={null}>
+                <Row className='select-row'>
+                    <Col span='8'><Card className='select-card'><Icon type="folder" className='select-icon'/></Card></Col>
+                    <Col span='8'><Card className='select-card'><Icon type="copy" className='select-icon'/></Card></Col>
+                    <Col span='8'><Card className='select-card'><Icon type="file-text" className='select-icon'/></Card></Col>
+                </Row>
+            </Modal>
         )
     }
 }

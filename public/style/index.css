@@ -32,3 +32,19 @@ body, html, #root, .ant-layout, .ant-layout-sider{
 .add-item{
     margin-bottom: 5px;
 }
+.select-row{
+    padding: 30px 25px 25px 25px;
+}
+.select-card{
+    height: 150px;
+    line-height: 150px;
+    text-align: center;
+    padding: 21px;
+}
+.ant-card-body{
+    padding: 0;
+}
+.select-icon{
+    font-size: 6em;
+    color: #5093e9;
+}
