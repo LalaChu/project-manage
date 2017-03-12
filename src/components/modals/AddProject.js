@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Modal from 'antd/lib/modal'
 import Form from 'antd/lib/form'
 import Input from 'antd/lib/input'
+import Select from 'antd/lib/select'
+import DatePicker from 'antd/lib/date-picker'
 
 const FormItem = Form.Item
 
@@ -30,31 +32,31 @@ class AddProject extends Component{
                         {...formLayout}
                         label='负责人'
                         hasFeedback>
-                        <Input />
+                        <Select />
                     </FormItem>
                     <FormItem 
                         {...formLayout}
                         label='开始时间'
                         hasFeedback>
-                        <Input />
+                        <DatePicker />
                     </FormItem>
                     <FormItem 
                         {...formLayout}
                         label='结束时间'
                         hasFeedback>
-                        <Input />
+                        <DatePicker />
                     </FormItem>
                     <FormItem 
                         {...formLayout}
                         label='类型'
                         hasFeedback>
-                        <Input />
+                        <Select />
                     </FormItem>
                     <FormItem 
                         {...formLayout}
                         label='描述'
                         hasFeedback>
-                        <Input />
+                        <Input type='textarea'/>
                     </FormItem>
                 </Form>
             </Modal>
