@@ -4,6 +4,7 @@ import Form from 'antd/lib/form'
 import Input from 'antd/lib/input'
 import Select from 'antd/lib/select'
 import DatePicker from 'antd/lib/date-picker'
+import Col from 'antd/lib/col'
 
 const FormItem = Form.Item
 
@@ -34,17 +35,21 @@ class AddProject extends Component{
                         hasFeedback>
                         <Select />
                     </FormItem>
-                    <FormItem 
-                        {...formLayout}
-                        label='开始时间'
-                        hasFeedback>
-                        <DatePicker />
-                    </FormItem>
-                    <FormItem 
-                        {...formLayout}
-                        label='结束时间'
-                        hasFeedback>
-                        <DatePicker />
+                    <FormItem label='起止时间'
+                        labelCol={{span: 6}}>
+                        <Col span='6'>
+                            <FormItem 
+                                hasFeedback>
+                                <DatePicker />
+                            </FormItem>
+                        </Col>
+                        <Col span='2'><p className="ant-form-split">-</p></Col>
+                        <Col span='6'>
+                            <FormItem 
+                                hasFeedback>
+                                <DatePicker />
+                            </FormItem>
+                        </Col>
                     </FormItem>
                     <FormItem 
                         {...formLayout}
