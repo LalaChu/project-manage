@@ -14,6 +14,7 @@ class Sidebar extends Component{
         console.log('update')
     }
     render(){
+        console.log(this.props.currentMenu)
         let openKeys = this.props.openNow === '' ? [] :[this.props.openNow] 
         console.log('sidebar:',this.props.currentMenu)
         return (

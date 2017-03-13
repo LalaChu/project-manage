@@ -6,7 +6,7 @@ const mapStateToProps = (state, ownProps) => {
     console.log(ownProps)
     const { currentMenu, openNow } = ownProps
     return {
-        currentMenu: currentMenu || '',
+        currentMenu: currentMenu || 'view',
         openNow:openNow === '/' ? '' : openNow 
     }
 }

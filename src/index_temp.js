@@ -19,6 +19,7 @@ import NeedApproval from './components/NeedApproval'
 import StartApproval from './components/StartApproval'
 
 let store = configStore()
+
 render(
     <Provider store={store}>
         <Router history={browserHistory}>
@@ -51,4 +52,3 @@ render(
     </Provider>,
     document.getElementById('root')
 )
-
