@@ -17,6 +17,8 @@ import MyDaily from './components/MyDaily'
 import Document from './components/Document'
 import NeedApproval from './components/NeedApproval'
 import StartApproval from './components/StartApproval'
+import Login from './components/Login'
+import Register from './components/Register'
 
 let store = configStore()
 render(
@@ -45,6 +47,8 @@ render(
                 </Route>
                 {/*<Route component={View}></Route>*/}
             </Route>
+            <Route path='/login' component={Login} />
+            <Route path='/register' component={Register} />
             {/*<Redirect from='/' to='/view'></Redirect>*/}
             {/*</Switch>*/}
         </Router>

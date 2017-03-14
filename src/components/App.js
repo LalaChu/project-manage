@@ -7,7 +7,7 @@ class App extends Component{
     render(){
         let children = this.props.children
         
-        let currentMenu = this.props.routes[this.props.routes.length-1].path
+        let currentMenu = this.props.routes[this.props.routes.length-1].path 
         let openNow
         if(this.props.routes.length > 1){
             openNow = this.props.routes[this.props.routes.length-2].path

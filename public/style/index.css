@@ -52,3 +52,39 @@ body, html, #root, .ant-layout, .ant-layout-sider{
     color: rgba(0, 0, 0, 0.65);
     display: block;
 }
+.login{
+    width: 100%;
+    height: 100%;
+    background-color: #ddd;
+    padding: 200px 0;
+    vertical-align: middle;
+}
+.login-section{
+    width: 35%;
+    margin: 0 auto;
+    min-width: 300px;
+    max-width: 500px;
+}
+.login-form{
+    padding: 20px 30px;
+}
+.login-form-forgot{
+    float: right;
+}
+.login-form-button{
+    width: 100%;
+}
+.register{
+    width: 100%;
+    height: 100%;
+    background-color: #ddd;
+    padding: 100px 0;
+}
+.register-section{
+    width: 55%;
+    margin: 0 auto;
+    max-width: 590px;
+}
+.register-form{
+    padding: 30px 30px 10px 30px;
+}

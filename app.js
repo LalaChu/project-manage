@@ -1,6 +1,10 @@
-var express = require('express'),
-    path = require('path'),
-    consolidate = require('consolidate');
+var express = require('express');
+var path = require('path');
+var consolidate = require('consolidate');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var bodyParser = require('body-parser');
 
 var isDev = process.env.NODE_ENV !== 'production';
 var app = express();
@@ -9,6 +13,18 @@ var port = 3000;
 app.engine('html', consolidate.ejs);
 app.set('view engine', 'html');
 app.set('views', path.resolve(__dirname, './server/views'));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
+
+//passport setting
+var Account = require('./server/models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+
+mongoose.connect('mongodb://localhost/projectManagesss');
 
 // local variables for all views
 app.locals.env = process.env.NODE_ENV || 'dev';
