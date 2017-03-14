@@ -2,8 +2,10 @@ var express = require('express'),
     router = express.Router();
 
 router.get('/', function(req, res) {
-    res.render('index');
-    // res.redirect('/login');
+    if(req.user){
+        res.render('index');
+    }
+    res.redirect('/login');
 });
 
 router.get('/login', function(req, res) {
