@@ -4,6 +4,15 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var Staff = require('../models/staff');
 
+
+router.all('*', function(req, res, next){
+    if(req.isAuthenticated() || req.url === '/login'){
+        return next();
+    }else{
+        res.redirect('/login');
+    }
+})
+
 router.get('/', function(req, res, next) {
     console.log('login success');
     if(req.user){
@@ -18,22 +27,11 @@ router.get('/', function(req, res, next) {
 router.get('/login', function(req, res) {
     res.render('login')
 })
-// router.post('/login', function(req, res) {
-//      if(req.body.username === 'hurina'){
-//          res.redirect('/')
-//      }else{
-//          res.render('login')
-//      }
-     
-// })
 
 router.get('/loginFailure',function(req,res){
     res.send('loginFailure')
 })
 
-// router.post('/login', passport.authenticate('local',{  failureFlash: true }),(req,res) => {
-//     return res.redirect('/');
-// })
 router.post('/login', function(req,res){
     res.redirect('/')
 })
