@@ -22,7 +22,8 @@ const StaffState = (state = initialState, action ) => {
         case staffAction.ADD_STAFF:
             return {
                 ...state,
-                status:action.status
+                status:action.status,
+                msg: action.msg
             }
         default:
             return state

@@ -63,10 +63,11 @@ export const fetchLogout = (username, password) => {
     }
 }
 
-const newStaff = (status) => {
+const newStaff = (status,msg) => {
     return {
         type: StaffAction.ADD_STAFF,
-        status
+        status,
+        msg
     }
 }
 export const fetchAddStaff = (info) => {
@@ -77,14 +78,16 @@ export const fetchAddStaff = (info) => {
         redirect: 'follow'
     }
     return function(dispatch){
-        dispatch(newStaff(Status.LOADING))
+        dispatch(newStaff(Status.LOADING, ''))
         return fetch('/addStaff',init)
                 .then((response) => {
                     response.json().then(function(json){
                         if(json.result == 'success'){
-                            dispatch(newStaff(Status.SUCCESS))
+                            dispatch(newStaff(Status.SUCCESS,'success'))
+                            // browserHistory.push('/')
                         }else{
-                            dispatch(newStaff(Status.ERROR))
+                            dispatch(newStaff(Status.ERROR,json.result.errmsg))
+                            
                         }
                     })
                 })

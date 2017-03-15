@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import Form from 'antd/lib/form'
+import Icon from 'antd/lib/icon'
 import Input from 'antd/lib/input'
 import Row from 'antd/lib/row'
 import Col from 'antd/lib/col'
 import Button from 'antd/lib/button'
 import Checkbox from 'antd/lib/checkbox'
 import Card from 'antd/lib/card'
+import Notification from 'antd/lib/notification' 
+import * as Status from '../constants/status'
 
 const FormItem = Form.Item
 
@@ -45,6 +48,24 @@ class Register extends Component{
         console.log('tets');
         this.props.onRegister(this.state);
     }
+    showNotification(status){
+        let description = ''
+        let icon = ''
+        if(status === Status.SUCCESS){
+            description = '恭喜您，注册成功，正在登录中，请稍后'
+            icon = <Icon type="smile-circle" style={{ color: '#108ee9' }} />
+        }else if(status === Status.ERROR){
+            description = '对不起，注册失败，请重试'
+            icon = <Icon type="frown-o" style={{ color: '#108ee9' }}/>
+        }else{
+            return
+        }
+        Notification.open({
+            message: '注册通知',
+            description: description,
+            icon: icon,
+        });
+    }
     render(){
         const formItemLayout = {
             labelCol: {span : 7},
@@ -56,6 +77,7 @@ class Register extends Component{
                 offset: 7,
             },
         };
+        this.showNotification(this.props.StaffState.status)
         return (
             <div className='register'>
                 <Card className='register-section' title='注册'>
