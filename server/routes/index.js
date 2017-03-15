@@ -13,7 +13,7 @@ router.get('*', function(req, res, next){
             res.render('index',{user: req.user});
         }
     }else{
-        if(req.url === '/login'){
+        if(req.url === '/login' || req.url === '/register'){
             return next();
         }else{
             res.redirect('/login');
@@ -44,7 +44,6 @@ router.get('/register', function(req, res) {
 })
 
 router.post('/logout',function(req, res){
-    console.log('logout')
     req.logout();
     res.redirect('/login');
 })

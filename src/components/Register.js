@@ -27,21 +27,21 @@ class Register extends Component{
                     <Form onSubmit={this.handleSubmit} className='register-form'>
                         <FormItem
                         {...formItemLayout}
-                        label="E-mail"
+                        label="姓名"
                         hasFeedback
                         >
                             <Input />
                         </FormItem>
                         <FormItem
                         {...formItemLayout}
-                        label="Password"
+                        label="密码"
                         hasFeedback
                         >
                             <Input type="password" />
                         </FormItem>
                         <FormItem
                         {...formItemLayout}
-                        label="Confirm Password"
+                        label="确认密码"
                         hasFeedback
                         >
                             <Input type="password" onBlur={this.handleConfirmBlur} />
@@ -50,7 +50,7 @@ class Register extends Component{
                         {...formItemLayout}
                         label={(
                             <span>
-                            Nickname&nbsp;
+                            邮箱
                             </span>
                         )}
                         hasFeedback
@@ -59,11 +59,11 @@ class Register extends Component{
                         </FormItem>
                         <FormItem
                         {...formItemLayout}
-                        label="Phone Number"
+                        label="手机号"
                         >
                             <Input />
                         </FormItem>
-                        <FormItem
+                        {/*<FormItem
                         {...formItemLayout}
                         label="Captcha"
                         extra="We must make sure that your are a human."
@@ -76,12 +76,12 @@ class Register extends Component{
                             <Button size="large">Get captcha</Button>
                             </Col>
                         </Row>
-                        </FormItem>
-                        <FormItem {...tailFormItemLayout} style={{ marginBottom: 8 }}>
+                        </FormItem>*/}
+                        {/*<FormItem {...tailFormItemLayout} style={{ marginBottom: 8 }}>
                             <Checkbox>I have read the <a>agreement</a></Checkbox>
-                        </FormItem>
+                        </FormItem>*/}
                         <FormItem {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit" size="large">Register</Button>
+                            <Button type="primary" htmlType="submit" size="large">注册</Button>
                         </FormItem>
                     </Form>
                 </Card>
