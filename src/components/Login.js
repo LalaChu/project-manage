@@ -5,6 +5,7 @@ import Input from 'antd/lib/input'
 import Icon from 'antd/lib/icon'
 import Checkbox from 'antd/lib/checkbox'
 import Button from 'antd/lib/button'
+import * as Status from '../constants/status'
 const FormItem = Form.Item
 
 class Login extends Component{
@@ -33,7 +34,9 @@ class Login extends Component{
             labelCol: {span : 6},
             wrapperCol: {span: 14}
         }
-        console.log(this.props)
+        const {StaffState: {status}} = this.props
+        console.log(Status)
+        const help = status === Status.ERROR ? '账号密码不正确' : ''
         return (
             <div className='login'>
                 <Card title='登陆' className='login-section'>
@@ -41,12 +44,12 @@ class Login extends Component{
                         <FormItem>
                             <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入您的账号" onChange={this.handleUsernameChange}/>
                         </FormItem>
-                        <FormItem>
+                        <FormItem validateStatus={status === Status.ERROR ? 'error' : ''} help={help}>
                             <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入您的密码" onChange={this.handlePasswordChange}/>
                         </FormItem>
                         <Checkbox>记住密码</Checkbox>
                         <a className="login-form-forgot">忘记密码</a>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="login-form-button" disabled={status === Status.LOADING ? true : false}>
                             登陆
                         </Button>
                         没有账号 <a href='/register'>注册</a>

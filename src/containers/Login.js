@@ -3,8 +3,6 @@ import { fetchLogin } from '../actions/staff'
 import Login from '../components/Login'
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps)
-    console.log(state)
     return state
 }
 const mapDispatchToProps = (dispatch) => {

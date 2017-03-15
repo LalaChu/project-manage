@@ -1,7 +1,8 @@
 import * as staffAction from '../constants/staff'
 
 let initialState = {
-    username: ''
+    username: '',
+    status: ''
 }
 
 const StaffState = (state = initialState, action ) => {
