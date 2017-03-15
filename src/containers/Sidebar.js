@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import { setCurrentMenu, openMenu } from '../actions/components'
+import { fetchLogout } from '../actions/staff'
 import Sidebar from '../components/Sidebar'
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps)
     const { currentMenu, openNow } = ownProps
     return {
         currentMenu: currentMenu || 'view',
@@ -12,8 +12,9 @@ const mapStateToProps = (state, ownProps) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        onClick: (e) => {
-            
+        onLogout: (e) => {
+            console.log('tets')
+            dispatch(fetchLogout())
         },
         onOpenChange: (menu,key) => {
             

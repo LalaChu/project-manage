@@ -17,7 +17,8 @@ passport.use(new LocalStrategy(
     // 在编写 User.findUniqueUserByUsername 时，包含两个参数，一个是 username
     // 一个是我们现在所传入的回调函数，我们将获取到的用户信息传递给我们的回调函数
     Staff.findOne({"username": username}, function (err, user) {
-
+      console.log('username:', username);
+      console.log('user:',user);
       if (err) {
         console.log('出现错误.');
         return done(err);

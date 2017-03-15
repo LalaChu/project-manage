@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('passport');
+var passport = require('../passportConfig');
 var mongoose = require('mongoose');
 var Staff = require('../models/staff');
 
 
-router.all('*', function(req, res, next){
+router.get('*', function(req, res, next){
     if(req.isAuthenticated()){
         if(req.url === '/login'){
             res.redirect('/');
         }else{
-            res.render('index');
+            res.render('index',{user: req.user});
         }
     }else{
         if(req.url === '/login'){
@@ -32,11 +32,6 @@ router.get('/', function(req, res, next) {
 router.get('/login', function(req, res) {
     res.render('login')
 })
-
-router.get('/loginFailure',function(req,res){
-    res.send('loginFailure')
-})
-
 router.post('/login', passport.authenticate('local',{
             successRedirect: '/',
             failureRedirect: '/login',
@@ -48,10 +43,10 @@ router.get('/register', function(req, res) {
     res.render('login')
 })
 
-router.post('/test',function(req,res){
-    Staff.findOne({"username":'hurina'}, function(err,person){
-        res.send(person)
-    })
+router.post('/logout',function(req, res){
+    console.log('logout')
+    req.logout();
+    res.redirect('/login');
 })
 
 module.exports = function (app) {

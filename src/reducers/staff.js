@@ -12,7 +12,12 @@ const StaffState = (state = initialState, action ) => {
                 username: action.username,
                 status: action.status
             }
-        
+        case staffAction.LOGOUT:
+            return {
+                ...state,
+                username: '',
+                status: action.status
+            }
         default:
             return state
     }

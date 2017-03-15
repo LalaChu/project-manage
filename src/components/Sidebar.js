@@ -13,8 +13,12 @@ class Sidebar extends Component{
     componentWillReceiveProps(){
         console.log('update')
     }
+    handleLogout = () => {
+        console.log('dddd')
+        this.props.onLogout();
+    }
     render(){
-        console.log(this.props.currentMenu)
+        console.log(this.props)
         let openKeys = this.props.openNow === '' ? [] :[this.props.openNow] 
         console.log('sidebar:',this.props.currentMenu)
         return (
@@ -69,7 +73,7 @@ class Sidebar extends Component{
                         <Link to='/personal'>个人中心</Link>
                     </Menu.Item>
                     <Menu.Item key='logout'>
-                        <span>退出系统</span>
+                        <span onClick={this.handleLogout}>退出系统</span> 
                     </Menu.Item>
                 </Menu>
             </Sider>
