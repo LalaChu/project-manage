@@ -20,7 +20,6 @@ import StartApproval from './components/StartApproval'
 import LoginContainer from './containers/Login'
 import Register from './components/Register'
 
-console.log('this is main page')
 let store = configStore()
 render(
     <Provider store={store}>

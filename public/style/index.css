@@ -88,3 +88,6 @@ body, html, #root, .ant-layout, .ant-layout-sider{
 .register-form{
     padding: 30px 30px 10px 30px;
 }
+.logout{
+    display: block;
+}

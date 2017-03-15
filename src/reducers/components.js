@@ -38,7 +38,6 @@ const UIState = (state = initialState, action ) => {
                 addTaskVisible: action.addTaskVisible
             }
         default:
-            console.log(state)
             return state
     }
 }

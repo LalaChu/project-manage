@@ -3,9 +3,6 @@ import * as Status from '../constants/status'
 
 import { browserHistory } from 'react-router'
 
-
-
-
 const login = (status, username) => {
     return {
         type: StaffAction.LOGIN,
@@ -36,8 +33,12 @@ export const fetchLogin = (username, password) => {
         dispatch(login(Status.LOADING))
         return fetch('/login',init)
                 .then((response) => {
-                    // browserHistory.push('/view')
-                    console.log('response', response)
+                    if(response.url.indexOf('login') > 0){
+                        dispatch(login(Status.ERROR, ''))
+                    }else{
+                        dispatch(login(Status.SUCCESS, username))
+                        browserHistory.push('/view')
+                    }
                 })
                 .catch(function(err){
                     console.log(err)
@@ -57,7 +58,6 @@ export const fetchLogout = (username, password) => {
                 .then((response) => {
                     dispatch(logout(Status.SUCCESS))
                     browserHistory.push('/login')
-                    console.log('response', response)
                 })
                 .catch(function(err){
                     console.log(err)

@@ -18,9 +18,7 @@ class Sidebar extends Component{
         this.props.onLogout();
     }
     render(){
-        console.log(this.props)
         let openKeys = this.props.openNow === '' ? [] :[this.props.openNow] 
-        console.log('sidebar:',this.props.currentMenu)
         return (
             <Sider>
                 <div className='user-info'>ddd</div>
@@ -73,7 +71,7 @@ class Sidebar extends Component{
                         <Link to='/personal'>个人中心</Link>
                     </Menu.Item>
                     <Menu.Item key='logout'>
-                        <span onClick={this.handleLogout}>退出系统</span> 
+                        <span className='logout' onClick={this.handleLogout}>退出系统</span> 
                     </Menu.Item>
                 </Menu>
             </Sider>
