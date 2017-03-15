@@ -18,7 +18,7 @@ import Document from './components/Document'
 import NeedApproval from './components/NeedApproval'
 import StartApproval from './components/StartApproval'
 import LoginContainer from './containers/Login'
-import Register from './components/Register'
+import RegisterContainer from './containers/Register'
 
 let store = configStore()
 render(
@@ -48,7 +48,7 @@ render(
                 {/*<Route component={View}></Route>*/}
             </Route>
             <Route path='/login' component={LoginContainer} />
-            <Route path='/register' component={Register} />
+            <Route path='/register' component={RegisterContainer} />
             {/*<Redirect from='/' to='/view'></Redirect>*/}
             {/*</Switch>*/}
         </Router>

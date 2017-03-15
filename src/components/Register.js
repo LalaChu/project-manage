@@ -10,6 +10,41 @@ import Card from 'antd/lib/card'
 const FormItem = Form.Item
 
 class Register extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            username: '',
+            email: '',
+            password: '',
+            telephone: '',
+            departmentId: '',
+        }
+    }
+    handleNameChange = (e) => {
+        this.setState({
+            username: e.target.value
+        })
+    }
+    handleEmailChange = (e) => {
+        this.setState({
+            email: e.target.value
+        })
+    }
+    handlePasswordChange = (e) => {
+        this.setState({
+            password: e.target.value
+        })
+    }
+    handleTelephoneChange = (e) => {
+        this.setState({
+            telephone: e.target.value
+        })
+    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('tets');
+        this.props.onRegister(this.state);
+    }
     render(){
         const formItemLayout = {
             labelCol: {span : 7},
@@ -26,42 +61,33 @@ class Register extends Component{
                 <Card className='register-section' title='注册'>
                     <Form onSubmit={this.handleSubmit} className='register-form'>
                         <FormItem
-                        {...formItemLayout}
-                        label="姓名"
-                        hasFeedback
-                        >
-                            <Input />
+                            {...formItemLayout}
+                            label="姓名"
+                            hasFeedback>
+                            <Input onChange={this.handleNameChange}/>
                         </FormItem>
                         <FormItem
-                        {...formItemLayout}
-                        label="密码"
-                        hasFeedback
-                        >
+                            {...formItemLayout}
+                            label="密码"
+                            hasFeedback>
+                            <Input type="password" onChange={this.handlePasswordChange}/>
+                        </FormItem>
+                        <FormItem
+                            {...formItemLayout}
+                            label="确认密码"
+                            hasFeedback>
                             <Input type="password" />
                         </FormItem>
                         <FormItem
-                        {...formItemLayout}
-                        label="确认密码"
-                        hasFeedback
-                        >
-                            <Input type="password" onBlur={this.handleConfirmBlur} />
+                            {...formItemLayout}
+                            label="邮箱"
+                            hasFeedback>
+                            <Input onChange={this.handleEmailChange}/>
                         </FormItem>
                         <FormItem
-                        {...formItemLayout}
-                        label={(
-                            <span>
-                            邮箱
-                            </span>
-                        )}
-                        hasFeedback
-                        >
-                            <Input />
-                        </FormItem>
-                        <FormItem
-                        {...formItemLayout}
-                        label="手机号"
-                        >
-                            <Input />
+                            {...formItemLayout}
+                            label="手机号">
+                            <Input onChange={this.handleTelephoneChange}/>
                         </FormItem>
                         {/*<FormItem
                         {...formItemLayout}

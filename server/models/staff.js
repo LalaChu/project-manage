@@ -4,7 +4,11 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var staff = new Schema({
     username: String,
-    password: String
+    password: String,
+    telephone: String,
+    email: String,
+    address: String,
+    departmentId: String,
 },{
     collection: 'staff'
 });

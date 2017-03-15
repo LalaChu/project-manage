@@ -48,6 +48,19 @@ router.post('/logout',function(req, res){
     res.redirect('/login');
 })
 
+router.post('/addStaff',function(req, res){
+    var staff = new Staff(req.body);
+    staff.save(function(err){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": 'success'});
+        }
+    })
+})
+
+
 module.exports = function (app) {
     app.use('/', router);
 };

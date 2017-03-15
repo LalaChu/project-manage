@@ -10,14 +10,6 @@ const login = (status, username) => {
         username
     }
 }
-
-const logout = (status, username) => {
-    return {
-        type: StaffAction.LOGOUT,
-        status,
-    }
-}
-
 export const fetchLogin = (username, password) => {
     let info = {
         username,
@@ -46,6 +38,12 @@ export const fetchLogin = (username, password) => {
     }
 }
 
+const logout = (status, username) => {
+    return {
+        type: StaffAction.LOGOUT,
+        status,
+    }
+}
 export const fetchLogout = (username, password) => {
     var init = {
         method: 'POST',
@@ -65,5 +63,34 @@ export const fetchLogout = (username, password) => {
     }
 }
 
-
+const newStaff = (status) => {
+    return {
+        type: StaffAction.ADD_STAFF,
+        status
+    }
+}
+export const fetchAddStaff = (info) => {
+    var init = {
+        method: 'POST',
+        body: JSON.stringify(info),
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(newStaff(Status.LOADING))
+        return fetch('/addStaff',init)
+                .then((response) => {
+                    response.json().then(function(json){
+                        if(json.result == 'success'){
+                            dispatch(newStaff(Status.SUCCESS))
+                        }else{
+                            dispatch(newStaff(Status.ERROR))
+                        }
+                    })
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+    }
+}
 

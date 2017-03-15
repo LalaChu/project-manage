@@ -19,6 +19,11 @@ const StaffState = (state = initialState, action ) => {
                 username: '',
                 status: action.status
             }
+        case staffAction.ADD_STAFF:
+            return {
+                ...state,
+                status:action.status
+            }
         default:
             return state
     }
