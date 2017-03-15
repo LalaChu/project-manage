@@ -6,19 +6,24 @@ var Staff = require('../models/staff');
 
 
 router.all('*', function(req, res, next){
-    if(req.isAuthenticated() || req.url === '/login'){
-        return next();
+    if(req.isAuthenticated()){
+        if(req.url === '/login'){
+            res.redirect('/');
+        }else{
+            res.render('index');
+        }
     }else{
-        res.redirect('/login');
+        if(req.url === '/login'){
+            return next();
+        }else{
+            res.redirect('/login');
+        }
     }
 })
 
 router.get('/', function(req, res, next) {
-    console.log('login success');
     if(req.user){
-        // console.log('this is user:',req.user)
         res.render('index');
-        res.end();
     }else{
         res.redirect('/login');
     }
@@ -32,9 +37,11 @@ router.get('/loginFailure',function(req,res){
     res.send('loginFailure')
 })
 
-router.post('/login', function(req,res){
-    res.redirect('/')
-})
+router.post('/login', passport.authenticate('local',{
+            successRedirect: '/',
+            failureRedirect: '/login',
+            failureFlash : true
+        }));
 
 
 router.get('/register', function(req, res) {

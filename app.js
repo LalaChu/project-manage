@@ -3,7 +3,6 @@ var path = require('path');
 var consolidate = require('consolidate');
 var mongoose = require('mongoose');
 var passport = require('./server/passportConfig');
-var LocalStrategy = require('passport-local').Strategy;
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var flash = require('connect-flash');
@@ -23,16 +22,17 @@ app.set('views', path.resolve(__dirname, './server/views'));
 
 
 app.use(flash());
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(require('express-session')({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true
 })); 
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(cookieParser());
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/projectmanage');
