@@ -56,6 +56,7 @@ router.post('/addStaff',function(req, res){
             res.send({"result":err});
         }else{
             res.send({"result": 'success'});
+            // res.redirect('/')
         }
     })
 })
