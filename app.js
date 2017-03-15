@@ -2,29 +2,56 @@ var express = require('express');
 var path = require('path');
 var consolidate = require('consolidate');
 var mongoose = require('mongoose');
-var passport = require('passport');
+var passport = require('./server/passportConfig');
 var LocalStrategy = require('passport-local').Strategy;
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var flash = require('connect-flash');
+var session = require('express-session');
 
 var isDev = process.env.NODE_ENV !== 'production';
 var app = express();
 var port = 3000;
 
+
+
+
 app.engine('html', consolidate.ejs);
 app.set('view engine', 'html');
 app.set('views', path.resolve(__dirname, './server/views'));
+
+
+
+app.use(flash());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+})); 
 app.use(passport.initialize());
 app.use(passport.session());
+// app.use(cookieParser());
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/projectmanage');
+mongoose.connection.on('error', function (err) {
+    console.log('Mongo Error:' + err);
+}).on('open', function () {
+    console.log('Mongo Connection opened');
+});
 
 //passport setting
-var Account = require('./server/models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
+// var Staff = require('./server/models/staff');
+// passport.use(Account.createStrategy());
+// passport.serializeUser(function(){
+//     console.log('gggg')
+//     Account.serializeUser()
+// });
+// passport.deserializeUser(Account.deserializeUser());
 
 
-mongoose.connect('mongodb://localhost/projectManagesss');
 
 // local variables for all views
 app.locals.env = process.env.NODE_ENV || 'dev';

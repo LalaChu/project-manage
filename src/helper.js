@@ -6,3 +6,7 @@ export const addKeyColumns = function(data){
         }
     })
 }
+
+export const getDataFromRef = function(refs){
+    console.log(refs)
+}

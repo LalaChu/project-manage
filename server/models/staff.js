@@ -2,11 +2,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
-var Account = new Schema({
+var staff = new Schema({
     username: String,
     password: String
+},{
+    collection: 'staff'
 });
 
-Account.plugin(passportLocalMongoose);
+staff.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('Account', Account);
+module.exports = mongoose.model('staff', staff);
