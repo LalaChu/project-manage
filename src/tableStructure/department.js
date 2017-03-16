@@ -10,10 +10,6 @@ const columns = [{
   title: '人数',
   dataIndex: 'staffNum',
   key: 'staffNum',
-}, {
-  title: '子部门',
-  dataIndex: 'children',
-  key: 'children',
 }];
 
 export default columns

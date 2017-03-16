@@ -5,10 +5,14 @@ import Department from '../components/Department'
 import * as DepartmentAction from '../actions/department'
 
 const mapStateToProps = (state, ownProps) => {
-    // console.log('container:', state)
-    const { ProjectState } = state
-    const { status, list } = ProjectState
-    return state
+    console.log('container:', state)
+    const { DepartmentState } = state
+    const { method, departmentVisible } = state.UIState
+    return {
+        ...DepartmentState,
+        method,
+        departmentVisible
+    }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -16,7 +20,11 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(UIType.setDepartmentVisible(visible, method))
         },
         addDepartment: (department) => {
-            dispatch(DepartmentAction.fetchAddDepartment(department))}
+            dispatch(DepartmentAction.fetchAddDepartment(department))
+        },
+        fetchDepartment: () => {
+            dispatch(DepartmentAction.fetchDepartments())
+        }
     }
 }
 

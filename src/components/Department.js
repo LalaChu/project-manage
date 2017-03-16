@@ -4,6 +4,7 @@ import columns from '../tableStructure/department'
 import Button from 'antd/lib/button'
 import Icon from 'antd/lib/icon'
 import DepartmentModal from './modals/Department'
+import * as Status from '../constants/status'
 
 class Department extends Component{
     handleOpenAdd = () => {
@@ -15,16 +16,31 @@ class Department extends Component{
     handleAdd = (department) => {
         this.props.addDepartment(department)
     }
+    componentWillMount(){
+        this.props.fetchDepartment()
+        console.log('willmount')
+    }
+    componentWillUpdate(){
+        const { needFetch, status} = this.props
+        if(needFetch && status !== Status.LOADING){
+            this.props.fetchDepartment()
+        }
+        // if(needFetch){
+        //     this.props.fetchDepartment()
+        // }
+    }
     render(){
-        console.log(this.props.UIState)
-        const {departmentVisible, method} = this.props.UIState
+        console.log(this.props)
+        const {departmentVisible, method, list} = this.props
         return (
             <div className='department'>
                 <Button className='add-department' onClick={this.handleOpenAdd}><Icon type="plus" />添加部门</Button>
                 <Table 
                     size='middle'
                     columns={columns} 
-                    bordered/>
+                    bordered
+                    dataSource={list}
+                    rowKey='_id'/>
                 <DepartmentModal 
                     visible={departmentVisible} 
                     method={method} 

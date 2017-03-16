@@ -1,5 +1,5 @@
 import * as Status from '../constants/status'
-import * as DepartmentAction from '../constants/Department' 
+import * as DepartmentAction from '../constants/department' 
 import 'whatwg-fetch'
 import { secretKey } from '../constants/key'
 import { setDepartmentVisible } from './components'
@@ -25,6 +25,35 @@ export const fetchAddDepartment = (department) => {
                 .then(json =>{ 
                     dispatch(addDepartment(Status.SUCCESS))
                     dispatch(setDepartmentVisible(false, ''))
+                }).catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}
+
+const departments = (status, list) => {
+    return {
+        type: DepartmentAction.GET_DEPARTMENT,
+        status,
+        list
+    }
+}
+
+
+export const fetchDepartments = () => {
+    var init = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(departments(Status.LOADING))
+        return fetch('/departmentList',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(departments(Status.SUCCESS, json.result))
+                    // dispatch(setDepartmentVisible(false, ''))
                 }).catch(function(err){
                     console.log(err)
                 })

@@ -4,14 +4,14 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var subDepartment = new Schema({
     name: String,
-    staffnum: Number,
+    staffNum: Number,
     manageId: String,
 });
 
 var department = new Schema({
     name: String,
     children: [subDepartment],
-    staffnum: Number,
+    staffNum: Number,
     manageId: String,
 },{
     collection: 'department'

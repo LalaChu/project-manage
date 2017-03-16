@@ -1,1 +1,2 @@
 export const ADD_DEPARTMENT = 'ADD_DEPARTMENT'
+export const GET_DEPARTMENT = 'GET_DEPARTMENT'
