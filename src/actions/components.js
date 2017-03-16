@@ -37,3 +37,10 @@ export const setAddTaskVisible = (visible) => {
     }
 }
 
+export const setDepartmentVisible = (visible, method) => {
+    return {
+        type: UIType.SET_DEPARTMENT_VISIBLE,
+        departmentVisible: visible,
+        method,
+    }
+}

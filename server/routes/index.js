@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('../passportConfig');
 var mongoose = require('mongoose');
 var Staff = require('../models/staff');
+var Department = require('../models/department');
 
 
 router.get('*', function(req, res, next){
@@ -51,6 +52,18 @@ router.post('/logout',function(req, res){
 router.post('/addStaff',function(req, res){
     var staff = new Staff(req.body);
     staff.save(function(err){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": 'success'});
+            // res.redirect('/')
+        }
+    })
+})
+router.post('/addDepartment', function(req, res){
+    var department = new Department(req.body);
+    department.save(function(err){
         res.setHeader("Content-Type","application/json");
         if(err){
             res.send({"result":err});

@@ -6,7 +6,9 @@ let initialState = {
     typeSelectVisible: false,
     addProjectVisible: false,
     addCategoryVisible: false,
-    addTaskVisible: false
+    addTaskVisible: false,
+    departmentVisible: false,
+    method: '',
 }
 
 const UIState = (state = initialState, action ) => {
@@ -36,6 +38,12 @@ const UIState = (state = initialState, action ) => {
             return {
                 ...state,
                 addTaskVisible: action.addTaskVisible
+            }
+        case UIType.SET_DEPARTMENT_VISIBLE:
+            return {
+                ...state,
+                departmentVisible: action.departmentVisible,
+                method: action.method
             }
         default:
             return state

@@ -9,7 +9,7 @@ import { Router, Route, browserHistory, IndexRoute, Redirect, Switch } from 'rea
 import '../public/style/index.css'
 import { Provider } from 'react-redux'
 import configStore from './store'
-import Department from './components/Department'
+import DepartmentContainer from './containers/Department'
 import Stuff from './components/Stuff'
 import Authority from './components/Authority'
 import AllDaily from './components/AllDaily'
@@ -33,7 +33,7 @@ render(
                 <Route path='project' component={ProjectContainer} />
                 <Route path='document' component={Document}/>
                 <Route path='organization' exact render={()=>{( <Redirect to='/organization/department' />)}}>
-                    <Route path='department' component={Department} />
+                    <Route path='department' component={DepartmentContainer} />
                     <Route path='stuff' component={Stuff} />
                     <Route path='authority' component={Authority}/>
                 </Route>

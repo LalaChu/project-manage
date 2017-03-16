@@ -91,3 +91,9 @@ body, html, #root, .ant-layout, .ant-layout-sider{
 .logout{
     display: block;
 }
+.department{
+    padding: 10px;
+}
+.add-department{
+    margin-bottom: 5px;
+}
