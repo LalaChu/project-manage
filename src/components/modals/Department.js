@@ -20,6 +20,15 @@ class DepartmentForm extends Component{
         })
         
     }
+    componentWillUpdate(){
+        console.log('form update')
+        const { visible } = this.props
+        if(!visible){
+            console.log(this.props.form)
+            this.props.form.resetFields()
+        }
+        
+    }
     render(){
         const formLayout = {
             labelCol: {span : 6},
@@ -30,9 +39,10 @@ class DepartmentForm extends Component{
         console.log(this.props)
         const title = getTitleByMethod(method) + '部门' 
         
-        const children = items.map(function(item){
+        let children = items.map(function(item){
             return <Option value={item._id} key={item._id}>{item.name}</Option>
         })
+        children.push(<Option value='' key={0}>不选择父级部门</Option>)
         return (
             <Modal
                 visible={visible}
