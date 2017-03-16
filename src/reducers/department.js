@@ -19,7 +19,7 @@ const DepartmentState = (state = initialState, action ) => {
             return {
                 ...state,
                 status: action.status,
-                list: action.list,
+                list: action.list || [],
                 needFetch: action.status === Status.SUCCESS ? false : true
             }
         default:

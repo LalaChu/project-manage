@@ -18,7 +18,6 @@ class Department extends Component{
     }
     componentWillMount(){
         this.props.fetchDepartment()
-        console.log('willmount')
     }
     componentWillUpdate(){
         const { needFetch, status} = this.props
@@ -32,6 +31,7 @@ class Department extends Component{
     render(){
         console.log(this.props)
         const {departmentVisible, method, list} = this.props
+        
         return (
             <div className='department'>
                 <Button className='add-department' onClick={this.handleOpenAdd}><Icon type="plus" />添加部门</Button>
@@ -45,7 +45,8 @@ class Department extends Component{
                     visible={departmentVisible} 
                     method={method} 
                     onCancel={this.handleCancel}
-                    onAdd={this.handleAdd}></DepartmentModal>
+                    onAdd={this.handleAdd}
+                    items={list}></DepartmentModal>
             </div>
         )
     }

@@ -5,7 +5,6 @@ import Department from '../components/Department'
 import * as DepartmentAction from '../actions/department'
 
 const mapStateToProps = (state, ownProps) => {
-    console.log('container:', state)
     const { DepartmentState } = state
     const { method, departmentVisible } = state.UIState
     return {

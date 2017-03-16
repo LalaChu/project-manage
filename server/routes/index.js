@@ -63,15 +63,26 @@ router.post('/addStaff',function(req, res){
 })
 router.post('/addDepartment', function(req, res){
     var department = new Department(req.body);
-    department.save(function(err){
-        res.setHeader("Content-Type","application/json");
-        if(err){
-            res.send({"result":err});
-        }else{
-            res.send({"result": 'success'});
-            // res.redirect('/')
-        }
-    })
+    if(req.body.parentId){
+        department.addTo(req.body.parentId, req.body, function(err){
+            res.setHeader("Content-Type","application/json");
+            if(err){
+                res.send({"result":err});
+            }else{
+                res.send({"result": 'success'});
+            }
+        })
+    }else{
+        department.save(function(err){
+            res.setHeader("Content-Type","application/json");
+            if(err){
+                res.send({"result":err});
+            }else{
+                res.send({"result": 'success'});
+            }
+        })
+    }
+    
 })
 
 router.post('/departmentList', function(req, res){

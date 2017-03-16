@@ -9,6 +9,7 @@ import { getTitleByMethod } from '../../helper'
 // import DepartmentForm from '../forms/department'
 
 const FormItem = Form.Item
+const Option = Select.Option
 
 class DepartmentForm extends Component{
     handleAdd = () => {
@@ -25,9 +26,13 @@ class DepartmentForm extends Component{
             wrapperCol: {span: 14}
         }
         const { getFieldDecorator } = this.props.form
-        const { visible, method } = this.props
+        const { visible, method, items } = this.props
         console.log(this.props)
-        let title = getTitleByMethod(method) + '部门' 
+        const title = getTitleByMethod(method) + '部门' 
+        
+        const children = items.map(function(item){
+            return <Option value={item._id} key={item._id}>{item.name}</Option>
+        })
         return (
             <Modal
                 visible={visible}
@@ -38,8 +43,8 @@ class DepartmentForm extends Component{
                     <FormItem
                         {...formLayout}
                         label='所属部门'
-                        hasFeedback>
-                        {getFieldDecorator('parentId')(<Select />)}
+                        >
+                        {getFieldDecorator('parentId')(<Select>{children}</Select>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
