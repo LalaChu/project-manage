@@ -84,7 +84,7 @@ export const fetchAddStaff = (info) => {
                     response.json().then(function(json){
                         if(json.result == 'success'){
                             dispatch(newStaff(Status.SUCCESS,'success'))
-                            dispatch(fetchLogin(info.username, info.password))
+                            dispatch(fetchLogin(info.telephone, info.password))
                             // browserHistory.push('/')
                         }else{
                             dispatch(newStaff(Status.ERROR,json.result.errmsg))
