@@ -24,7 +24,7 @@ class Register extends Component{
         }
     }
     componentDidUpdate(){
-        if(!this.props.StaffState.username){
+        if(this.props.StaffState.username){
             return
         }
         this.showNotification(this.props.StaffState.status)
