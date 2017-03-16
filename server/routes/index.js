@@ -74,6 +74,18 @@ router.post('/addDepartment', function(req, res){
     })
 })
 
+router.post('/departmentList', function(req, res){
+    var department = new Department();
+    Department.find(function(err, data){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": data});
+            // res.redirect('/')
+        }
+    })
+})
 
 module.exports = function (app) {
     app.use('/', router);
