@@ -43,6 +43,15 @@ class RegisterForm extends Component{
             callback();
         }
     }
+    checkTelephone = (rule, value, callback) => {
+        const pattern = /^(13[0-9]|15[0|3|6|7|8|9]|18[8|9])\d{8}$/
+        const form = this.props.form;
+        if (value && !pattern.exec(value)) {
+            callback('请输入正确的手机号码');
+        } else {
+            callback();
+        }
+    }
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -131,7 +140,7 @@ class RegisterForm extends Component{
                             hasFeedback
                             required>
                             {getFieldDecorator('telephone',{
-                                rules:[{required: true, message: '请输入正确的手机号'}]
+                                rules:[{required: true, message: '请输入正确的手机号'},{validator: this.checkTelephone}]
                             })(<Input />)}
                         </FormItem>
                         <FormItem {...tailFormItemLayout}>
