@@ -7,7 +7,7 @@ var Staff = require('../models/staff');
 
 router.get('*', function(req, res, next){
     if(req.isAuthenticated()){
-        if(req.url === '/login'){
+        if(req.url === '/login' || req.url === '/register'){
             res.redirect('/');
         }else{
             res.render('index',{user: req.user});

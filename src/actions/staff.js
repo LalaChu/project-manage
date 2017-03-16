@@ -90,6 +90,7 @@ export const fetchAddStaff = (info) => {
                             dispatch(newStaff(Status.ERROR,json.result.errmsg))
                             
                         }
+                        dispatch(newStaff('',''))
                     })
                 })
                 .catch(function(err){
