@@ -23,6 +23,12 @@ class Register extends Component{
             departmentId: '',
         }
     }
+    componentDidUpdate(){
+        if(!this.props.StaffState.username){
+            return
+        }
+        this.showNotification(this.props.StaffState.status)
+    }
     handleNameChange = (e) => {
         this.setState({
             username: e.target.value
@@ -77,7 +83,8 @@ class Register extends Component{
                 offset: 7,
             },
         };
-        this.showNotification(this.props.StaffState.status)
+        // console.log(this.props)
+        // this.showNotification(this.props.StaffState.status)
         return (
             <div className='register'>
                 <Card className='register-section' title='注册'>
