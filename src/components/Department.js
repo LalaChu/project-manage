@@ -23,6 +23,7 @@ class Department extends Component{
         const { needFetch, status} = this.props
         if(needFetch && status !== Status.LOADING){
             this.props.fetchDepartment()
+
         }
         // if(needFetch){
         //     this.props.fetchDepartment()
@@ -40,7 +41,9 @@ class Department extends Component{
                     columns={columns} 
                     bordered
                     dataSource={list}
-                    rowKey='_id'/>
+                    rowKey='_id'
+                    scroll={{ y: 550 }}
+                    pagination={false}/>
                 <DepartmentModal 
                     visible={departmentVisible} 
                     method={method} 

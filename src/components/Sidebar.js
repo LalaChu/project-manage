@@ -64,9 +64,6 @@ class Sidebar extends Component{
                         <Menu.Item key='stuff'>
                             <Link to='/organization/stuff'>员工管理</Link>
                         </Menu.Item>
-                        <Menu.Item key='authority'>
-                            <Link to='/organization/authority'>权限设置</Link>
-                        </Menu.Item>
                     </SubMenu>
                     <Menu.Item key='self'>
                         <Link to='/personal'>个人中心</Link>

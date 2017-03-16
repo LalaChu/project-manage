@@ -99,3 +99,110 @@ export const fetchAddStaff = (info) => {
     }
 }
 
+const editStaff = (status,msg) => {
+    return {
+        type: StaffAction.EDIT_STAFF,
+        status,
+        msg
+    }
+}
+export const fetchEditStaff = (info) => {
+    var init = {
+        method: 'PUT',
+        body: JSON.stringify(info),
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(editStaff(Status.LOADING, ''))
+        return fetch('/staff',init)
+                .then((response) => {
+                    response.json().then(function(json){
+                        if(json.result == 'success'){
+                            dispatch(editStaff(Status.SUCCESS,'success'))
+                            // dispatch(fetchLogin(info.telephone, info.password))
+                            // browserHistory.push('/')
+                        }else{
+                            dispatch(editStaff(Status.ERROR,json.result.errmsg))
+                            
+                        }
+                        dispatch(editStaff('',''))
+                    })
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+    }
+}
+
+const removeStaff = (status,msg) => {
+    return {
+        type: StaffAction.REMOVE_STAFF,
+        status,
+        msg
+    }
+}
+export const fetchRemoveStaff = (info) => {
+    var init = {
+        method: 'DELETE',
+        body: JSON.stringify(info),
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(editStaff(Status.LOADING, ''))
+        return fetch('/staff',init)
+                .then((response) => {
+                    response.json().then(function(json){
+                        if(json.result == 'success'){
+                            dispatch(removeStaff(Status.SUCCESS,'success'))
+                            // dispatch(fetchLogin(info.telephone, info.password))
+                            // browserHistory.push('/')
+                        }else{
+                            dispatch(removeStaff(Status.ERROR,json.result.errmsg))
+                            
+                        }
+                        dispatch(removeStaff('',''))
+                    })
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+    }
+}
+
+const getStaff = (status,list) => {
+    return {
+        type: StaffAction.FETCH_STAFF,
+        status,
+        list
+    }
+}
+export const fetchStaff = (info) => {
+    var init = {
+        method: 'POST',
+        body: JSON.stringify(info),
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(getStaff(Status.LOADING, ''))
+        return fetch('/staff',init)
+                .then((response) => {
+                    response.json().then(function(json){
+                        // if(json.result == 'success'){
+                            dispatch(getStaff(Status.SUCCESS,json.result))
+                            // dispatch(fetchLogin(info.telephone, info.password))
+                            // browserHistory.push('/')
+                        // }else{
+                        //     dispatch(getStaff(Status.ERROR,json.result.errmsg))
+                            
+                        // }
+                        // dispatch(getStaff('',''))
+                    })
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+    }
+}

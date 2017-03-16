@@ -8,6 +8,7 @@ var staff = new Schema({
     password: String,
     telephone: {type: String, unique: true},
     departmentId: Array,
+    authority: String,
 },{
     collection: 'staff'
 });

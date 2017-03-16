@@ -97,3 +97,14 @@ body, html, #root, .ant-layout, .ant-layout-sider{
 .add-department{
     margin-bottom: 5px;
 }
+.spin{
+    margin: 0 15px;
+    color: #ccc;
+}
+.icon-manage{
+    margin: 0 auto;
+    text-align: center;
+}
+.staff{
+    padding: 10px;
+}

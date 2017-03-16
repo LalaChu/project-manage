@@ -2,7 +2,8 @@ import * as staffAction from '../constants/staff'
 
 let initialState = {
     username: '',
-    status: ''
+    status: '',
+    list: ''
 }
 
 const StaffState = (state = initialState, action ) => {
@@ -23,6 +24,24 @@ const StaffState = (state = initialState, action ) => {
             return {
                 ...state,
                 status:action.status,
+                msg: action.msg
+            }
+        case staffAction.EDIT_STAFF:
+            return {
+                ...state,
+                status: action.status,
+                msg: action.msg
+            }
+        case staffAction.FETCH_STAFF:
+            return {
+                ...state,
+                status: action.status,
+                list: action.list || []
+            }
+        case staffAction.REMOVE_STAFF:
+            return {
+                ...state,
+                status: action.status,
                 msg: action.msg
             }
         default:
