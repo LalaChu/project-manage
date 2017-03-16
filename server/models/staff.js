@@ -7,7 +7,6 @@ var staff = new Schema({
     username: String,
     password: String,
     telephone: String,
-    address: String,
     departmentId: String,
 },{
     collection: 'staff'

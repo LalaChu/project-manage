@@ -12,15 +12,11 @@ import * as Status from '../constants/status'
 
 const FormItem = Form.Item
 
-class Register extends Component{
+class RegisterForm extends Component{
     constructor(props){
         super(props)
         this.state = {
-            username: '',
-            email: '',
-            password: '',
-            telephone: '',
-            departmentId: '',
+            confirmDirty: false,
         }
     }
     componentDidUpdate(){
@@ -29,30 +25,33 @@ class Register extends Component{
         }
         this.showNotification(this.props.StaffState.status)
     }
-    handleNameChange = (e) => {
-        this.setState({
-            username: e.target.value
-        })
+    handleConfirmBlur = (e) => {
+        this.setState({ confirmDirty: this.state.confirmDirty || !!e.target.value });
     }
-    handleEmailChange = (e) => {
-        this.setState({
-            email: e.target.value
-        })
+    checkConfirm = (rule, value, callback) => {
+        const form = this.props.form;
+        if (value && this.state.confirmDirty) {
+            form.validateFields(['confirm'], { force: true });
+        }
+        callback();
     }
-    handlePasswordChange = (e) => {
-        this.setState({
-            password: e.target.value
-        })
-    }
-    handleTelephoneChange = (e) => {
-        this.setState({
-            telephone: e.target.value
-        })
+    checkPassword = (rule, value, callback) => {
+        const form = this.props.form;
+        if (value && value !== form.getFieldValue('password')) {
+            callback('两次密码不一致');
+        } else {
+            callback();
+        }
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log('tets');
-        this.props.onRegister(this.state);
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                this.props.onRegister(values)
+                console.log('Received values of form: ', values);
+            }
+            console.log('err')
+        });
     }
     showNotification(status){
         let description = ''
@@ -83,7 +82,8 @@ class Register extends Component{
                 offset: 7,
             },
         };
-        // console.log(this.props)
+        const { getFieldDecorator } = this.props.form
+        console.log(this.props)
         // this.showNotification(this.props.StaffState.status)
         return (
             <div className='register'>
@@ -92,49 +92,48 @@ class Register extends Component{
                         <FormItem
                             {...formItemLayout}
                             label="姓名"
-                            hasFeedback>
-                            <Input onChange={this.handleNameChange}/>
+                            hasFeedback
+                            required>
+                            {getFieldDecorator('username',{
+                                rules:[{required:true, message: '姓名不能为空'}]
+                            })(<Input />)}
                         </FormItem>
                         <FormItem
                             {...formItemLayout}
                             label="密码"
-                            hasFeedback>
-                            <Input type="password" onChange={this.handlePasswordChange}/>
+                            hasFeedback
+                            required>
+                            {getFieldDecorator('password',{
+                                rules:[{ required: true, message: '密码不能为空'},{validator: this.checkConfirm}]
+                            })(<Input type="password" onBlur={this.handleConfirmBlur}/>)}
                         </FormItem>
                         <FormItem
                             {...formItemLayout}
                             label="确认密码"
-                            hasFeedback>
-                            <Input type="password" />
+                            hasFeedback
+                            required>
+                            {getFieldDecorator('confirm',{
+                                rules:[{required: true, message: '两次密码不一致'},{validator: this.checkPassword}]
+                            })(<Input type="password" />)}
                         </FormItem>
                         <FormItem
                             {...formItemLayout}
                             label="邮箱"
-                            hasFeedback>
-                            <Input onChange={this.handleEmailChange}/>
+                            hasFeedback
+                            required>
+                            {getFieldDecorator('email',{
+                                rules:[{type: 'email', message: '邮箱格式不正确'},{required: true, message: '请输入邮箱'}]
+                            })(<Input />)}
                         </FormItem>
                         <FormItem
                             {...formItemLayout}
-                            label="手机号">
-                            <Input onChange={this.handleTelephoneChange}/>
+                            label="手机号"
+                            hasFeedback
+                            required>
+                            {getFieldDecorator('telephone',{
+                                rules:[{required: true, message: '请输入正确的手机号'}]
+                            })(<Input />)}
                         </FormItem>
-                        {/*<FormItem
-                        {...formItemLayout}
-                        label="Captcha"
-                        extra="We must make sure that your are a human."
-                        >
-                        <Row gutter={8}>
-                            <Col span={12}>
-                                <Input size="large" />
-                            </Col>
-                            <Col span={12}>
-                            <Button size="large">Get captcha</Button>
-                            </Col>
-                        </Row>
-                        </FormItem>*/}
-                        {/*<FormItem {...tailFormItemLayout} style={{ marginBottom: 8 }}>
-                            <Checkbox>I have read the <a>agreement</a></Checkbox>
-                        </FormItem>*/}
                         <FormItem {...tailFormItemLayout}>
                             <Button type="primary" htmlType="submit" size="large">注册</Button>
                         </FormItem>
@@ -144,5 +143,9 @@ class Register extends Component{
         )
     }
 }
+
+const Register = Form.create()(RegisterForm)
+
+
 
 export default Register
