@@ -93,7 +93,6 @@ class RegisterForm extends Component{
         };
         const { getFieldDecorator } = this.props.form
         console.log(this.props)
-        // this.showNotification(this.props.StaffState.status)
         return (
             <div className='register'>
                 <Card className='register-section' title='注册'>
@@ -103,7 +102,7 @@ class RegisterForm extends Component{
                             label="姓名"
                             hasFeedback
                             required>
-                            {getFieldDecorator('username',{
+                            {getFieldDecorator('name',{
                                 rules:[{required:true, message: '姓名不能为空'}]
                             })(<Input />)}
                         </FormItem>

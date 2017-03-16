@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var staff = new Schema({
-    email: String,
-    username: String,
+    email: {type: String, unique: true},
+    name: String,
     password: String,
     telephone: {type: String, unique: true},
     departmentId: String,
@@ -12,6 +12,6 @@ var staff = new Schema({
     collection: 'staff'
 });
 
-staff.plugin(passportLocalMongoose);
+// staff.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('staff', staff);
