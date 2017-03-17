@@ -38,6 +38,15 @@ class StaffForm extends Component{
         })
         
     }
+    checkTelephone = (rule, value, callback) => {
+        const pattern = /^(13[0-9]|15[0|3|6|7|8|9]|18[8|9])\d{8}$/
+        const form = this.props.form;
+        if (value && !pattern.exec(value)) {
+            callback('请输入正确的手机号码');
+        } else {
+            callback();
+        }
+    }
     componentWillUpdate(){
         const { visible} = this.props
         if(!visible){
@@ -100,7 +109,7 @@ class StaffForm extends Component{
                         label='联系方式'
                         hasFeedback>
                         {getFieldDecorator('telephone',{
-                            rules:[{required:true, message: ''}]
+                            rules:[{required:true, message: '电话不能为空'},{validator: this.checkTelephone}]
                         })(<Input />)}
                     </FormItem>
                     <FormItem 
@@ -108,7 +117,7 @@ class StaffForm extends Component{
                         label='邮件'
                         hasFeedback>
                         {getFieldDecorator('email',{
-                            rules:[{required:true, message: ''}]
+                            rules:[{required:true, message: '邮件不能为空'},{type: 'email', message: '邮箱格式不正确'}]
                         })(<Input />)}
                     </FormItem>
                     <FormItem 
@@ -116,7 +125,7 @@ class StaffForm extends Component{
                         label='权限'
                         hasFeedback>
                         {getFieldDecorator('authority',{
-                            rules:[{required:true, message: ''}]
+                            rules:[{required:true, message: '请选择权限'}]
                         })(<Select>{authorities}</Select>)}
                     </FormItem>
                 </Form>
