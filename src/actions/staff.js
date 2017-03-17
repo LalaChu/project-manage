@@ -169,6 +169,7 @@ export const fetchRemoveStaff = (info) => {
                 .then((response) => {
                     response.json().then(function(json){
                         if(json.result == 'success'){
+                            dispatch(fetchStaff())
                             dispatch(removeStaff(Status.SUCCESS,'success'))
                             // dispatch(fetchLogin(info.telephone, info.password))
                             // browserHistory.push('/')

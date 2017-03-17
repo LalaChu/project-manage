@@ -39,7 +39,10 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(DepartmentAction.fetchDepartments())
             }
 
-        }
+        },
+        deleteStaff: (info) => {
+            dispatch(StaffAction.fetchRemoveStaff(info))
+        } 
     }
 }
 
