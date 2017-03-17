@@ -10,7 +10,7 @@ import '../public/style/index.css'
 import { Provider } from 'react-redux'
 import configStore from './store'
 import DepartmentContainer from './containers/Department'
-import Stuff from './components/Stuff'
+import StaffContainer from './containers/Staff'
 import AllDaily from './components/AllDaily'
 import MyDaily from './components/MyDaily'
 import Document from './components/Document'
@@ -33,7 +33,7 @@ render(
                 <Route path='document' component={Document}/>
                 <Route path='organization' exact render={()=>{( <Redirect to='/organization/department' />)}}>
                     <Route path='department' component={DepartmentContainer} />
-                    <Route path='stuff' component={Stuff} />
+                    <Route path='stuff' component={StaffContainer} />
                 </Route>
                 <Route path='daily' exact render={()=>{( <Redirect to='/daily/all' />)}}>
                     <Route path='all' component={AllDaily} />

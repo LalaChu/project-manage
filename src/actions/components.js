@@ -44,3 +44,11 @@ export const setDepartmentVisible = (visible, method) => {
         method,
     }
 }
+
+export const setStaffVisible = (visible, method) => {
+    return {
+        type: UIType.SET_ADD_STAFF_VISIBLE,
+        staffVisible: visible,
+        method,
+    }
+}

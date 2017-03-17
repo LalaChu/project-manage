@@ -35,7 +35,6 @@ class Login extends Component{
             wrapperCol: {span: 14}
         }
         const {StaffState: {status}} = this.props
-        console.log(Status)
         const help = status === Status.ERROR ? '账号密码不正确' : ''
         return (
             <div className='login'>

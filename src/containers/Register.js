@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onRegister: (info) => {
-            dispatch(fetchAddStaff(info))
+            dispatch(fetchAddStaff(info, true))
         }
     }
 }

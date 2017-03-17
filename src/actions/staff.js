@@ -1,5 +1,6 @@
 import * as StaffAction from '../constants/staff'
 import * as Status from '../constants/status'
+import * as UIAction from '../actions/components'
 
 import { browserHistory } from 'react-router'
 
@@ -70,7 +71,7 @@ const newStaff = (status,msg) => {
         msg
     }
 }
-export const fetchAddStaff = (info) => {
+export const fetchAddStaff = (info, login) => {
     var init = {
         method: 'POST',
         body: JSON.stringify(info),
@@ -84,13 +85,22 @@ export const fetchAddStaff = (info) => {
                     response.json().then(function(json){
                         if(json.result == 'success'){
                             dispatch(newStaff(Status.SUCCESS,'success'))
-                            dispatch(fetchLogin(info.telephone, info.password))
+                            if(login){
+                                dispatch(fetchLogin(info.telephone, info.password))
+                            }else{
+                                
+                                dispatch(fetchStaff())
+                                dispatch(newStaff('',''))
+                                dispatch(UIAction.setStaffVisible(false))
+                            }
+                            
                             // browserHistory.push('/')
                         }else{
                             dispatch(newStaff(Status.ERROR,json.result.errmsg))
+                            dispatch(newStaff('',''))
                             
                         }
-                        dispatch(newStaff('',''))
+                        
                     })
                 })
                 .catch(function(err){

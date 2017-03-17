@@ -30,7 +30,6 @@ class Department extends Component{
         // }
     }
     render(){
-        console.log(this.props)
         const {departmentVisible, method, list} = this.props
         
         return (

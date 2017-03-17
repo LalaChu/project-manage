@@ -3,7 +3,8 @@ import * as staffAction from '../constants/staff'
 let initialState = {
     username: '',
     status: '',
-    list: ''
+    list: [],
+    msg: ''
 }
 
 const StaffState = (state = initialState, action ) => {
@@ -36,7 +37,8 @@ const StaffState = (state = initialState, action ) => {
             return {
                 ...state,
                 status: action.status,
-                list: action.list || []
+                list: action.list || [],
+                msg: ''
             }
         case staffAction.REMOVE_STAFF:
             return {
