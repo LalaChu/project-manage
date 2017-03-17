@@ -1,4 +1,4 @@
-export const DAILY_EDIT = "DAILY_EDIT"
-export const TASK_EDIT = "TASK_EDIT"
-export const PROJECT_EDIT = "PROJECT_EDIT"
-export const STAFF_EDIT = "STAFF_EDIT"
+export const DAILY_EDIT = "日报权限"
+export const TASK_EDIT = "任务权限"
+export const PROJECT_EDIT = "项目权限"
+export const STAFF_EDIT = "员工部门权限"

@@ -45,10 +45,11 @@ export const setDepartmentVisible = (visible, method) => {
     }
 }
 
-export const setStaffVisible = (visible, method) => {
+export const setStaffVisible = (visible, method, record) => {
     return {
         type: UIType.SET_ADD_STAFF_VISIBLE,
         staffVisible: visible,
         method,
+        record
     }
 }

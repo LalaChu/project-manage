@@ -9,16 +9,17 @@ const mapStateToProps = (state, ownProps) => {
     
     const {UIState : {
         staffVisible,
-        method
+        method,
+        record
     }, StaffState, DepartmentState: {
         list
     }} = state
-    console.log('---------------this is staff state',StaffState)
     return {
         ...StaffState,
         staffVisible,
         method,
-        departmentList: list
+        departmentList: list,
+        record
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -29,8 +30,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchStaff: () => {
             dispatch(StaffAction.fetchStaff())
         },
-        setStaffVisible: (visible, method) => {
-            dispatch(UIType.setStaffVisible(visible, method))
+        setStaffVisible: (visible, method, record) => {
+            dispatch(UIType.setStaffVisible(visible, method, record))
             if(visible){
                 dispatch(DepartmentAction.fetchDepartments())
             }

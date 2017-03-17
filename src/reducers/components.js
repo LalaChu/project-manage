@@ -10,6 +10,7 @@ let initialState = {
     departmentVisible: false,
     staffVisible: false,
     method: '',
+    record: ''
 }
 
 const UIState = (state = initialState, action ) => {
@@ -51,6 +52,7 @@ const UIState = (state = initialState, action ) => {
                 ...state,
                 staffVisible: action.staffVisible,
                 method: action.method,
+                record: action.record
             }
         default:
             return state

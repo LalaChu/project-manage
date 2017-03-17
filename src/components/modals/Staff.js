@@ -7,6 +7,7 @@ import Select from 'antd/lib/select'
 import DatePicker from 'antd/lib/date-picker'
 import Col from 'antd/lib/col'
 import { getTitleByMethod, getParentId } from '../../helper'
+import * as Authority from '../../constants/authority'
 // import DepartmentForm from '../forms/department'
 
 const FormItem = Form.Item
@@ -29,12 +30,14 @@ class StaffForm extends Component{
         
     }
     componentWillUpdate(){
-        console.log('form update')
-        const { visible } = this.props
+        const { visible} = this.props
         if(!visible){
             // console.log(this.props.form)
             this.props.form.resetFields()
         }
+    }
+    componentDidUpdate(){
+        
     }
     render(){
         const formLayout = {
@@ -43,6 +46,7 @@ class StaffForm extends Component{
         }
         const { getFieldDecorator } = this.props.form
         const { visible, method, departmentList } = this.props
+
         // console.log(this.props)
         const title = getTitleByMethod(method) + '员工'
         let nodes = [] 
@@ -53,20 +57,26 @@ class StaffForm extends Component{
             })
             nodes.push(<TreeNode key={depart._id} value={depart._id} title={depart.name}>{children}</TreeNode>)
         })
-        
+        let authorities = []
+        for(let e in Authority){
+            authorities.push(<Option value={e} key={e}>{Authority[e]}</Option>)
+        }
         return (
             <Modal
                 visible={visible}
                 title={title}
                 onCancel={this.props.onCancel}
-                onOk={this.handleAdd}>
+                onOk={this.handleAdd}
+                >
                 <Form>
                     <FormItem
                         {...formLayout}
                         label='所属部门'
                         >
                         {getFieldDecorator('departmentId')(
-                            <TreeSelect showCheckedStrategy={TreeSelect.SHOW_ALL} onSelect={this.handleTreeSelect}>{nodes}</TreeSelect>)}
+                            <TreeSelect
+                                showCheckedStrategy={TreeSelect.SHOW_ALL} 
+                                onSelect={this.handleTreeSelect}>{nodes}</TreeSelect>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
@@ -98,7 +108,7 @@ class StaffForm extends Component{
                         hasFeedback>
                         {getFieldDecorator('authority',{
                             rules:[{required:true, message: ''}]
-                        })(<Input />)}
+                        })(<Select>{authorities}</Select>)}
                     </FormItem>
                 </Form>
             </Modal>
@@ -106,6 +116,19 @@ class StaffForm extends Component{
     }
 }
 
-const StaffModal = Form.create()(StaffForm)
+const StaffModal = Form.create({mapPropsToFields:function(props){
+    console.log(props)
+    if(!props.record){
+        return {}
+    }
+    let departmentId = props.record.departmentId
+    return {
+        name: {value: props.record.name},
+        email: {value: props.record.email},
+        telephone: {value: props.record.telephone},
+        authority: {value: props.record.authority},
+        departmentId: {value: departmentId ? departmentId[1] : departmentId[0] || ''}
+    }
+}})(StaffForm)
 
 export default StaffModal

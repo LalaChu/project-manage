@@ -24,7 +24,7 @@ const columns = [{
     return (
       <div className='icon-manage'>
          <a><Icon type="edit" /></a>
-         <a className='spin'>|</a>
+         <span className='spin'>|</span>
          <a><Icon type="delete" /></a>
       </div>
       
