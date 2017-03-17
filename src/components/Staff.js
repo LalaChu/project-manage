@@ -62,6 +62,7 @@ class Staff extends Component{
                     onCancel={this.handleCancel}
                     departmentList={departmentList}
                     onAdd={this.props.addStaff}
+                    onEdit={this.props.editStaff}
                     method={method}
                     record={record}></StaffModal>
             </div>

@@ -16,6 +16,7 @@ const TreeNode = TreeSelect.TreeNode
 
 class StaffForm extends Component{
     handleAdd = () => {
+        const {method, record} = this.props
         this.props.form.validateFieldsAndScroll((err,values) => {
             if(!err){
                 let parentId = getParentId(this.props.departmentList, values.departmentId)
@@ -24,7 +25,15 @@ class StaffForm extends Component{
                 }else{
                     values.departmentId = [ values.departmentId ]
                 }
-                this.props.onAdd(values)
+                if(method === 'add'){
+                    this.props.onAdd(values)
+                }else{
+                    this.props.onEdit({
+                        ...record,
+                        ...values
+                    })
+                }
+                
             }
         })
         

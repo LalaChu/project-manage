@@ -27,6 +27,9 @@ const mapDispatchToProps = (dispatch) => {
         addStaff: (staff, login) => {
             dispatch(StaffAction.fetchAddStaff(staff, false))
         },
+        editStaff: (staff) => {
+            dispatch(StaffAction.fetchEditStaff(staff))
+        },
         fetchStaff: () => {
             dispatch(StaffAction.fetchStaff())
         },

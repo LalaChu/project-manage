@@ -129,14 +129,18 @@ export const fetchEditStaff = (info) => {
                 .then((response) => {
                     response.json().then(function(json){
                         if(json.result == 'success'){
+                            dispatch(fetchStaff())
                             dispatch(editStaff(Status.SUCCESS,'success'))
+                            dispatch(editStaff('',''))
+                            dispatch(UIAction.setStaffVisible(false))
                             // dispatch(fetchLogin(info.telephone, info.password))
                             // browserHistory.push
                         }else{
                             dispatch(editStaff(Status.ERROR,json.result.errmsg))
+                            dispatch(editStaff('',''))
                             
                         }
-                        dispatch(editStaff('',''))
+                        
                     })
                 })
                 .catch(function(err){
