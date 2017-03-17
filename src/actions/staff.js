@@ -121,7 +121,7 @@ export const fetchEditStaff = (info) => {
                         if(json.result == 'success'){
                             dispatch(editStaff(Status.SUCCESS,'success'))
                             // dispatch(fetchLogin(info.telephone, info.password))
-                            // browserHistory.push('/')
+                            // browserHistory.push
                         }else{
                             dispatch(editStaff(Status.ERROR,json.result.errmsg))
                             

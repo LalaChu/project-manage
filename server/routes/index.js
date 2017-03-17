@@ -61,6 +61,43 @@ router.post('/addStaff',function(req, res){
         }
     })
 })
+router.put('/staff',function(req, res){
+    var info = req.body;
+    Staff.findById(info._id, function(err, person){
+        for(var e in info){
+            person[e] = info[e]
+        }
+        person.save(function(err){
+            res.setHeader("Content-Type","application/json");
+            if(err){
+                res.send({"result":err});
+            }else{
+                res.send({"result": 'success'});
+            }
+        })
+    })
+})
+router.delete('/staff',function(req,res){
+    Staff.findByIdAndRemove(req.body._id, function(err){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": 'success'});
+        }
+    })
+})
+router.post('/staff', function(req,res){
+    Staff.find(function(err, data){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": data});
+        }
+    })
+})
+
 router.post('/addDepartment', function(req, res){
     var department = new Department(req.body);
     if(req.body.parentId){
