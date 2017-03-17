@@ -6,7 +6,7 @@ import TreeSelect from 'antd/lib/tree-select'
 import Select from 'antd/lib/select'
 import DatePicker from 'antd/lib/date-picker'
 import Col from 'antd/lib/col'
-import { getTitleByMethod } from '../../helper'
+import { getTitleByMethod, getParentId } from '../../helper'
 // import DepartmentForm from '../forms/department'
 
 const FormItem = Form.Item
@@ -17,7 +17,13 @@ class StaffForm extends Component{
     handleAdd = () => {
         this.props.form.validateFieldsAndScroll((err,values) => {
             if(!err){
-                this.props.onAdd(values);
+                let parentId = getParentId(this.props.departmentList, values.departmentId)
+                if(parentId){
+                    values.departmentId = [ parentId, values.departmentId]
+                }else{
+                    values.departmentId = [ values.departmentId ]
+                }
+                this.props.onAdd(values)
             }
         })
         
@@ -29,14 +35,6 @@ class StaffForm extends Component{
             // console.log(this.props.form)
             this.props.form.resetFields()
         }
-        
-    }
-    handleAdd = () => {
-        this.props.form.validateFieldsAndScroll((err,values) => {
-            if(!err){
-                this.props.onAdd(values);
-            }
-        })
     }
     render(){
         const formLayout = {
@@ -68,7 +66,7 @@ class StaffForm extends Component{
                         label='所属部门'
                         >
                         {getFieldDecorator('departmentId')(
-                            <TreeSelect>{nodes}</TreeSelect>)}
+                            <TreeSelect showCheckedStrategy={TreeSelect.SHOW_ALL} onSelect={this.handleTreeSelect}>{nodes}</TreeSelect>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}

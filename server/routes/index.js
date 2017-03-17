@@ -88,14 +88,34 @@ router.delete('/staff',function(req,res){
     })
 })
 router.post('/staff', function(req,res){
-    Staff.find(function(err, data){
-        res.setHeader("Content-Type","application/json");
-        if(err){
-            res.send({"result":err});
-        }else{
-            res.send({"result": data});
-        }
+    Staff.find(function(err, staffs){
+        Department.find(function(err, departs){
+            var list = [];
+            var user = {};
+            staffs.map(function(staff){
+                user = staff.toObject();
+                user.departmentName = [];
+                if(user.departmentId.length){
+                    departs.map(function(depart){
+                        if(user.departmentId[0] === depart._id.toString()){
+                            user.departmentName.push(depart.name);
+                            if(user.departmentId[1]){
+                                user.departmentName.push(depart.children.id(user.departmentId[1]).name);
+                            }
+                        }
+                    })
+                }
+                list.push(user)
+            })
+            res.setHeader("Content-Type","application/json");
+            if(err){
+                res.send({"result":err});
+            }else{
+                res.send({"result": list});
+            }
+        })
     })
+        
 })
 
 router.post('/addDepartment', function(req, res){
@@ -133,6 +153,22 @@ router.post('/departmentList', function(req, res){
             // res.redirect('/')
         }
     })
+})
+
+router.post('/test',function(req, res){
+    
+    if(req.body.departmentId.length){
+        var id = req.body.departmentId[1]
+        Department.findById(req.body.departmentId[1],function(err, user){
+            var temp 
+            if(user){
+                
+            }else{
+                temp = Department.children.id(id)
+            }
+            res.send(temp)
+        })
+    }
 })
 
 module.exports = function (app) {

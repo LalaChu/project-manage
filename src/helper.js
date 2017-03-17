@@ -19,3 +19,17 @@ export const getTitleByMethod = function(method){
         default: return '添加'
     }
 }
+
+export const getParentId = function(list, id){
+    let parentId = ''
+    list.forEach(function(one){
+        if(one.children.length && one._id !== id){
+            one.children.forEach(function(item){
+                if(item._id === id){
+                    parentId = one._id
+                }
+            })
+        }
+    })
+    return parentId
+}

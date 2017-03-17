@@ -17,9 +17,15 @@ const columns = [{
   width: 150
 },{
   title: '部门',
-  dataIndex: 'department',
-  key: 'department',
-  width: 150
+  dataIndex: 'departmentName',
+  key: 'departmentName',
+  width: 150,
+  render: (e) => {
+    console.log(e)
+    return (
+      <div>{e[0]}{e[1] ? ' > ' : ''}{e[1]}</div>
+    )
+  }
 }, {
   title: '权限',
   dataIndex: 'authority',
