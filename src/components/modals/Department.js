@@ -13,9 +13,18 @@ const Option = Select.Option
 
 class DepartmentForm extends Component{
     handleAdd = () => {
+        const {method, record} = this.props
         this.props.form.validateFieldsAndScroll((err,values) => {
             if(!err){
-                this.props.onAdd(values);
+                if(method === 'add'){
+                    this.props.onAdd(values);
+                }else{
+                    this.props.onEdit({
+                        ...record,
+                        ...values
+                    })
+                }
+                
             }
         })
         
