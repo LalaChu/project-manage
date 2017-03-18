@@ -152,20 +152,43 @@ router.put('/department',function(req,res){
     }
     var info = req.body;
     if(info.parentId){
-        console.log(info.name)
-        Department.update({"_id": info.parentId, "children._id":mongoose.Types.ObjectId(info._id)}, { "$set" : {"children.$.name": info.name, "children.$.manageId": info.manageId}}, function(err, doc){callback(err)})
-        // Department.findByIdAndUpdate(info.parentId, function(err, depart){
-        //     var target = depart.children.id(info.parentId);
-        //     target.name = info.name;
-        //     target.manageId = info.manageId;
-        //     target.save(callback(err));
-        // })
+        Department.update(
+            {"_id": info.parentId, "children._id":mongoose.Types.ObjectId(info._id)},
+            { "$set" : 
+                {
+                    "children.$.name": info.name, 
+                    "children.$.manageId": info.manageId
+                }
+            }, function(err, doc){callback(err)})
     }else{
         Department.findById(info._id,function(err, depart){
             depart.name = info.name;
             depart.manageId = info.manageId;
             depart.save(callback(err));
         })
+    }
+})
+router.delete('/department', function(req, res){
+    function callback(err){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": 'success'});
+        }
+    }
+    var info = req.body;
+    if(info.parentId){
+        Department.findById(info.parentId, function(err, depart){
+            if(!err){
+                depart.children.id(info._id).remove();
+                depart.save(callback(err));
+            }else{
+                callback(err)
+            }
+        })
+    }else{
+        Department.findByIdAndRemove(info._id,function(err){callback(err)})
     }
 })
 
