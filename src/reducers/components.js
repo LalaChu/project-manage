@@ -42,10 +42,12 @@ const UIState = (state = initialState, action ) => {
                 addTaskVisible: action.addTaskVisible
             }
         case UIType.SET_DEPARTMENT_VISIBLE:
+            console.log('this is action -----------------------,',action)
             return {
                 ...state,
                 departmentVisible: action.departmentVisible,
-                method: action.method
+                method: action.method,
+                record: action.record
             }
         case UIType.SET_ADD_STAFF_VISIBLE:
             return {

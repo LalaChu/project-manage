@@ -133,8 +133,6 @@ export const fetchEditStaff = (info) => {
                             dispatch(editStaff(Status.SUCCESS,'success'))
                             dispatch(editStaff('',''))
                             dispatch(UIAction.setStaffVisible(false))
-                            // dispatch(fetchLogin(info.telephone, info.password))
-                            // browserHistory.push
                         }else{
                             dispatch(editStaff(Status.ERROR,json.result.errmsg))
                             dispatch(editStaff('',''))

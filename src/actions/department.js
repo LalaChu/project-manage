@@ -4,10 +4,11 @@ import 'whatwg-fetch'
 import { secretKey } from '../constants/key'
 import { setDepartmentVisible } from './components'
 
-const addDepartment = (status) => {
+const addDepartment = (status,msg) => {
     return {
         type: DepartmentAction.ADD_DEPARTMENT,
         status,
+        msg
     }
 }
 
@@ -19,12 +20,14 @@ export const fetchAddDepartment = (department) => {
         redirect: 'follow'
     }
     return function(dispatch){
-        dispatch(addDepartment(Status.LOADING))
+        dispatch(addDepartment(Status.LOADING, ''))
         return fetch('/addDepartment',init)
                 .then((response) => { return response.json()})
                 .then(json =>{ 
-                    dispatch(addDepartment(Status.SUCCESS))
+                    dispatch(addDepartment(Status.SUCCESS, 'success'))
+                    dispatch(addDepartment('',''))
                     dispatch(setDepartmentVisible(false, ''))
+                    
                 }).catch(function(err){
                     console.log(err)
                 })

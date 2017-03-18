@@ -6,6 +6,7 @@ var subDepartment = new Schema({
     name: String,
     staffNum: Number,
     manageId: String,
+    parentId: String
 });
 
 var department = new Schema({
@@ -20,7 +21,8 @@ var department = new Schema({
 department.methods.addTo = function(id, obj, cb){
     var depart = {
         name: obj.name,
-        manageId: obj.manageId
+        manageId: obj.manageId,
+        parentId: obj.parentId
     }
     mongoose.model('department').findById(mongoose.Types.ObjectId(id), function(err, tar){
         tar.children.push(depart);

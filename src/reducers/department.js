@@ -4,7 +4,8 @@ import * as DepartmentAction from '../constants/department'
 let initialState = {
     status: Status.LOADING,
     list: [],
-    needFetch: true
+    needFetch: true,
+    msg: ''
 }
 
 const DepartmentState = (state = initialState, action ) => {
@@ -13,7 +14,8 @@ const DepartmentState = (state = initialState, action ) => {
             return {
                 ...state,
                 status: action.status,
-                needFetch: action.status === Status.SUCCESS ? true : false
+                needFetch: action.status === Status.SUCCESS ? true : false,
+                msg: action.msg
             }
         case DepartmentAction.GET_DEPARTMENT: 
             return {

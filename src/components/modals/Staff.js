@@ -93,6 +93,7 @@ class StaffForm extends Component{
                         >
                         {getFieldDecorator('departmentId')(
                             <TreeSelect
+                                allowClear={true}
                                 showCheckedStrategy={TreeSelect.SHOW_ALL} 
                                 onSelect={this.handleTreeSelect}>{nodes}</TreeSelect>)}
                     </FormItem>

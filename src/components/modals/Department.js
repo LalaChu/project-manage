@@ -24,7 +24,6 @@ class DepartmentForm extends Component{
         console.log('form update')
         const { visible } = this.props
         if(!visible){
-            console.log(this.props.form)
             this.props.form.resetFields()
         }
         
@@ -35,14 +34,17 @@ class DepartmentForm extends Component{
             wrapperCol: {span: 14}
         }
         const { getFieldDecorator } = this.props.form
-        const { visible, method, items } = this.props
-        console.log(this.props)
+        const { visible, method, items, staffList} = this.props
         const title = getTitleByMethod(method) + '部门' 
         
         let children = items.map(function(item){
             return <Option value={item._id} key={item._id}>{item.name}</Option>
         })
         children.push(<Option value='' key={0}>不选择父级部门</Option>)
+
+        let staffOptions = staffList.map(function(staff){
+            return <Option value={staff._id} key={staff._id}>{staff.name}</Option>
+        })
         return (
             <Modal
                 visible={visible}
@@ -54,7 +56,7 @@ class DepartmentForm extends Component{
                         {...formLayout}
                         label='所属部门'
                         >
-                        {getFieldDecorator('parentId')(<Select>{children}</Select>)}
+                        {getFieldDecorator('parentId')(<Select allowClear={true} disabled={method === 'edit' ? true : false}>{children}</Select>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
@@ -67,8 +69,8 @@ class DepartmentForm extends Component{
                     <FormItem 
                         {...formLayout}
                         label='负责人'
-                        hasFeedback>
-                        {getFieldDecorator('manageId')(<Select />)}
+                        >
+                        {getFieldDecorator('manageId')(<Select allowClear={true}>{staffOptions}</Select>)}
                     </FormItem>
                 </Form>
             </Modal>
@@ -76,7 +78,17 @@ class DepartmentForm extends Component{
     }
 }
 
-const DepartmentModal = Form.create()(DepartmentForm)
+const DepartmentModal = Form.create({mapPropsToFields:function(props){
+    console.log(props)
+    if(!props.record){
+        return {}
+    }
+    return {
+        name: {value: props.record.name},
+        manageId: {value: props.record.manageId || ''},
+        parentId: {value: props.record.parentId || ''}
+    }
+}})(DepartmentForm)
 
 export default DepartmentModal
 
