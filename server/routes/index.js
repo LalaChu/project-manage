@@ -190,7 +190,7 @@ router.delete('/department', function(req, res){
     }else{
         Department.findByIdAndRemove(info._id,function(err){
             if(!err){
-                Staff.find({departmentId: info._id}, {departmentId: []}, function(err){
+                Staff.update({departmentId: info._id}, {departmentId: []}, function(err){
                     callback(err)
                 })
             }else{
