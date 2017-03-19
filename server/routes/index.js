@@ -4,6 +4,11 @@ var passport = require('../passportConfig');
 var mongoose = require('mongoose');
 var Staff = require('../models/staff');
 var Department = require('../models/department');
+var Project = require('../models/project');
+var Daily = require('../models/daily');
+var Document = require('../models/document');
+var Path = require('../models/path');
+var Task = require('../models/task');
 
 
 router.get('*', function(req, res, next){
@@ -215,7 +220,6 @@ router.post('/departmentList', function(req, res){
             res.send({"result":err});
         }else{
             res.send({"result": list});
-            // res.redirect('/')
         }
     }
     var department = new Department();
@@ -223,7 +227,6 @@ router.post('/departmentList', function(req, res){
         if(!err){
             Staff.find().exec(function(err,staffs){
                 var result = [];
-                
                 departs.map(function(depart){
                     var temp = depart.toObject();
                     temp.staffNum = 0;
@@ -260,15 +263,6 @@ router.post('/departmentList', function(req, res){
             callback(err);
         }
     })
-    // Department.find(function(err, data){
-    //     res.setHeader("Content-Type","application/json");
-    //     if(err){
-    //         res.send({"result":err});
-    //     }else{
-    //         res.send({"result": data});
-    //         // res.redirect('/')
-    //     }
-    // })
 })
 
 router.post('/test',function(req, res){
@@ -285,6 +279,36 @@ router.post('/test',function(req, res){
             res.send(temp)
         })
     }
+})
+
+router.post('/projectList', function(req, res){
+    Project.find().exec(function(err,doc){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": doc});
+        }
+    })
+})
+router.post('/project',function(req,res){
+    function callback(err){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": 'success'});
+        }
+    }
+    var project = new Project(req.body);
+    if(req.body.parentId){
+        project.addTo(req.body.parentId, req.body, callback)
+    }else{
+        project.save(function(err){
+            callback(err);
+        })
+    }
+    
 })
 
 module.exports = function (app) {
