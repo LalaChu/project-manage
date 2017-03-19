@@ -33,6 +33,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         fetchDepartment: () => {
             dispatch(DepartmentAction.fetchDepartments())
+        },
+        editDepartment: (department) => {
+            dispatch(DepartmentAction.fetchEditDepartments(department))
+        },
+        delDepartment: (department) => {
+            dispatch(DepartmentAction.fetchDelDepartment(department))
         }
     }
 }

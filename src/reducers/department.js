@@ -24,6 +24,20 @@ const DepartmentState = (state = initialState, action ) => {
                 list: action.list || [],
                 needFetch: action.status === Status.SUCCESS ? false : true,
             }
+        case DepartmentAction.EDIT_DEPARTMENT:
+            return {
+                ...state,
+                status: action.status,
+                needFetch: action.status === Status.SUCCESS ? true : false,
+                msg: action.msg
+            }
+        case DepartmentAction.REMOVE_DEPARTMENT:
+            return {
+                ...state,
+                status: action.status,
+                needFetch: action.status === Status.SUCCESS ? true : false,
+                msg: action.msg
+            }
         default:
             return state
     }

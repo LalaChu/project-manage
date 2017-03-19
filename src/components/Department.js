@@ -17,6 +17,9 @@ class Department extends Component{
     handleAdd = (department) => {
         this.props.addDepartment(department)
     }
+    handleEdit = (department) => {
+        this.props.editDepartment(department)
+    }
     handleOpenEdit = (department) => {
         this.props.setDepartmentVisible(true, 'edit', department)
     }
@@ -70,6 +73,7 @@ class Department extends Component{
                     method={method} 
                     onCancel={this.handleCancel}
                     onAdd={this.handleAdd}
+                    onEdit={this.handleEdit}
                     items={list}
                     staffList={staffList}
                     record={record}></DepartmentModal>

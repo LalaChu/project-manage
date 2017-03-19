@@ -63,3 +63,67 @@ export const fetchDepartments = () => {
                 
     }
 }
+
+const editDepartment = (status, msg) => {
+    return {
+        type: DepartmentAction.EDIT_DEPARTMENT,
+        status,
+        msg,
+    }
+}
+
+
+export const fetchEditDepartments = (info) => {
+    var init = {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(info),
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(editDepartment(Status.LOADING, ''))
+        return fetch('/department',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(editDepartment(Status.SUCCESS, 'success'))
+                    dispatch(editDepartment('',''))
+                    dispatch(setDepartmentVisible(false, ''))
+
+                    // dispatch(setDepartmentVisible(false, ''))
+                }).catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}
+
+const removeDepartments = (status, msg) => {
+    return {
+        type: DepartmentAction.GET_DEPARTMENT,
+        status,
+        msg
+    }
+}
+
+
+export const fetchDelDepartment = (info) => {
+    var init = {
+        method: 'POST',
+        body: JSON.stringify(info),
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(removeDepartment(Status.LOADING, ''))
+        return fetch('/departmentList',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(removeDepartment(Status.SUCCESS, 'success'))
+                    dispatch(removeDepartment('',''))
+                    // dispatch(setDepartmentVisible(false, ''))
+                }).catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}
