@@ -9,8 +9,8 @@ const createColumns = function(edit, remove){
             width: 150,
           }, {
             title: '负责人',
-            dataIndex: 'manageId',
-            key: 'manageId',
+            dataIndex: 'manageName',
+            key: 'manageName',
             width: 150,
           }, {
             title: '人数',

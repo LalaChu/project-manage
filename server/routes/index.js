@@ -182,35 +182,93 @@ router.delete('/department', function(req, res){
         Department.findById(info.parentId, function(err, depart){
             if(!err){
                 depart.children.id(info._id).remove();
-                depart.save(callback(err));
+                depart.save(function(err){
+                    if(!err){
+                        Staff.update({departmentId: info._id}, {departmentId: [info.parentId]},function(err){
+                            callback(err)
+                        })
+                    }else{
+                        callback(err);
+                    }
+                });
             }else{
-                callback(err)
+                callback(err);
             }
         })
     }else{
         Department.findByIdAndRemove(info._id,function(err){
             if(!err){
                 Staff.update({departmentId: info._id}, {departmentId: []}, function(err){
-                    callback(err)
+                    callback(err);
                 })
             }else{
-                callback(err)
+                callback(err);
             }
         })
     }
 })
 
 router.post('/departmentList', function(req, res){
-    var department = new Department();
-    Department.find(function(err, data){
+    function callback(err,list){
         res.setHeader("Content-Type","application/json");
         if(err){
             res.send({"result":err});
         }else{
-            res.send({"result": data});
+            res.send({"result": list});
             // res.redirect('/')
         }
+    }
+    var department = new Department();
+    Department.find().exec(function(err, departs){
+        if(!err){
+            Staff.find().exec(function(err,staffs){
+                var result = [];
+                
+                departs.map(function(depart){
+                    var temp = depart.toObject();
+                    temp.staffNum = 0;
+                    temp.manageName = '';
+                    staffs.map(function(staff){
+                        if(temp.manageId === staff._id.toString()){
+                            temp.manageName = staff.name;
+                        }
+                        if(staff.departmentId[0] === temp._id.toString() && staff.departmentId.length === 1){
+                            temp.staffNum++ ;
+                        }
+                    })
+                    if(temp.children.length){
+                        temp.children = temp.children.map(function(child){
+                            var subtemp = child;
+                            subtemp.staffNum = 0;
+                            staffs.map(function(staff){
+                                if(subtemp.manageId === staff._id.toString()){
+                                    subtemp.manageName = staff.name
+                                }
+                                if(staff.departmentId.length === 2 && staff.departmentId[1] === subtemp._id.toString()){
+                                    subtemp.staffNum ++ ;
+                                    temp.staffNum ++;
+                                }
+                            })
+                            return subtemp;
+                        })
+                    }
+                    result.push(temp);
+                })
+                callback(err, result)
+            })
+        }else{
+            callback(err);
+        }
     })
+    // Department.find(function(err, data){
+    //     res.setHeader("Content-Type","application/json");
+    //     if(err){
+    //         res.send({"result":err});
+    //     }else{
+    //         res.send({"result": data});
+    //         // res.redirect('/')
+    //     }
+    // })
 })
 
 router.post('/test',function(req, res){

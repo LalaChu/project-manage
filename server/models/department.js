@@ -1,11 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
+// var Staff = require('staff');
 
 var subDepartment = new Schema({
     name: String,
     staffNum: Number,
-    manageId: String,
+    manageId: {type: String},
     parentId: String
 });
 
