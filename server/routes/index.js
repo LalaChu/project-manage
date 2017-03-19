@@ -282,12 +282,46 @@ router.post('/test',function(req, res){
 })
 
 router.post('/projectList', function(req, res){
-    Project.find().exec(function(err,doc){
+    Project.find().exec(function(err,projects){
         res.setHeader("Content-Type","application/json");
         if(err){
             res.send({"result":err});
         }else{
-            res.send({"result": doc});
+            Task.find().exec(function(err, tasks){
+                if(err){
+                    res.send({"result": err})
+                }else{
+                    var list = projects.map(function(pro){
+                        var projTemp = pro.toObject();
+                        projTemp.children = [];
+                        tasks.map(function(task){
+                            if(task.parentId.length === 1 && task.parentId[0] === projTemp._id.toString()){
+                                projTemp.children.push(task);
+                            }
+                        })
+                        if(projTemp.categories.length){
+                            var children = projTemp.categories.map(function(category){
+                                var cate = category;
+                                cate.children = [];
+                                tasks.map(function(task){
+                                    if(task.parentId.length === 2 && task.parentId[1] === cate._id.toString()){
+                                        cate.children.push(task);
+                                    }
+                                })
+                                return cate;
+                            })
+                            projTemp.children = projTemp.children.concat(children);
+                        }
+                        return projTemp
+                    });
+                    tasks.map(function(task){
+                        if(task.parentId.length === 0){
+                            list.push(task);
+                        }
+                    })
+                    res.send({"result": list});
+                }
+            })
         }
     })
 })
@@ -309,6 +343,28 @@ router.post('/project',function(req,res){
         })
     }
     
+})
+
+router.post('/taskList', function(req, res){
+    Task.find().exec(function(err,doc){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": doc});
+        }
+    })
+})
+router.post('/task',function(req,res){
+    var task = new Task(req.body);
+    task.save(function(err){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": 'success'});
+        }
+    });
 })
 
 module.exports = function (app) {

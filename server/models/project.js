@@ -9,7 +9,8 @@ var category = new Schema({
     endTime: String,
     manageId: String,
     state: String,
-    parentId: String
+    parentId: String,
+    type:{type:String, default: 'category'}
 });
 
 var project = new Schema({
@@ -18,15 +19,14 @@ var project = new Schema({
     endTime: String,
     manageId: String,
     state: String,
-    categories: [category]
+    categories: [category],
+    type:{type:String, default: 'project'}
 },{
     collection: 'project'
 });
 
 project.methods.addTo = function(id, obj, cb){
-    console.log('this is',id)
     mongoose.model('project').findById(mongoose.Types.ObjectId(id), function(err, tar){
-        console.log(tar);
         tar.categories.push(obj);
         tar.save(cb)
     })

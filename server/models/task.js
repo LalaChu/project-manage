@@ -10,7 +10,9 @@ var task = new Schema({
     manageId: String,
     reviewerId: String,
     state: String,
-    startCheckTime: String
+    startCheckTime: String,
+    type:{type:String, default: 'task'},
+    parentId: Array
 },{
     collection: 'task'
 });
