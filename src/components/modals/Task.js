@@ -8,7 +8,7 @@ import Col from 'antd/lib/col'
 
 const FormItem = Form.Item
 
-class AddProject extends Component{
+class Task extends Component{
     handleCancel = () => {
         this.props.onCancel(false)
     }
@@ -21,13 +21,19 @@ class AddProject extends Component{
             <Modal
                 onCancel={this.handleCancel}
                 visible={this.props.visible}
-                title='添加项目'>
+                title='添加具体工作'>
                 <Form>
                     <FormItem 
                         {...formLayout}
                         label='名称'
                         hasFeedback>
                         <Input />
+                    </FormItem>
+                    <FormItem 
+                        {...formLayout}
+                        label='父节点'
+                        hasFeedback>
+                        <Select />
                     </FormItem>
                     <FormItem 
                         {...formLayout}
@@ -68,4 +74,4 @@ class AddProject extends Component{
         )
     }
 }
-export default AddProject
+export default Task

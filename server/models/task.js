@@ -1,0 +1,20 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var passportLocalMongoose = require('passport-local-mongoose');
+// var Department = require('./department')
+
+var task = new Schema({
+    name: String,
+    startTime: String,
+    endTime: String,
+    manageId: String,
+    reviewerId: String,
+    state: String,
+    startCheckTime: String
+},{
+    collection: 'task'
+});
+
+// staff.plugin(passportLocalMongoose);
+
+module.exports = mongoose.model('task', task);

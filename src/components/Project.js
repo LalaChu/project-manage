@@ -5,9 +5,9 @@ import columns from '../tableStructure/project'
 import { addKeyColumns } from '../helper'
 import Icon from 'antd/lib/icon'
 import ItemTypeSelect from './modals/ItemTypeSelect'
-import AddProject from './modals/AddProject'
-import AddCategory from './modals/AddCategory'
-import AddTask from './modals/AddTask'
+import ProjectModal from './modals/Project'
+import Category from './modals/Category'
+import Task from './modals/Task'
 
 class Project extends Component{
     componentWillMount(){
@@ -37,13 +37,13 @@ class Project extends Component{
                     setAddProjectVisible={setAddProjectVisible}
                     setAddTaskVisible={setAddTaskVisible}
                     visible={typeSelectVisible} />
-                <AddProject
+                <ProjectModal
                     onCancel={setAddProjectVisible}
                     visible={addProjectVisible} />
-                <AddCategory
+                <Category
                     onCancel={setAddCategoryVisible}
                     visible={addCategoryVisible}/>
-                <AddTask 
+                <Task 
                     onCancel={setAddTaskVisible}
                     visible={addTaskVisible}/>
             </div>

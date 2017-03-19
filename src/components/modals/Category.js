@@ -8,7 +8,7 @@ import Col from 'antd/lib/col'
 
 const FormItem = Form.Item
 
-class AddCategory extends Component{
+class Category extends Component{
     handleCancel = () => {
         this.props.onCancel(false)
     }
@@ -74,4 +74,4 @@ class AddCategory extends Component{
         )
     }
 }
-export default AddCategory
+export default Category
