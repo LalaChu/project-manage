@@ -26,7 +26,7 @@ const createColumns = function(edit, remove){
                 <div className='icon-manage'>
                   <a onClick={() => {edit(record)}}><Icon type="edit" /></a>
                   <span className='spin'>|</span>
-                  <a onClick={remove}><Icon type="delete" /></a>
+                  <a onClick={() => {remove(record)}}><Icon type="delete" /></a>
                 </div>
                 
               )

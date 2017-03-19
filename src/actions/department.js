@@ -97,9 +97,9 @@ export const fetchEditDepartments = (info) => {
     }
 }
 
-const removeDepartments = (status, msg) => {
+const removeDepartment = (status, msg) => {
     return {
-        type: DepartmentAction.GET_DEPARTMENT,
+        type: DepartmentAction.REMOVE_DEPARTMENT,
         status,
         msg
     }
@@ -108,14 +108,14 @@ const removeDepartments = (status, msg) => {
 
 export const fetchDelDepartment = (info) => {
     var init = {
-        method: 'POST',
+        method: 'DELETE',
         body: JSON.stringify(info),
         headers: {'Content-Type': 'application/json'},
         redirect: 'follow'
     }
     return function(dispatch){
         dispatch(removeDepartment(Status.LOADING, ''))
-        return fetch('/departmentList',init)
+        return fetch('/department',init)
                 .then((response) => { return response.json()})
                 .then(json =>{ 
                     dispatch(removeDepartment(Status.SUCCESS, 'success'))

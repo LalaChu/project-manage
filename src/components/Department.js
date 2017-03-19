@@ -6,6 +6,9 @@ import Icon from 'antd/lib/icon'
 import DepartmentModal from './modals/Department'
 import * as Status from '../constants/status'
 import Notification from 'antd/lib/notification'
+import Modal from 'antd/lib/modal'
+
+const confirm = Modal.confirm
 
 class Department extends Component{
     handleOpenAdd = () => {
@@ -53,9 +56,20 @@ class Department extends Component{
             icon: icon,
         });
     }
+    handleDelete = (record) => {
+        const delDepartment = this.props.delDepartment
+        confirm({
+            title: '确认删除该部门吗？',
+            content: '该操作无法还原，请谨慎操作',
+            onCancel: () => {},
+            onOk: () => {
+                delDepartment(record)
+            }
+        })
+    }
     render(){
         const {departmentVisible, method, list, staffList, record} = this.props
-        const columns = createColumns(this.handleOpenEdit)
+        const columns = createColumns(this.handleOpenEdit, this.handleDelete)
         console.log('this is department: ', this.props)
         return (
             <div className='department'>
