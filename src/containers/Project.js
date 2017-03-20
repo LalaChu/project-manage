@@ -3,17 +3,22 @@ import * as projectAction from '../actions/project'
 import * as UIType from '../actions/components'
 // import * as Status from '../constants/status'
 import Project from '../components/Project'
+import * as StaffAction from '../actions/staff'
 
 const mapStateToProps = (state, ownProps) => {
     // console.log('container:', state)
-    const { ProjectState } = state
-    const { status, list } = ProjectState
+    let { ProjectState, StaffState:{list} } = state
+    const staffList = list
+    list = ProjectState.list
+    const { status } = ProjectState
     const {UIState : 
             {
                 typeSelectVisible,
                 addProjectVisible,
                 addTaskVisible,
-                addCategoryVisible
+                addCategoryVisible,
+                method,
+                record
             } 
           } = state
     return {
@@ -22,7 +27,10 @@ const mapStateToProps = (state, ownProps) => {
         typeSelectVisible,
         addCategoryVisible,
         addProjectVisible,
-        addTaskVisible
+        addTaskVisible,
+        method,
+        record,
+        staffList
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -33,14 +41,20 @@ const mapDispatchToProps = (dispatch) => {
         setTypeSelectVisible: (visible) => {
             dispatch(UIType.setPTypeSelectVisible(visible))
         },
-        setAddProjectVisible: (visible) => {
-            dispatch(UIType.setAddProjectVisible(visible))
+        setAddProjectVisible: (visible, method, record) => {
+            dispatch(UIType.setAddProjectVisible(visible, method, record))
         },
         setAddCategoryVisible: (visible) => {
             dispatch(UIType.setAddCategoryVisible(visible))
         },
         setAddTaskVisible: (visible) => {
             dispatch(UIType.setAddTaskVisible(visible))
+        },
+        addProject: (info) => {
+            dispatch(projectAction.fetchAddProject(info))
+        },
+        getStaff: () => {
+            dispatch(StaffAction.fetchStaff())
         }
     }
 }

@@ -16,10 +16,12 @@ export const setPTypeSelectVisible = (visible) => {
     }
 }
 
-export const setAddProjectVisible = (visible) => {
+export const setAddProjectVisible = (visible, method, record) => {
     return {
         type: UIType.SET_ADD_PROJECT_VISIBLE,
-        addProjectVisible: visible
+        addProjectVisible: visible,
+        method,
+        record
     }
 }
 

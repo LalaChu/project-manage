@@ -2,13 +2,14 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 // var Department = require('./department')
+var ProjectState = require('../constants');
 
 var category = new Schema({
     name: String,
     startTime: String,
     endTime: String,
     manageId: String,
-    state: String,
+    state: {type: String, default: ProjectState.toBeStarted},
     parentId: String,
     type:{type:String, default: 'category'}
 });
@@ -18,7 +19,7 @@ var project = new Schema({
     startTime: String,
     endTime: String,
     manageId: String,
-    state: String,
+    state: {type: String, default: ProjectState.toBeStarted},
     categories: [category],
     type:{type:String, default: 'project'}
 },{

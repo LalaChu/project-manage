@@ -11,7 +11,7 @@ class ItemTypeSelect extends Component{
     }
     handleProjectSelect = () => {
         this.props.onCancel(false)
-        this.props.setAddProjectVisible(true)
+        this.props.setAddProjectVisible(true, 'add')
     }
     handleCategorySelect = () => {
         this.props.onCancel(false)

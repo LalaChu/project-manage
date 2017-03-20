@@ -3,17 +3,9 @@ const columns = [{
   dataIndex: 'name',
   key: 'name',
 }, {
-  title: '负责人',
-  dataIndex: 'reviewer',
-  key: 'reviewer',
-}, {
-  title: '开始时间',
-  dataIndex: 'createdAt',
-  key: 'createdAt',
-}, {
-  title: '结束时间',
-  dataIndex: 'closedAt',
-  key: 'closedAt',
+  title: '类型',
+  dataIndex: 'type',
+  key: 'type',
 }, {
   title: '状态',
   dataIndex: 'state',

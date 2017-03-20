@@ -29,7 +29,9 @@ const UIState = (state = initialState, action ) => {
         case UIType.SET_ADD_PROJECT_VISIBLE:
             return {
                 ...state,
-                addProjectVisible: action.addProjectVisible
+                addProjectVisible: action.addProjectVisible,
+                method: action.method,
+                record: action.record
             }
         case UIType.SET_ADD_CATEGORY_VISIBLE:
             return {

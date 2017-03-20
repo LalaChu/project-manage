@@ -12,15 +12,31 @@ import Task from './modals/Task'
 class Project extends Component{
     componentWillMount(){
         this.props.getProjectList()
+        this.props.getStaff()
     }
     handleOpenClick = () => {
         this.props.setTypeSelectVisible(true)
     }
+    handleAddProject = (info) => {
+        this.props.addProject(info)
+    }
     render(){
-        // console.log(this.props)
+        console.log(this.props)
         const dataSource = addKeyColumns(this.props.list)
-        const { typeSelectVisible, addProjectVisible, addCategoryVisible, addTaskVisible } = this.props
-        const { setAddProjectVisible, setAddCategoryVisible, setAddTaskVisible } = this.props
+        const { 
+                typeSelectVisible,
+                addProjectVisible,
+                addCategoryVisible,
+                addTaskVisible,
+                method,
+                record
+            } = this.props
+        const { 
+                setAddProjectVisible,
+                setAddCategoryVisible,
+                setAddTaskVisible,
+                staffList
+            } = this.props
         return (
             <div className='project-list'>
                 <Button 
@@ -30,7 +46,8 @@ class Project extends Component{
                     size='middle'
                     dataSource={dataSource}
                     columns={columns} 
-                    bordered/>
+                    bordered
+                    rowKey='_id'/>
                 <ItemTypeSelect 
                     onCancel={this.props.setTypeSelectVisible}
                     setAddCategoryVisible={setAddCategoryVisible}
@@ -39,7 +56,10 @@ class Project extends Component{
                     visible={typeSelectVisible} />
                 <ProjectModal
                     onCancel={setAddProjectVisible}
-                    visible={addProjectVisible} />
+                    visible={addProjectVisible}
+                    onAdd={this.handleAddProject} 
+                    staffList={staffList}
+                    method={method}/>
                 <Category
                     onCancel={setAddCategoryVisible}
                     visible={addCategoryVisible}/>
