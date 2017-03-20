@@ -319,7 +319,26 @@ router.post('/projectList', function(req, res){
                             list.push(task);
                         }
                     })
-                    res.send({"result": list});
+                    var findName = function(item,id){
+                        return item._id === id
+                    }
+                    Staff.find().exec(function(err, staffs){
+                        list = list.map(function(item){
+                            var temp = item;
+                            staffs.map(function(staff){
+                                if(staff._id.toString() === temp.manageId){
+                                    temp.manageName = staff.name
+                                }
+                            })
+                            return temp
+                        })
+                        res.send({"result":list});
+                    })
+                    // function getStaffName 
+                    // list = list.map(function(item){
+                        
+                    // })
+                    // res.send({"result": list});
                 }
             })
         }

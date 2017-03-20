@@ -12,8 +12,8 @@ const columns = [{
   key: 'state',
 }, {
   title: '负责人',
-  dataIndex: 'manageId',
-  key: 'manageId',
+  dataIndex: 'manageName',
+  key: 'manageName',
 }, {
   title: '开始时间',
   dataIndex: 'startTime',
