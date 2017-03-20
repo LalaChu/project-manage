@@ -91,10 +91,16 @@ class Project extends Component{
                     method={method}/>
                 <Category
                     onCancel={setAddCategoryVisible}
-                    visible={addCategoryVisible}/>
+                    visible={addCategoryVisible}
+                    staffList={staffList}
+                    method={method}
+                    projectList={dataSource}/>
                 <Task 
                     onCancel={setAddTaskVisible}
-                    visible={addTaskVisible}/>
+                    visible={addTaskVisible}
+                    staffList={staffList}
+                    method={method}
+                    projectList={dataSource}/>
             </div>
         )
     }

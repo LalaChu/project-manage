@@ -7,6 +7,7 @@ import DatePicker from 'antd/lib/date-picker'
 import Col from 'antd/lib/col'
 
 const FormItem = Form.Item
+const Option = Select.Option
 
 class Category extends Component{
     handleCancel = () => {
@@ -17,6 +18,18 @@ class Category extends Component{
             labelCol: {span : 6},
             wrapperCol: {span: 14}
         }
+        
+        const { staffList, projectList } = this.props
+        let projectOption = []
+        projectList.map(function(pro){
+            if(pro.type === 'project'){
+                projectOption.push(<Option key={pro._id} value={pro._id}>{pro.name}</Option>)
+            }
+        })
+        console.log(projectOption)
+        let staffOption = staffList.map(function(staff){
+            return <Option key={staff._id} value={staff._id}>{staff.name}</Option>
+        })
         return (
             <Modal
                 onCancel={this.handleCancel}
@@ -33,13 +46,13 @@ class Category extends Component{
                         {...formLayout}
                         label='父节点'
                         hasFeedback>
-                        <Select />
+                        <Select>{projectOption}</Select>
                     </FormItem>
                     <FormItem 
                         {...formLayout}
                         label='负责人'
                         hasFeedback>
-                        <Select />
+                        <Select>{staffOption}</Select>
                     </FormItem>
                     <FormItem label='起止时间'
                         labelCol={{span: 6}}>

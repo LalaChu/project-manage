@@ -10,6 +10,14 @@ const columns = [{
   title: '状态',
   dataIndex: 'state',
   key: 'state',
+}, {
+  title: '负责人',
+  dataIndex: 'manageId',
+  key: 'manageId',
+}, {
+  title: '开始时间',
+  dataIndex: 'startTime',
+  key: 'startTime',
 }];
 
 export default columns
