@@ -34,7 +34,8 @@ const addProject = (status, msg) => {
     return {
         type: projectAction.ADD_PROJECT,
         status,
-        msg
+        msg,
+        needFetch: msg === 'success' ? true : false
     }
 }
 

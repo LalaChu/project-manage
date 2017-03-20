@@ -9,6 +9,7 @@ import ProjectModal from './modals/Project'
 import Category from './modals/Category'
 import Task from './modals/Task'
 import Notification from 'antd/lib/notification'
+import * as Status from '../constants/status'
 
 class Project extends Component{
     componentWillMount(){
@@ -41,6 +42,12 @@ class Project extends Component{
             description: description,
             icon: icon,
         });
+    }
+    componentWillUpdate(){
+        const { needFetch, status } = this.props
+        if(needFetch && status !== Status.LOADING){
+            this.props.getProjectList()
+        }
     }
     render(){
         console.log(this.props)

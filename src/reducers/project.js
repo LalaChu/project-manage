@@ -4,6 +4,7 @@ import * as projectAction from '../constants/project'
 let initialState = {
     status: Status.LOADING,
     list: [],
+    needFetch: true,
     msg: ''
 }
 
@@ -13,13 +14,15 @@ const ProjectState = (state = initialState, action ) => {
             return {
                 ...state,
                 status: action.status,
-                list: action.list
+                list: action.list,
+                needFetch: action.status === Status.SUCCESS ? false : true
             }
         case projectAction.ADD_PROJECT:
             return {
                 ...state,
                 status: action.status,
-                msg: action.msg
+                msg: action.msg,
+                needFetch: action.msg === 'success' ? true : false 
             }
         default:
             return state

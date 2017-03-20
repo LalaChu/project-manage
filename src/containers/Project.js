@@ -9,9 +9,6 @@ const mapStateToProps = (state, ownProps) => {
     // console.log('container:', state)
     let { ProjectState, StaffState:{list} } = state
     const staffList = list
-    list = ProjectState.list
-    let msg = ProjectState.msg
-    const { status } = ProjectState
     const {UIState : 
             {
                 typeSelectVisible,
@@ -23,8 +20,7 @@ const mapStateToProps = (state, ownProps) => {
             } 
           } = state
     return {
-        status,
-        list,
+        ...ProjectState,
         typeSelectVisible,
         addCategoryVisible,
         addProjectVisible,
@@ -32,7 +28,6 @@ const mapStateToProps = (state, ownProps) => {
         method,
         record,
         staffList,
-        msg
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -54,6 +49,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         addProject: (info) => {
             dispatch(projectAction.fetchAddProject(info))
+            
         },
         getStaff: () => {
             dispatch(StaffAction.fetchStaff())
