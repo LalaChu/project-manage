@@ -8,6 +8,7 @@ import ItemTypeSelect from './modals/ItemTypeSelect'
 import ProjectModal from './modals/Project'
 import Category from './modals/Category'
 import Task from './modals/Task'
+import Notification from 'antd/lib/notification'
 
 class Project extends Component{
     componentWillMount(){
@@ -19,6 +20,27 @@ class Project extends Component{
     }
     handleAddProject = (info) => {
         this.props.addProject(info)
+    }
+    componentDidUpdate(){
+        this.handleMsg()
+    }
+    handleMsg(){
+        const {msg} = this.props
+        let description = '', icon 
+        if(msg === 'success'){
+            description = '恭喜您，操作成功'
+            icon = <Icon type="smile-circle" style={{ color: '#108ee9' }} />
+        }else if(msg !== ''){
+            description = '对不起，操作失败，请重试'
+            icon = <Icon type="frown-o" style={{ color: '#108ee9' }}/>
+        }else{
+            return
+        }
+        Notification.open({
+            message: '项目管理通知',
+            description: description,
+            icon: icon,
+        });
     }
     render(){
         console.log(this.props)

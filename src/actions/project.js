@@ -40,7 +40,7 @@ const addProject = (status, msg) => {
 
 export const fetchAddProject = (info) => {
     return function(dispatch){
-        dispatch(addProject(Status.LOADING))
+        dispatch(addProject(Status.LOADING, ''))
         var init = {
             method: 'POST',
             body: JSON.stringify(info),

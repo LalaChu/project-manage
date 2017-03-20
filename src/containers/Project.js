@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => {
     let { ProjectState, StaffState:{list} } = state
     const staffList = list
     list = ProjectState.list
+    let msg = ProjectState.msg
     const { status } = ProjectState
     const {UIState : 
             {
@@ -30,7 +31,8 @@ const mapStateToProps = (state, ownProps) => {
         addTaskVisible,
         method,
         record,
-        staffList
+        staffList,
+        msg
     }
 }
 const mapDispatchToProps = (dispatch) => {

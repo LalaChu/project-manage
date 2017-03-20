@@ -3,7 +3,8 @@ import * as projectAction from '../constants/project'
 
 let initialState = {
     status: Status.LOADING,
-    list: []
+    list: [],
+    msg: ''
 }
 
 const ProjectState = (state = initialState, action ) => {
@@ -14,7 +15,12 @@ const ProjectState = (state = initialState, action ) => {
                 status: action.status,
                 list: action.list
             }
-        
+        case projectAction.ADD_PROJECT:
+            return {
+                ...state,
+                status: action.status,
+                msg: action.msg
+            }
         default:
             return state
     }
