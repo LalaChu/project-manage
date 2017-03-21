@@ -393,6 +393,43 @@ router.put('/project',function(req,res){
 })
 
 router.delete('/project',function(req,res){
+    function callback(err){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": 'success'});
+        }
+    }
+    var info = req.body;
+    if(info.parentId){
+        Project.findById(info.parentId, function(err, proj){
+            if(!err){
+                proj.categories.id(info._id).remove();
+                proj.save(function(err){
+                    if(!err){
+                        Task.update({parentId: info._id}, {parentId: [info.parentId]},function(err){
+                            callback(err)
+                        })
+                    }else{
+                        callback(err);
+                    }
+                });
+            }else{
+                callback(err);
+            }
+        })
+    }else{
+        Project.findByIdAndRemove(info._id,function(err){
+            if(!err){
+                Task.update({parentId: info._id}, {parentId: []}, function(err){
+                    callback(err);
+                })
+            }else{
+                callback(err);
+            }
+        })
+    }
 })
 
 router.post('/taskList', function(req, res){
