@@ -370,14 +370,14 @@ router.put('/project',function(req,res){
     var info = req.body;
     if(req.body.parentId){
         Project.update(
-            {"_id": info.parentId, "category._id":mongoose.Types.ObjectId(info._id)},
+            {"_id": info.parentId, "categories._id":mongoose.Types.ObjectId(info._id)},
             { "$set" : 
                 {
-                    "category.$.name": info.name, 
-                    "category.$.manageId": info.manageId,
-                    "category.$.description": info.description,
-                    "category.$.startTime": info.startTime,  
-                    "category.$.endTime": info.endTime, 
+                    "categories.$.name": info.name, 
+                    "categories.$.manageId": info.manageId,
+                    "categories.$.description": info.description,
+                    "categories.$.startTime": info.startTime,  
+                    "categories.$.endTime": info.endTime, 
                 }
             }, function(err, doc){callback(err)})
     }else{

@@ -62,14 +62,12 @@ class Project extends Component{
         if(record.type === 'project'){
             this.props.setAddProjectVisible(true, 'edit', record)
         }else if(record.type === 'category'){
-            console.log(record)
             this.props.setAddCategoryVisible(true, 'edit', record)
         }else{
             this.props.setAddTaskVisible(true, 'edit', record)
         }
     }
     render(){
-        console.log(this.props)
         const dataSource = addKeyColumns(this.props.list)
         const { 
                 typeSelectVisible,
@@ -119,7 +117,7 @@ class Project extends Component{
                     method={method}
                     projectList={dataSource}
                     record={record}
-                    onEdit={this.handleEditCategory}/>
+                    onEdit={this.handleEditProject}/>
                 <Task 
                     onCancel={setAddTaskVisible}
                     visible={addTaskVisible}

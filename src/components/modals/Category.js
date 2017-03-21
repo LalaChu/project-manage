@@ -21,6 +21,8 @@ class CategoryForm extends Component{
                 if(method === 'add'){
                     this.props.onAdd(values)
                 }else{
+                    console.log(record, values)
+                    // return;
                     this.props.onEdit({
                         ...record,
                         ...values
@@ -121,7 +123,10 @@ const CategoryModal = Form.create({mapPropsToFields:function(props){
         state: {value: props.record.state},
         type: {value: props.record.telephone},
         manageId: {value: props.record.manageId},
-        startTime: {value: props.record.startTime ? moment(props.record.startTime, 'YYYY-MM-DD') : ''}
+        parentId: {value: props.record.parentId},
+        startTime: {value: props.record.startTime ? moment(props.record.startTime, 'YYYY-MM-DD') : ''},
+        endTime: {value: props.record.endTime ? moment(props.record.endTime, 'YYYY-MM-DD') : ''},
+        description: {value: props.record.description}
     }
 }})(CategoryForm)
 
