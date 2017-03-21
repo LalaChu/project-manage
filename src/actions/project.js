@@ -95,3 +95,67 @@ export const fetchEditProject = (info) => {
                 
     }
 }
+
+const addTask= (status, msg) => {
+    return {
+        type: projectAction.ADD_TASK,
+        status,
+        msg,
+        needFetch: msg === 'success' ? true : false
+    }
+}
+
+export const fetchAddTask = (info) => {
+    return function(dispatch){
+        dispatch(addTask(Status.LOADING, ''))
+        var init = {
+            method: 'POST',
+            body: JSON.stringify(info),
+            headers: {'Content-Type': 'application/json'},
+            redirect: 'follow'
+        }
+        return fetch('/task',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(addTask(Status.SUCCESS, 'success'))
+                    dispatch(addTask('', ''))
+                    dispatch(UIAction.setAddTaskVisible(false))
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}
+
+const editTask = (status, msg) => {
+    return {
+        type: projectAction.EDIT_TASK,
+        status,
+        msg,
+        needFetch: msg === 'success' ? true : false
+    }
+}
+
+export const fetchEditTask = (info) => {
+    return function(dispatch){
+        dispatch(editTask(Status.LOADING, ''))
+        var init = {
+            method: 'PUT',
+            body: JSON.stringify(info),
+            headers: {'Content-Type': 'application/json'},
+            redirect: 'follow'
+        }
+        return fetch('/task',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(editTask(Status.SUCCESS, 'success'))
+                    dispatch(editTask('', ''))
+                    dispatch(UIAction.setAddProjectVisible(false))
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}

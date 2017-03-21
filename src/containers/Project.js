@@ -47,15 +47,20 @@ const mapDispatchToProps = (dispatch) => {
         setAddTaskVisible: (visible, method, record) => {
             dispatch(UIType.setAddTaskVisible(visible, method, record))
         },
-        addProject: (info) => {
-            dispatch(projectAction.fetchAddProject(info))
-            
-        },
         getStaff: () => {
             dispatch(StaffAction.fetchStaff())
         },
+        addProject: (info) => {
+            dispatch(projectAction.fetchAddProject(info))
+        },
         editProject: (info) => {
             dispatch(projectAction.fetchEditProject(info))
+        },
+        addTask: (info) => {
+            dispatch(projectAction.fetchAddTask(info))
+        },
+        editTask: (info) => {
+            dispatch(projectAction.fetchEditTask(info))
         }
     }
 }
