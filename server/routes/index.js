@@ -369,7 +369,17 @@ router.put('/project',function(req,res){
     }
     var info = req.body;
     if(req.body.parentId){
-        // project.addTo(req.body.parentId, req.body, callback)
+        Project.update(
+            {"_id": info.parentId, "category._id":mongoose.Types.ObjectId(info._id)},
+            { "$set" : 
+                {
+                    "category.$.name": info.name, 
+                    "category.$.manageId": info.manageId,
+                    "category.$.description": info.description,
+                    "category.$.startTime": info.startTime,  
+                    "category.$.endTime": info.endTime, 
+                }
+            }, function(err, doc){callback(err)})
     }else{
         Project.findById(info._id,function(err, proj){
             proj.name = info.name;

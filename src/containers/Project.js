@@ -41,11 +41,11 @@ const mapDispatchToProps = (dispatch) => {
         setAddProjectVisible: (visible, method, record) => {
             dispatch(UIType.setAddProjectVisible(visible, method, record))
         },
-        setAddCategoryVisible: (visible) => {
-            dispatch(UIType.setAddCategoryVisible(visible))
+        setAddCategoryVisible: (visible, method, record) => {
+            dispatch(UIType.setAddCategoryVisible(visible, method, record))
         },
-        setAddTaskVisible: (visible) => {
-            dispatch(UIType.setAddTaskVisible(visible))
+        setAddTaskVisible: (visible, method, record) => {
+            dispatch(UIType.setAddTaskVisible(visible, method, record))
         },
         addProject: (info) => {
             dispatch(projectAction.fetchAddProject(info))

@@ -15,11 +15,11 @@ class ItemTypeSelect extends Component{
     }
     handleCategorySelect = () => {
         this.props.onCancel(false)
-        this.props.setAddCategoryVisible(true)
+        this.props.setAddCategoryVisible(true, 'add')
     }
     handleTaskSelect = () => {
         this.props.onCancel(false)
-        this.props.setAddTaskVisible(true)
+        this.props.setAddTaskVisible(true, 'add')
     }
     render(){
         const { visible } = this.props

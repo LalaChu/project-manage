@@ -22,11 +22,17 @@ class Project extends Component{
     handleAddProject = (info) => {
         this.props.addProject(info)
     }
+    handleAddTask = (info) => {
+        this.props.addTask(info)
+    }
     componentDidUpdate(){
         this.handleMsg()
     }
-    handleEdit = (info) => {
+    handleEditProject = (info) => {
         this.props.editProject(info)
+    }
+    handleEditTask = (info) => {
+        this.props.editTask(info)
     }
     handleMsg(){
         const {msg} = this.props
@@ -53,7 +59,14 @@ class Project extends Component{
         }
     }
     handleEditOpen = (record) => {
-        this.props.setAddProjectVisible(true, 'edit', record)
+        if(record.type === 'project'){
+            this.props.setAddProjectVisible(true, 'edit', record)
+        }else if(record.type === 'category'){
+            console.log(record)
+            this.props.setAddCategoryVisible(true, 'edit', record)
+        }else{
+            this.props.setAddTaskVisible(true, 'edit', record)
+        }
     }
     render(){
         console.log(this.props)
@@ -95,21 +108,27 @@ class Project extends Component{
                     visible={addProjectVisible}
                     onAdd={this.handleAddProject} 
                     staffList={staffList}
-                    onEdit={this.handleEdit}
+                    onEdit={this.handleEditProject}
                     method={method}
                     record={record}/>
                 <Category
                     onCancel={setAddCategoryVisible}
                     visible={addCategoryVisible}
                     staffList={staffList}
+                    onAdd={this.handleAddProject} 
                     method={method}
-                    projectList={dataSource}/>
+                    projectList={dataSource}
+                    record={record}
+                    onEdit={this.handleEditCategory}/>
                 <Task 
                     onCancel={setAddTaskVisible}
                     visible={addTaskVisible}
                     staffList={staffList}
+                    onAdd={this.handleAddTask} 
                     method={method}
-                    projectList={dataSource}/>
+                    record={record}
+                    projectList={dataSource}
+                    onEdit={this.handleEditTask}/>
             </div>
         )
     }

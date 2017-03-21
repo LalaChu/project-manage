@@ -54,6 +54,7 @@ export const fetchAddProject = (info) => {
                     dispatch(addProject(Status.SUCCESS, 'success'))
                     dispatch(addProject('', ''))
                     dispatch(UIAction.setAddProjectVisible(false))
+                    dispatch(UIAction.setAddCategoryVisible(false))
                 })
                 .catch(function(err){
                     console.log(err)

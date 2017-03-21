@@ -25,17 +25,21 @@ export const setAddProjectVisible = (visible, method, record) => {
     }
 }
 
-export const setAddCategoryVisible = (visible) => {
+export const setAddCategoryVisible = (visible, method, record) => {
     return {
         type: UIType.SET_ADD_CATEGORY_VISIBLE,
-        addCategoryVisible: visible
+        addCategoryVisible: visible,
+        method,
+        record
     }
 }
 
-export const setAddTaskVisible = (visible) => {
+export const setAddTaskVisible = (visible, method, record) => {
     return {
         type: UIType.SET_ADD_TASK_VISIBLE,
-        addTaskVisible: visible
+        addTaskVisible: visible,
+        method,
+        record
     }
 }
 

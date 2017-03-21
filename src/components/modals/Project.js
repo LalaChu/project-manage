@@ -101,7 +101,6 @@ const ProjectModal = Form.create({mapPropsToFields:function(props){
     if(!props.record){
         return {}
     }
-    let departmentId = props.record.departmentId
     return {
         name: {value: props.record.name},
         state: {value: props.record.state},
