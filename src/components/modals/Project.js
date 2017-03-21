@@ -18,9 +18,10 @@ class ProjectForm extends Component{
     handleAdd = () => {
         const {method, record} = this.props
         this.props.form.validateFieldsAndScroll((err,values) => {
+            // values.startTime = values.startTime.substr(0, 10)
+            // values.endTime = values.endTime.substr(0, 10)
             if(!err){
                 if(method === 'add'){
-                    
                     this.props.onAdd(values)
                 }else{
                     this.props.onEdit({

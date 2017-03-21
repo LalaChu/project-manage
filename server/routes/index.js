@@ -408,8 +408,8 @@ router.delete('/project',function(req,res){
                 proj.categories.id(info._id).remove();
                 proj.save(function(err){
                     if(!err){
-                        Task.update({parentId: info._id}, {parentId: [info.parentId]},function(err){
-                            callback(err)
+                        Task.find({parentId: info._id}).remove().exec(function(err){
+                            callback(err);
                         })
                     }else{
                         callback(err);
@@ -422,7 +422,7 @@ router.delete('/project',function(req,res){
     }else{
         Project.findByIdAndRemove(info._id,function(err){
             if(!err){
-                Task.update({parentId: info._id}, {parentId: []}, function(err){
+                Task.find({parentId: info._id}).remove().exec(function(err){
                     callback(err);
                 })
             }else{
