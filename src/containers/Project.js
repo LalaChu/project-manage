@@ -53,6 +53,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         getStaff: () => {
             dispatch(StaffAction.fetchStaff())
+        },
+        editProject: (info) => {
+            dispatch(projectAction.fetchEditProject(info))
         }
     }
 }

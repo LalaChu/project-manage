@@ -334,11 +334,6 @@ router.post('/projectList', function(req, res){
                         })
                         res.send({"result":list});
                     })
-                    // function getStaffName 
-                    // list = list.map(function(item){
-                        
-                    // })
-                    // res.send({"result": list});
                 }
             })
         }
@@ -361,7 +356,49 @@ router.post('/project',function(req,res){
             callback(err);
         })
     }
-    
+})
+
+router.put('/project',function(req,res){
+    function callback(err){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": 'success'});
+        }
+    }
+    var info = req.body;
+    if(req.body.parentId){
+        // project.addTo(req.body.parentId, req.body, callback)
+    }else{
+        Project.findById(info._id,function(err, proj){
+            proj.name = info.name;
+            proj.manageId = info.manageId;
+            proj.startTime = info.startTime;
+            proj.endTime = info.endTime;
+            proj.description = info.description;
+            proj.save(callback(err));
+        })
+    }
+})
+
+router.delete('/project',function(req,res){
+    // function callback(err){
+    //     res.setHeader("Content-Type","application/json");
+    //     if(err){
+    //         res.send({"result":err});
+    //     }else{
+    //         res.send({"result": 'success'});
+    //     }
+    // }
+    // var project = new Project(req.body);
+    // if(req.body.parentId){
+    //     project.addTo(req.body.parentId, req.body, callback)
+    // }else{
+    //     project.save(function(err){
+    //         callback(err);
+    //     })
+    // }
 })
 
 router.post('/taskList', function(req, res){

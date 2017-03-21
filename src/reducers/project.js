@@ -24,6 +24,13 @@ const ProjectState = (state = initialState, action ) => {
                 msg: action.msg,
                 needFetch: action.msg === 'success' ? true : false 
             }
+        case projectAction.EDIT_PROJECT:
+            return {
+                ...state,
+                status: action.status,
+                msg: action.msg,
+                needFetch: action.msg === 'success' ? true : false
+            }
         default:
             return state
     }

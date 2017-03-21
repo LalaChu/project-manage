@@ -62,4 +62,34 @@ export const fetchAddProject = (info) => {
     }
 }
 
+const editProject = (status, msg) => {
+    return {
+        type: projectAction.EDIT_PROJECT,
+        status,
+        msg,
+        needFetch: msg === 'success' ? true : false
+    }
+}
 
+export const fetchEditProject = (info) => {
+    return function(dispatch){
+        dispatch(editProject(Status.LOADING, ''))
+        var init = {
+            method: 'PUT',
+            body: JSON.stringify(info),
+            headers: {'Content-Type': 'application/json'},
+            redirect: 'follow'
+        }
+        return fetch('/project',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(editProject(Status.SUCCESS, 'success'))
+                    dispatch(editProject('', ''))
+                    dispatch(UIAction.setAddProjectVisible(false))
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}

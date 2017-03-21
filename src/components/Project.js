@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Table from 'antd/lib/table'
 import Button from 'antd/lib/button'
-import columns from '../tableStructure/project'
+import createColumns from '../tableStructure/project'
 import { addKeyColumns } from '../helper'
 import Icon from 'antd/lib/icon'
 import ItemTypeSelect from './modals/ItemTypeSelect'
@@ -24,6 +24,9 @@ class Project extends Component{
     }
     componentDidUpdate(){
         this.handleMsg()
+    }
+    handleEdit = (info) => {
+        this.props.editProject(info)
     }
     handleMsg(){
         const {msg} = this.props
@@ -49,6 +52,9 @@ class Project extends Component{
             this.props.getProjectList()
         }
     }
+    handleEditOpen = (record) => {
+        this.props.setAddProjectVisible(true, 'edit', record)
+    }
     render(){
         console.log(this.props)
         const dataSource = addKeyColumns(this.props.list)
@@ -66,6 +72,7 @@ class Project extends Component{
                 setAddTaskVisible,
                 staffList
             } = this.props
+        const columns = createColumns(this.handleEditOpen)
         return (
             <div className='project-list'>
                 <Button 
@@ -88,7 +95,9 @@ class Project extends Component{
                     visible={addProjectVisible}
                     onAdd={this.handleAddProject} 
                     staffList={staffList}
-                    method={method}/>
+                    onEdit={this.handleEdit}
+                    method={method}
+                    record={record}/>
                 <Category
                     onCancel={setAddCategoryVisible}
                     visible={addCategoryVisible}

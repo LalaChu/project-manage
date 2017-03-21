@@ -11,7 +11,8 @@ var category = new Schema({
     manageId: String,
     state: {type: String, default: ProjectState.toBeStarted},
     parentId: String,
-    type:{type:String, default: 'category'}
+    type:{type:String, default: 'category'},
+    description: String
 });
 
 var project = new Schema({
@@ -21,7 +22,8 @@ var project = new Schema({
     manageId: String,
     state: {type: String, default: ProjectState.toBeStarted},
     categories: [category],
-    type:{type:String, default: 'project'}
+    type:{type:String, default: 'project'},
+    description: String
 },{
     collection: 'project'
 });
