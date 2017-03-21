@@ -393,22 +393,6 @@ router.put('/project',function(req,res){
 })
 
 router.delete('/project',function(req,res){
-    // function callback(err){
-    //     res.setHeader("Content-Type","application/json");
-    //     if(err){
-    //         res.send({"result":err});
-    //     }else{
-    //         res.send({"result": 'success'});
-    //     }
-    // }
-    // var project = new Project(req.body);
-    // if(req.body.parentId){
-    //     project.addTo(req.body.parentId, req.body, callback)
-    // }else{
-    //     project.save(function(err){
-    //         callback(err);
-    //     })
-    // }
 })
 
 router.post('/taskList', function(req, res){
@@ -431,6 +415,28 @@ router.post('/task',function(req,res){
             res.send({"result": 'success'});
         }
     });
+})
+
+router.put('/task',function(req,res){
+    function callback(err){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": 'success'});
+        }
+    }
+    var info = req.body;
+    
+        Task.findById(info._id,function(err, task){
+            task.name = info.name;
+            task.manageId = info.manageId;
+            task.startTime = info.startTime;
+            task.endTime = info.endTime;
+            task.description = info.description;
+            task.parentId = info.parentId;
+            task.save(callback(err));
+        })
 })
 
 module.exports = function (app) {

@@ -23,6 +23,9 @@ export const getTitleByMethod = function(method){
 export const getParentId = function(list, id){
     let parentId = ''
     list.forEach(function(one){
+        if(!one.children){
+            return ''
+        }
         if(one.children.length && one._id !== id){
             one.children.forEach(function(item){
                 if(item._id === id){

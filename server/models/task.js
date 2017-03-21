@@ -13,7 +13,8 @@ var task = new Schema({
     state: {type: String, default: ProjectState.toBeStarted},
     startCheckTime: String,
     type:{type:String, default: 'task'},
-    parentId: Array
+    parentId: Array,
+    description: String
 },{
     collection: 'task'
 });

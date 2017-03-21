@@ -7,6 +7,7 @@ import DatePicker from 'antd/lib/date-picker'
 import Col from 'antd/lib/col'
 import TreeSelect from 'antd/lib/tree-select'
 import moment from 'moment'
+import { getParentId } from '../../helper'
 
 const FormItem = Form.Item
 const Option = Select.Option
@@ -20,8 +21,18 @@ class TaskForm extends Component{
         const {method, record} = this.props
         this.props.form.validateFieldsAndScroll((err,values) => {
             if(!err){
+                
+                if(values.parentId){
+                    let parentId = getParentId(this.props.projectList, values.parentId)
+                    if(parentId){
+                        values.parentId = [ parentId, values.parentId]
+                    }else{
+                        values.parentId = [ values.parentId ]
+                    }
+                }else{
+                    values.parentId = []
+                }
                 if(method === 'add'){
-                    
                     this.props.onAdd(values)
                 }else{
                     this.props.onEdit({
@@ -122,10 +133,10 @@ class TaskForm extends Component{
 }
 
 const TaskModal = Form.create({mapPropsToFields:function(props){
-    console.log(props)
     if(!props.record){
         return {}
     }
+    let parentId = props.record.parentId
     return {
         name: {value: props.record.name},
         state: {value: props.record.state},
@@ -133,7 +144,8 @@ const TaskModal = Form.create({mapPropsToFields:function(props){
         manageId: {value: props.record.manageId},
         startTime: {value: props.record.startTime ? moment(props.record.startTime, 'YYYY-MM-DD') : ''},
         endTime: {value: props.record.endTime ? moment(props.record.endTime, 'YYYY-MM-DD') : ''},
-        description: {value: props.record.description}
+        description: {value: props.record.description},
+        parentId: {value: parentId.length ? parentId[1] || parentId[0] : '' },
     }
 }})(TaskForm)
 

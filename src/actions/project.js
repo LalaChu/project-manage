@@ -151,7 +151,7 @@ export const fetchEditTask = (info) => {
                 .then(json =>{ 
                     dispatch(editTask(Status.SUCCESS, 'success'))
                     dispatch(editTask('', ''))
-                    dispatch(UIAction.setAddProjectVisible(false))
+                    dispatch(UIAction.setAddTaskVisible(false))
                 })
                 .catch(function(err){
                     console.log(err)
