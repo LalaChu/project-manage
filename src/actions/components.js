@@ -60,3 +60,12 @@ export const setStaffVisible = (visible, method, record) => {
         record
     }
 }
+
+export const setDailyVisible = (visible, method, record) => {
+    return {
+        type: UIType.SET_DAILY_VISIBLE,
+        dailyVisible: visible,
+        method,
+        record
+    }
+}

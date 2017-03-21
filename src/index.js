@@ -12,7 +12,7 @@ import configStore from './store'
 import DepartmentContainer from './containers/Department'
 import StaffContainer from './containers/Staff'
 import AllDaily from './components/AllDaily'
-import MyDaily from './components/MyDaily'
+import DailyContainer from './containers/MyDaily'
 import Document from './components/Document'
 import NeedApproval from './components/NeedApproval'
 import StartApproval from './components/StartApproval'
@@ -37,7 +37,7 @@ render(
                 </Route>
                 <Route path='daily' exact render={()=>{( <Redirect to='/daily/all' />)}}>
                     <Route path='all' component={AllDaily} />
-                    <Route path='my' component={MyDaily} />
+                    <Route path='my' component={DailyContainer} />
                 </Route>
                 <Route path='approval' exact render={()=>{( <Redirect to='/approval/need' />)}}>
                     <Route path='need' component={NeedApproval} />

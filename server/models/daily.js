@@ -9,7 +9,8 @@ var daily = new Schema({
     title: String,
     type: String,
     documentId: String,
-    date:String
+    date:String,
+    staffId: String
 },{
     collection: 'daily'
 });

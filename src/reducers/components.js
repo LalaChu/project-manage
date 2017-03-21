@@ -9,6 +9,7 @@ let initialState = {
     addTaskVisible: false,
     departmentVisible: false,
     staffVisible: false,
+    dailyVisible: false,
     method: '',
     record: ''
 }
@@ -58,6 +59,13 @@ const UIState = (state = initialState, action ) => {
             return {
                 ...state,
                 staffVisible: action.staffVisible,
+                method: action.method,
+                record: action.record
+            }
+        case UIType.SET_DAILY_VISIBLE:
+            return {
+                ...state,
+                dailyVisible: action.dailyVisible,
                 method: action.method,
                 record: action.record
             }
