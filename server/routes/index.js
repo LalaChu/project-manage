@@ -476,6 +476,17 @@ router.put('/task',function(req,res){
         })
 })
 
+router.delete('/task',function(req,res){
+    Task.findByIdAndRemove(req.body._id, function(err){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": 'success'});
+        }
+    })
+})
+
 module.exports = function (app) {
     app.use('/', router);
 };
