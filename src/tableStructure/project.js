@@ -1,5 +1,6 @@
 import React from 'react'
 import Icon from 'antd/lib/icon'
+import moment from 'moment'
 
 const createColumns = function(edit, remove){
     return [{
@@ -22,10 +23,16 @@ const createColumns = function(edit, remove){
               title: '开始时间',
               dataIndex: 'startTime',
               key: 'startTime',
+              render: (text) => {
+                return text.substr(0, 10)
+              } 
             }, {
               title: '结束时间',
               dataIndex: 'endTime',
               key: 'endTime',
+              render: (text) => {
+                return text ? text.substr(0, 10) : '暂未设置'
+              } 
             }, {
               title: '操作',
               key: 'operation',
