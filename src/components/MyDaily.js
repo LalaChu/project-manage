@@ -16,7 +16,7 @@ class MyDaily extends Component{
     render(){
         console.log(this.props)
         const columns = createColumns()
-        const { visible } = this.props
+        const { visible, taskList } = this.props
         return (
             <div className='my-daily'>
                 <Button 
@@ -28,7 +28,8 @@ class MyDaily extends Component{
                     bordered
                     size='middle'
                     columns={columns} />
-                <DailyModal 
+                <DailyModal
+                    taskList={taskList}
                     visible={visible}
                     onCancel={this.handleCancel}/>
             </div>

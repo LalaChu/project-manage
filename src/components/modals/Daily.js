@@ -7,6 +7,9 @@ import Select from 'antd/lib/select'
 import DatePicker from 'antd/lib/date-picker'
 import Col from 'antd/lib/col'
 import { getTitleByMethod, getParentId } from '../../helper'
+import Upload from 'antd/lib/upload'
+import Button from 'antd/lib/button'
+import Icon from 'antd/lib/Icon'
 // import * as Authority from '../../constants/authority'
 // import DepartmentForm from '../forms/department'
 
@@ -21,10 +24,16 @@ class DailyForm extends Component{
             wrapperCol: {span: 14}
         }
         const { getFieldDecorator } = this.props.form
-        const { visible, method, departmentList } = this.props
-
-        // console.log(this.props)
+        const { visible, method, taskList } = this.props
+        
         const title = getTitleByMethod(method) + '日报'
+        let nodes = []
+        if(taskList){
+            nodes = taskList.map(function(task){
+                return <Option key={task._id} value={task._id}>{task.name}</Option>
+            })
+        }
+        
         // let nodes = [] 
         // departmentList.forEach(function(depart){
             // let children = []
@@ -50,7 +59,7 @@ class DailyForm extends Component{
                         label='相关任务'
                         >
                         {getFieldDecorator('taskId')(
-                            <Select></Select>)}
+                            <Select>{nodes}</Select>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
@@ -78,9 +87,12 @@ class DailyForm extends Component{
                         {...formLayout}
                         label='相关文件'
                         hasFeedback>
-                        {getFieldDecorator('file',{
-                            rules:[{required:true, message: '请选择权限'}]
-                        })(<Input></Input>)}
+                        {getFieldDecorator('file')(
+                            <Upload>
+                                <Button>
+                                <Icon type="upload" />上传文件
+                                </Button>
+                            </Upload>)}
                     </FormItem>
                 </Form>
             </Modal>

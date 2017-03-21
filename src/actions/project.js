@@ -221,3 +221,33 @@ export const fetchRemoveTask = (info) => {
                 
     }
 }
+
+const getTask = (status, list) => {
+    return {
+        type: projectAction.GET_TASK,
+        status,
+        taskList: list
+    }
+}
+
+export const fetchTaskList = (info) => {
+    return function(dispatch){
+        dispatch(getTask(Status.LOADING, []))
+        var init = {
+            method: 'post',
+            body: JSON.stringify(info),
+            headers: {'Content-Type': 'application/json'},
+            redirect: 'follow'
+        }
+        return fetch('/taskList',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(getTask(Status.SUCCESS, json.result))
+                    // dispatch(getTask('', ''))
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}

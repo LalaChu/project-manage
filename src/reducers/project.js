@@ -59,6 +59,12 @@ const ProjectState = (state = initialState, action ) => {
                 msg: action.msg,
                 needFetch: action.msg === 'success' ? true : false
             }
+        case projectAction.GET_TASK: 
+            return {
+                ...state,
+                status: action.status,
+                taskList: action.taskList
+            }
         default:
             return state
     }
