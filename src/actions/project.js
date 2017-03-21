@@ -96,6 +96,37 @@ export const fetchEditProject = (info) => {
     }
 }
 
+const removeProject = (status, msg) => {
+    return {
+        type: projectAction.REMOVE_PROJECT,
+        status,
+        msg,
+        needFetch: msg === 'success' ? true : false
+    }
+}
+
+export const fetchRemoveProject = (info) => {
+    return function(dispatch){
+        dispatch(removeProject(Status.LOADING, ''))
+        var init = {
+            method: 'DELETE',
+            body: JSON.stringify(info),
+            headers: {'Content-Type': 'application/json'},
+            redirect: 'follow'
+        }
+        return fetch('/project',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(removeProject(Status.SUCCESS, 'success'))
+                    dispatch(removeProject('', ''))
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}
+
 const addTask= (status, msg) => {
     return {
         type: projectAction.ADD_TASK,
@@ -152,6 +183,37 @@ export const fetchEditTask = (info) => {
                     dispatch(editTask(Status.SUCCESS, 'success'))
                     dispatch(editTask('', ''))
                     dispatch(UIAction.setAddTaskVisible(false))
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}
+
+const removeTask = (status, msg) => {
+    return {
+        type: projectAction.REMOVE_TASK,
+        status,
+        msg,
+        needFetch: msg === 'success' ? true : false
+    }
+}
+
+export const fetchRemoveTask = (info) => {
+    return function(dispatch){
+        dispatch(removeTask(Status.LOADING, ''))
+        var init = {
+            method: 'DELETE',
+            body: JSON.stringify(info),
+            headers: {'Content-Type': 'application/json'},
+            redirect: 'follow'
+        }
+        return fetch('/task',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(removeTask(Status.SUCCESS, 'success'))
+                    dispatch(removeTask('', ''))
                 })
                 .catch(function(err){
                     console.log(err)

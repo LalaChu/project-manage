@@ -10,6 +10,9 @@ import Category from './modals/Category'
 import Task from './modals/Task'
 import Notification from 'antd/lib/notification'
 import * as Status from '../constants/status'
+import Modal from 'antd/lib/modal'
+
+const confirm = Modal.confirm
 
 class Project extends Component{
     componentWillMount(){
@@ -67,6 +70,28 @@ class Project extends Component{
             this.props.setAddTaskVisible(true, 'edit', record)
         }
     }
+    handleRemove = (record) => {
+        let title = ''
+        if(record.type === 'project'){
+            title = '项目'
+        }else if(record.type === 'category'){
+            title = '工作分类'
+        }else{
+            title = '具体工作'
+        }
+        confirm({
+            title: `确认删除该${title}吗？`,
+            content: '该操作无法还原，请谨慎操作',
+            onCancel: () => {},
+            onOk: () => {
+                if(record.type === 'task'){
+                    this.props.removeTask(record)
+                }else{
+                    this.props.removeProject(record)
+                }
+            }
+        })
+    }
     render(){
         const dataSource = addKeyColumns(this.props.list)
         const { 
@@ -83,7 +108,7 @@ class Project extends Component{
                 setAddTaskVisible,
                 staffList
             } = this.props
-        const columns = createColumns(this.handleEditOpen)
+        const columns = createColumns(this.handleEditOpen, this.handleRemove)
         return (
             <div className='project-list'>
                 <Button 

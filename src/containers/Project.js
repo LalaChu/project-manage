@@ -61,6 +61,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         editTask: (info) => {
             dispatch(projectAction.fetchEditTask(info))
+        },
+        removeProject: (info) => {
+            dispatch(projectAction.fetchRemoveProject(info))
+        },
+        removeTask: (info) => {
+            dispatch(projectAction.fetchRemoveTask(info))
         }
     }
 }

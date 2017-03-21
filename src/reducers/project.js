@@ -31,6 +31,13 @@ const ProjectState = (state = initialState, action ) => {
                 msg: action.msg,
                 needFetch: action.msg === 'success' ? true : false
             }
+        case projectAction.REMOVE_PROJECT:
+            return {
+                ...state,
+                status: action.status,
+                msg: action.msg,
+                needFetch: action.msg === 'success' ? true : false
+            }
         case projectAction.ADD_TASK:
             return {
                 ...state,
@@ -39,6 +46,13 @@ const ProjectState = (state = initialState, action ) => {
                 needFetch: action.msg === 'success' ? true : false 
             }
         case projectAction.EDIT_TASK:
+            return {
+                ...state,
+                status: action.status,
+                msg: action.msg,
+                needFetch: action.msg === 'success' ? true : false
+            }
+        case projectAction.REMOVE_TASK:
             return {
                 ...state,
                 status: action.status,
