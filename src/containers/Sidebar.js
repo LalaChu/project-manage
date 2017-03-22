@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { setCurrentMenu, openMenu } from '../actions/components'
-import { fetchLogout } from '../actions/staff'
+import { fetchLogout, fetchCurUser } from '../actions/staff'
 import Sidebar from '../components/Sidebar'
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,8 +16,8 @@ const mapDispatchToProps = (dispatch) => {
             console.log('tets')
             dispatch(fetchLogout())
         },
-        onOpenChange: (menu,key) => {
-            
+        getCurUser: () => {
+            dispatch(fetchCurUser())
         }
     }
 }

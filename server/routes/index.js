@@ -9,6 +9,11 @@ var Daily = require('../models/daily');
 var Document = require('../models/document');
 var Path = require('../models/path');
 var Task = require('../models/task');
+var path = require('path');
+var fs = require('fs');
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+var path = require('path');
 
 
 router.get('*', function(req, res, next){
@@ -121,6 +126,12 @@ router.post('/staff', function(req,res){
         })
     })
         
+})
+
+router.post('/curUser',function(req, res){
+    console.log(req.user)
+    res.setHeader("Content-Type","application/json");
+    res.send({result: req.user})
 })
 
 router.post('/addDepartment', function(req, res){
@@ -486,6 +497,48 @@ router.delete('/task',function(req,res){
         }
     })
 })
+
+router.post('/file/daily',multipartMiddleware,function(req,res){
+    
+    var filePath = req.files.file.path;
+    var extName = path.extname(req.files.file.name);
+    var tarUrl = '/upload/daily/' + path.basename(filePath) + extName;
+    var newPath = path.join(__dirname, '../../public/' + tarUrl)
+    res.setHeader("Content-Type","application/json");
+    fs.readFile(filePath,function(err,data){
+        if(err){
+            res.send(err)
+            return;
+        }
+        fs.writeFile(newPath, data, function(err){
+            if(!err){
+                var fileInfo = new Document({
+                    name: path.basename(filePath),
+                    path: newPath
+                })
+                res.send({result: path.basename(filePath)});
+            }else{
+                res.send(err)
+            }
+        })
+    })
+})
+
+router.post('/fileList',function(req,res){
+    var basePath = path.join(__dirname, '../../public/upload')
+    fs.readdir(basePath, function(err,data){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send(err);
+            return;
+        }
+        res.send({result: data})
+    })
+})
+// app.post('/upload', multipartMiddleware, function(req, resp) {
+//   console.log(req.body, req.files);
+//   // don't forget to delete all req.files when done
+// });
 
 module.exports = function (app) {
     app.use('/', router);

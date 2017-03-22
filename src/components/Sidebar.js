@@ -7,14 +7,10 @@ import { Sider } from 'antd/lib/layout'
 const SubMenu = Menu.SubMenu
 
 class Sidebar extends Component{
-    ComponentWillMount(){
-        console.log('will:',this.props)
-    }
-    componentWillReceiveProps(){
-        console.log('update')
+    componentWillMount(){
+        this.props.getCurUser()
     }
     handleLogout = () => {
-        console.log('dddd')
         this.props.onLogout();
     }
     render(){
@@ -22,7 +18,11 @@ class Sidebar extends Component{
         let openKeys = this.props.openNow === '' ? [] :[this.props.openNow] 
         return (
             <Sider>
-                <div className='user-info'>ddd</div>
+                <div className='user-info'>
+                    <div className='user-avatar'>
+                        <img src='/public/img/test.JPG'></img>
+                    </div>
+                </div>
                 <Menu
                     defaultSelectedKeys={[this.props.currentMenu]}
                     selectedKeys={[this.props.currentMenu]}

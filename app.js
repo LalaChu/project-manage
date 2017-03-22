@@ -20,7 +20,6 @@ app.set('view engine', 'html');
 app.set('views', path.resolve(__dirname, './server/views'));
 
 
-
 app.use(flash());
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -51,8 +50,7 @@ mongoose.connection.on('error', function (err) {
 // });
 // passport.deserializeUser(Account.deserializeUser());
 
-
-
+app.use('/public',express.static(path.join(__dirname, '/public')));
 // local variables for all views
 app.locals.env = process.env.NODE_ENV || 'dev';
 app.locals.reload = true;

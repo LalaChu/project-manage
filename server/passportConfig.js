@@ -33,7 +33,6 @@ passport.use(new LocalStrategy(
 
         return done(null, false, {message: '密码匹配有误.'});
       }
-
       return done(null, user);
     });
   }

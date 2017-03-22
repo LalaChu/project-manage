@@ -1,7 +1,7 @@
 import * as staffAction from '../constants/staff'
 
 let initialState = {
-    username: '',
+    user: {},
     status: '',
     list: [],
     msg: ''
@@ -12,7 +12,6 @@ const StaffState = (state = initialState, action ) => {
         case staffAction.LOGIN:
             return {
                 ...state,
-                username: action.username,
                 status: action.status
             }
         case staffAction.LOGOUT:
@@ -45,6 +44,12 @@ const StaffState = (state = initialState, action ) => {
                 ...state,
                 status: action.status,
                 msg: action.msg
+            }
+        case staffAction.GET_CUR_USER:
+            return {
+                ...state,
+                status: action.status,
+                user: action.user
             }
         default:
             return state

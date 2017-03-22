@@ -9,7 +9,7 @@ import Col from 'antd/lib/col'
 import { getTitleByMethod, getParentId } from '../../helper'
 import Upload from 'antd/lib/upload'
 import Button from 'antd/lib/button'
-import Icon from 'antd/lib/Icon'
+import Icon from 'antd/lib/icon'
 // import * as Authority from '../../constants/authority'
 // import DepartmentForm from '../forms/department'
 
@@ -33,7 +33,10 @@ class DailyForm extends Component{
                 return <Option key={task._id} value={task._id}>{task.name}</Option>
             })
         }
-        
+        let typeNodes = []
+        typeNodes.push(<Option key='study' value='study'>学习</Option>)
+        typeNodes.push(<Option key='work' value='work'>工作</Option>)
+        typeNodes.push(<Option key='meeting' value='meeting'>会议</Option>)
         // let nodes = [] 
         // departmentList.forEach(function(depart){
             // let children = []
@@ -73,15 +76,16 @@ class DailyForm extends Component{
                         {...formLayout}
                         label='类型'
                         hasFeedback>
-                        <Select />
+                        {getFieldDecorator('type',{
+                            rules:[{required:true, message: '类型不能为空'}]
+                        })(<Select>{typeNodes}</Select>)}
+                        
                     </FormItem>
                     <FormItem 
                         {...formLayout}
                         label='内容'
                         hasFeedback>
-                        {getFieldDecorator('content',{
-                            rules:[{required:true, message: '邮件不能为空'}]
-                        })(<Input />)}
+                        {getFieldDecorator('content')(<Input />)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}

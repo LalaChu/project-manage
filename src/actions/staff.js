@@ -4,11 +4,10 @@ import * as UIAction from '../actions/components'
 
 import { browserHistory } from 'react-router'
 
-const login = (status, username) => {
+const login = (status, user) => {
     return {
         type: StaffAction.LOGIN,
         status,
-        username
     }
 }
 export const fetchLogin = (username, password) => {
@@ -27,9 +26,9 @@ export const fetchLogin = (username, password) => {
         return fetch('/login',init)
                 .then((response) => {
                     if(response.url.indexOf('login') > 0){
-                        dispatch(login(Status.ERROR, ''))
+                        dispatch(login(Status.ERROR))
                     }else{
-                        dispatch(login(Status.SUCCESS, username))
+                        dispatch(login(Status.SUCCESS))
                         browserHistory.push('/view')
                     }
                 })
@@ -212,6 +211,34 @@ export const fetchStaff = (info) => {
                             
                         // }
                         // dispatch(getStaff('',''))
+                    })
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+    }
+}
+
+const getCurUser = (status,user) => {
+    return {
+        type: StaffAction.GET_CUR_USER,
+        status,
+        user
+    }
+}
+export const fetchCurUser = () => {
+    var init = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(getCurUser(Status.LOADING, {}))
+        return fetch('/curUser',init)
+                .then((response) => {
+                    response.json().then(function(json){
+                        // if(json.result == 'success'){
+                            dispatch(getCurUser(Status.SUCCESS,json.result))
                     })
                 })
                 .catch(function(err){

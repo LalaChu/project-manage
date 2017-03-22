@@ -3,12 +3,14 @@ import UIState from './components'
 import ProjectState from './project'
 import StaffState from './staff'
 import DepartmentState from './department'
+import DocumentState from './document'
 
 const ProjectApp = combineReducers({
     UIState,
     ProjectState,
     StaffState,
-    DepartmentState
+    DepartmentState,
+    DocumentState
 })
 
 export default ProjectApp

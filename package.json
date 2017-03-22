@@ -66,6 +66,8 @@
   },
   "dependencies": {
     "antd": "^2.8.0",
+    "connect-multiparty": "^2.0.0",
+    "jquery-file-upload-middleware": "^0.1.8",
     "moment": "^2.18.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",

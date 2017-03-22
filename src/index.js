@@ -13,13 +13,14 @@ import DepartmentContainer from './containers/Department'
 import StaffContainer from './containers/Staff'
 import AllDaily from './components/AllDaily'
 import DailyContainer from './containers/MyDaily'
-import Document from './components/Document'
+import DocumentContainer from './containers/Document'
 import NeedApproval from './components/NeedApproval'
 import StartApproval from './components/StartApproval'
 import LoginContainer from './containers/Login'
 import RegisterContainer from './containers/Register'
 
 let store = configStore()
+console.log(store.getState())
 render(
     <Provider store={store}>
         <Router history={browserHistory}>
@@ -30,7 +31,7 @@ render(
                 <Route path='personal' component={Personal} />
                 <Route path='process' component={Process} />
                 <Route path='project' component={ProjectContainer} />
-                <Route path='document' component={Document}/>
+                <Route path='document' component={DocumentContainer}/>
                 <Route path='organization' exact render={()=>{( <Redirect to='/organization/department' />)}}>
                     <Route path='department' component={DepartmentContainer} />
                     <Route path='stuff' component={StaffContainer} />
