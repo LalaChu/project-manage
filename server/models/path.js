@@ -4,10 +4,11 @@ var passportLocalMongoose = require('passport-local-mongoose');
 // var Department = require('./department')
 
 var path = new Schema({
-    namd: String,
+    name: String,
     description: String,
     path: String,
-    children: Array,
+    creator: String,
+    createTime: String
 },{
     collection: 'path'
 });

@@ -14,6 +14,7 @@ var fs = require('fs');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 var path = require('path');
+var moment = require('moment');
 
 
 router.get('*', function(req, res, next){
@@ -525,15 +526,47 @@ router.post('/file/daily',multipartMiddleware,function(req,res){
 })
 
 router.post('/fileList',function(req,res){
-    var basePath = path.join(__dirname, '../../public/upload')
-    fs.readdir(basePath, function(err,data){
-        res.setHeader("Content-Type","application/json");
+    res.setHeader("Content-Type","application/json");
+        
+    Path.find().exec().then(function(err,data){
         if(err){
             res.send(err);
             return;
         }
         res.send({result: data})
     })
+    // var basePath = path.join(__dirname, '../../public/upload')
+    // fs.readdir(basePath, function(err,data){
+    //     res.setHeader("Content-Type","application/json");
+    //     if(err){
+    //         res.send(err);
+    //         return;
+    //     }
+    //     res.send({result: data})
+    // })
+})
+router.post('/folder', function(req,res){
+    var info = req.body;
+    res.setHeader("Content-Type","application/json");
+    var parentPath = info.parentPath || path.join(__dirname, '/../../public/upload/');
+    var basePath = parentPath + info.name;
+    info.path = basePath;
+    var folder = new Path(info);
+    folder.set('createTime',moment(new Date()))
+    folder.save(function(err){
+        if(err){
+            res.send({result: err});
+        }else{
+            fs.mkdir(basePath, function(err, data){
+                if(err){
+                    res.send({result: err});
+                }else{
+                    res.send({result: 'success'});
+                }
+            })
+        }
+    })
+    
 })
 // app.post('/upload', multipartMiddleware, function(req, resp) {
 //   console.log(req.body, req.files);
