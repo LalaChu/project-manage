@@ -16,11 +16,13 @@ class Sidebar extends Component{
     render(){
         console.log(this.props)
         let openKeys = this.props.openNow === '' ? [] :[this.props.openNow] 
+        const { user } = this.props
         return (
             <Sider>
                 <div className='user-info'>
                     <div className='user-avatar'>
                         <img src='/public/img/test.JPG'></img>
+                        <span className='user-name'>尊敬的{user.name}，您好！</span>
                     </div>
                 </div>
                 <Menu

@@ -5,9 +5,11 @@ import Sidebar from '../components/Sidebar'
 
 const mapStateToProps = (state, ownProps) => {
     const { currentMenu, openNow } = ownProps
+    const { StaffState: {user}} = state
     return {
         currentMenu: currentMenu || 'view',
-        openNow:openNow === '/' ? '' : openNow 
+        openNow:openNow === '/' ? '' : openNow ,
+        user
     }
 }
 const mapDispatchToProps = (dispatch) => {
