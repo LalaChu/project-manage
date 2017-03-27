@@ -8,7 +8,8 @@ var path = new Schema({
     description: String,
     path: String,
     creator: String,
-    createTime: String
+    createTime: String,
+    parentId: {type: String, default: ''}
 },{
     collection: 'path'
 });

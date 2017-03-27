@@ -6,7 +6,7 @@ class Folder extends Component{
         return (
             <div className='folder'>
                 <Icon type="folder" />
-                {this.props.title}
+                {this.props.file.name}
             </div>
         )
     }

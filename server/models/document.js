@@ -4,7 +4,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 // var Department = require('./department')
 
 var document = new Schema({
-    namd: String,
+    name: String,
     description: String,
     documentId: String,
     creatot: String,

@@ -121,6 +121,13 @@ table .anticon{
 .document-bread{
     display: block;
     text-align: left;
+    height: 40px;
+    line-height: 40px;
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+.document-bread .ant-breadcrumb{
+    display: inline-block;
 }
 .folder{
     text-align: left;
@@ -129,6 +136,9 @@ table .anticon{
     color: #108ee9;
     font-size: 1.2em;
     border-bottom: 1px solid #ccc;
+}
+.folder:hover{
+    cursor: pointer;
 }
 .folder .anticon{
     margin: 5px 10px;
@@ -151,4 +161,11 @@ table .anticon{
     height: 40px;
     line-height: 40px;
     font-size: 1.2em;
+}
+
+.document-manage{
+    text-align: left;
+}
+.document-manage button{
+    margin-right: 10px;
 }

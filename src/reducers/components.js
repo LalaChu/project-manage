@@ -10,6 +10,7 @@ let initialState = {
     departmentVisible: false,
     staffVisible: false,
     dailyVisible: false,
+    folderVisible: false,
     method: '',
     record: ''
 }
@@ -66,6 +67,13 @@ const UIState = (state = initialState, action ) => {
             return {
                 ...state,
                 dailyVisible: action.dailyVisible,
+                method: action.method,
+                record: action.record
+            }
+        case UIType.SET_FOLDER_VISIBLE:
+            return {
+                ...state,
+                folderVisible: action.folderVisible,
                 method: action.method,
                 record: action.record
             }

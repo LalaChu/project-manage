@@ -1,0 +1,89 @@
+import React, { Component } from 'react'
+import Modal from 'antd/lib/modal'
+import Form from 'antd/lib/form'
+import Input from 'antd/lib/input'
+import TreeSelect from 'antd/lib/tree-select'
+import DatePicker from 'antd/lib/date-picker'
+import Col from 'antd/lib/col'
+import moment from 'moment'
+import { getTitleByMethod } from '../../helper'
+
+const FormItem = Form.Item
+
+class FolderForm extends Component{
+    handleCancel = () => {
+        this.props.onCancel(false)
+    }
+    handleAdd = () => {
+        const {method, record} = this.props
+        this.props.form.validateFieldsAndScroll((err,values) => {
+            if(!err){
+                if(method === 'add'){
+                    this.props.onAdd(values)
+                }else{
+                    this.props.onEdit({
+                        ...record,
+                        ...values
+                    })
+                }
+                
+            }
+        })
+    }
+    render(){
+        const formLayout = {
+            labelCol: {span : 6},
+            wrapperCol: {span: 14}
+        }
+        const { getFieldDecorator } = this.props.form
+        const { method } = this.props
+        return (
+            <Modal
+                onCancel={this.props.cancel}
+                visible={this.props.visible}
+                onOk={this.handleAdd}
+                title={getTitleByMethod(method) + '文件夹'}>
+                <Form>
+                    <FormItem 
+                        {...formLayout}
+                        label='名称'
+                        hasFeedback>
+                        {getFieldDecorator('name',{
+                            rules:[{required:true, message: '名称不能为空'}]
+                        })(<Input />)}
+                    </FormItem>
+                    <FormItem 
+                        {...formLayout}
+                        label='描述'
+                        hasFeedback>
+                        <TreeSelect />
+                    </FormItem>
+                    <FormItem 
+                        {...formLayout}
+                        label='描述'
+                        hasFeedback>
+                        {getFieldDecorator('description')(<Input type='textarea'/>)}
+                    </FormItem>
+                </Form>
+            </Modal>
+        )
+    }
+}
+
+const FolderModal = Form.create({mapPropsToFields:function(props){
+    console.log(props)
+    if(!props.record){
+        return {}
+    }
+    return {
+        name: {value: props.record.name},
+        state: {value: props.record.state},
+        type: {value: props.record.telephone},
+        manageId: {value: props.record.manageId},
+        startTime: {value: props.record.startTime ? moment(props.record.startTime, 'YYYY-MM-DD') : ''},
+        endTime: {value: props.record.endTime ? moment(props.record.endTime, 'YYYY-MM-DD') : ''},
+        description: {value: props.record.description}
+    }
+}})(FolderForm)
+
+export default FolderModal

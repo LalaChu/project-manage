@@ -69,3 +69,12 @@ export const setDailyVisible = (visible, method, record) => {
         record
     }
 }
+
+export const setFolderVisible = (visible, method, record) => {
+    return {
+        type: UIType.SET_FOLDER_VISIBLE,
+        folderVisible: visible,
+        method,
+        record
+    }
+}

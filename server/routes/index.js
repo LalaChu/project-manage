@@ -130,7 +130,6 @@ router.post('/staff', function(req,res){
 })
 
 router.post('/curUser',function(req, res){
-    console.log(req.user)
     res.setHeader("Content-Type","application/json");
     res.send({result: req.user})
 })
@@ -501,56 +500,66 @@ router.delete('/task',function(req,res){
 
 router.post('/file/daily',multipartMiddleware,function(req,res){
     
-    var filePath = req.files.file.path;
-    var extName = path.extname(req.files.file.name);
-    var tarUrl = '/upload/daily/' + path.basename(filePath) + extName;
-    var newPath = path.join(__dirname, '../../public/' + tarUrl)
-    res.setHeader("Content-Type","application/json");
-    fs.readFile(filePath,function(err,data){
-        if(err){
-            res.send(err)
-            return;
-        }
-        fs.writeFile(newPath, data, function(err){
-            if(!err){
-                var fileInfo = new Document({
-                    name: path.basename(filePath),
-                    path: newPath
-                })
-                res.send({result: path.basename(filePath)});
-            }else{
-                res.send(err)
-            }
-        })
-    })
+    // var filePath = req.files.file.path;
+    // var extName = path.extname(req.files.file.name);
+    // var tarUrl = '/upload/daily/' + path.basename(filePath) + extName;
+    // var newPath = path.join(__dirname, '../../public/upload' + tarUrl)
+    // res.setHeader("Content-Type","application/json");
+    // fs.readFile(filePath,function(err,data){
+    //     if(err){
+    //         res.send(err)
+    //         return;
+    //     }
+    //     fs.writeFile(newPath, data, function(err){
+    //         if(!err){
+    //             var fileInfo = new Document({
+    //                 name: path.basename(filePath),
+    //                 path: newPath
+    //             })
+    //             res.send({result: path.basename(filePath)});
+    //         }else{
+    //             res.send(err)
+    //         }
+    //     })
+    // })
 })
 
 router.post('/fileList',function(req,res){
+    var info = req.body;
+    var location = req.body.location || '';
+    var filePath = path.join(__dirname, '../../public/upload' + location)
     res.setHeader("Content-Type","application/json");
-        
-    Path.find().exec().then(function(err,data){
-        if(err){
-            res.send(err);
-            return;
-        }
-        res.send({result: data})
+    fs.readdir(filePath,function(err, folders){
+        Path.find().exec().then(function(infos){
+            var result = [];
+            folders.map(function(folder){
+                infos.map(function(info){
+                    console.log('info',info.path)
+                    console.log('filePath',filePath)
+                    console.log('folder',folder)
+                    if(info.path === filePath + '/' + folder){
+                        result.push(info);
+                    }
+                })
+            })
+            console.log(result)
+            res.send({"result": result});
+        })
     })
-    // var basePath = path.join(__dirname, '../../public/upload')
-    // fs.readdir(basePath, function(err,data){
-    //     res.setHeader("Content-Type","application/json");
-    //     if(err){
-    //         res.send(err);
-    //         return;
-    //     }
-    //     res.send({result: data})
+    // Path.find({parentId: ''}).exec().then(function(data){
+    //     var list = 
+    //         // res.send({result});
+    //     res.send({"result": data})
     // })
 })
+
 router.post('/folder', function(req,res){
     var info = req.body;
     res.setHeader("Content-Type","application/json");
     var parentPath = info.parentPath || path.join(__dirname, '/../../public/upload/');
     var basePath = parentPath + info.name;
     info.path = basePath;
+    info.creator = req.user.name;
     var folder = new Path(info);
     folder.set('createTime',moment(new Date()))
     folder.save(function(err){
