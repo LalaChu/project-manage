@@ -527,7 +527,7 @@ router.post('/file/daily',multipartMiddleware,function(req,res){
 router.post('/fileList',function(req,res){
     var info = req.body;
     var location = req.body.location || '';
-    var filePath = path.join(__dirname, '../../public/upload' + location)
+    var filePath = info.parentPath || path.join(__dirname, '../../public/upload' + location)
     res.setHeader("Content-Type","application/json");
     fs.readdir(filePath,function(err, folders){
         Path.find().exec().then(function(infos){
@@ -575,6 +575,10 @@ router.post('/folder', function(req,res){
             })
         }
     })
+    
+})
+
+router.post('/folderTree', function(req, res){
     
 })
 // app.post('/upload', multipartMiddleware, function(req, resp) {

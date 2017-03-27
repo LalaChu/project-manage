@@ -60,3 +60,10 @@ export const fetchAddFolder = (folder) => {
                 
     }
 }
+
+export const setCurrentLocation = (location) => {
+    return {
+        type: DocumentAction.SET_CUR_LOCATION,
+        location
+    }
+}

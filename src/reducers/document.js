@@ -2,7 +2,7 @@ import * as Status from '../constants/status'
 import * as DocuemenAction from '../constants/document'
 
 let initialState = {
-    location: [],
+    location: '',
     fileList:[],
     status:'',
     msg:'',
@@ -17,6 +17,17 @@ const DepartmentState = (state = initialState, action ) => {
                 status: action.status,
                 needFetch: action.status === Status.ERROR ? true : false,
                 fileList: action.list
+            }
+        case DocuemenAction.ADD_DIR:
+            return {
+                ...state,
+                msg: action.msg,
+                status: action.status
+            }
+        case DocuemenAction.SET_CUR_LOCATION:
+            return {
+                ...state,
+                location: action.location
             }
         default:
             return state

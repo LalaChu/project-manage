@@ -22,14 +22,21 @@ class Document extends Component{
     }
     render(){
         console.log(this.props)
-        const { fileList, folderVisible, method, record } = this.props
+        const { fileList, folderVisible, method, record, setCurrentLocation, location } = this.props
+        let locationCurrent = location.split('/public/upload')[1]
+        let locationArr = locationCurrent ? locationCurrent.split('/') : []
         let fileNodes = []
-        console.log(typeof(fileList))
         fileList.map(function(file){
-            fileNodes.push( <Folder key={file._id} file={file} />)
+            fileNodes.push( <Folder onClick={setCurrentLocation} key={file._id} file={file} />)
         })
         let breadList = []
         breadList.push(<BreadItem key='all_document'>所有文档</BreadItem>  )
+        locationArr.map(function(loca){
+            if(loca){
+                breadList.push(<BreadItem key='all_document'>{loca}</BreadItem>  )
+            }
+        })
+        
         return (
             <div className='document'>
                 <div className='document-manage'>

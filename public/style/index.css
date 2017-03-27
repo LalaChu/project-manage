@@ -169,3 +169,19 @@ table .anticon{
 .document-manage button{
     margin-right: 10px;
 }
+
+.folder .ant-btn{
+    border: none;
+    padding: 0;
+    /*display: none;*/
+}
+
+.folder:hover .folder-manage{
+    display: inline-block;
+}
+
+.folder .folder-manage{
+    position: absolute;
+    right: 5px;
+    display: none;
+}
