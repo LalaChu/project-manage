@@ -583,22 +583,16 @@ router.put('/folder', function(req,res){
         if(err){
             res.send({result: err})
         }else{
-            // var arr = folder.path.split('/');
-            // arr[arr.length-1] = info.name;
-            // fs.rename(folder.path, arr.join('/'),function(err){
-            //     if(err){
-            //         res.send({result: err});
-            //     }else{
-                    folder.name = info.name;
-                    folder.description = info.description;
-                    folder.save(function(err){
-                        if(err){
-                            res.send({result: err})
-                        }else{
-                            res.send({result: 'success'})
-                        }
-                    })
-            }
+            folder.name = info.name;
+            folder.description = info.description;
+            folder.save(function(err){
+                if(err){
+                    res.send({result: err})
+                }else{
+                    res.send({result: 'success'})
+                }
+            })
+        }
     })
 })
 

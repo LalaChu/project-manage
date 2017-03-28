@@ -4,6 +4,7 @@ import Folder from './Folder'
 import Button from 'antd/lib/button'
 import Icon from 'antd/lib/icon'
 import FolderModal from './modals/Folder'
+import { getFolderNameByPath } from '../helper'
 
 const BreadItem = Breadcrumb.Item
 
@@ -45,7 +46,7 @@ class Document extends Component{
         locationArr.map(function(loca){
             if(loca){
                 let path = getPathByIndex(index)
-                breadList.push(<BreadItem key={index}><a href="javascript:void(0)" onClick={() => {setCurrentLocation(path)}}>{loca}</a> </BreadItem>  )
+                breadList.push(<BreadItem key={index}><a href="javascript:void(0)" onClick={() => {setCurrentLocation(path)}}>{getFolderNameByPath(folderTree, path)}</a> </BreadItem>  )
             }
             index++;
         })

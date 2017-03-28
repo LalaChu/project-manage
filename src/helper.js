@@ -36,3 +36,30 @@ export const getParentId = function(list, id){
     })
     return parentId
 }
+
+export const getFolderNameByPath = function(tree, path){
+    console.log('---------tree:', tree)
+    console.log('-------------path:', path)
+    let findName = ''
+    function deepFind(target, path){
+        if(target.path === path){
+            console.log('equal')
+            findName = target.name
+        }else{
+            let basePath = '/public/upload/'
+            let targetArr = target.path.split(basePath)[1].split('/');
+            let findArr = path.split(basePath)[1].split('/');
+            if(targetArr[0] === findArr[0] && target.children.length){
+                target.children.map(function(child){
+                    deepFind(child, path)
+                })
+                
+            }
+        }
+    }
+    tree.map(function(target){
+        deepFind(target, path)
+    })
+    return findName
+    // return 'dddd'
+}

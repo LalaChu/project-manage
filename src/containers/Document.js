@@ -31,6 +31,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         setCurrentLocation: (location) => {
             dispatch(DocumentAction.setCurrentLocation(location))
+            dispatch(DocumentAction.fetchFolderTree())
             dispatch(DocumentAction.fetchFiles({parentPath: location}))
         },
         editFolder: (info) => {
