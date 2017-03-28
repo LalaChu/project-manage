@@ -46,7 +46,7 @@ export const fetchFolderTree = () => {
     }
     return function(dispatch){
         dispatch(getFolderTree(Status.LOADING, []))
-        return fetch('/fileList',init)
+        return fetch('/folderTree',init)
                 .then((response) => { return response.json()})
                 .then(json =>{ 
                     // console.log(json)

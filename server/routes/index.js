@@ -534,15 +534,11 @@ router.post('/fileList',function(req,res){
             var result = [];
             folders.map(function(folder){
                 infos.map(function(info){
-                    console.log('info',info.path)
-                    console.log('filePath',filePath)
-                    console.log('folder',folder)
                     if(info.path === filePath + '/' + folder){
                         result.push(info);
                     }
                 })
             })
-            console.log(result)
             res.send({"result": result});
         })
     })
@@ -584,14 +580,36 @@ router.post('/folder', function(req,res){
 
 router.post('/folderTree', function(req, res){
     var folderTree = [];
-    function addToTree(folder){
-        if(!folderTree.parentId){
-            folderTree.push(folder);
+    function getLocation(location){
+        return location.split(path.join(__dirname, '/../../public/upload/'))[1];
+    }
+    function addToTree(tree, folder){
+        if(!folder.parentId){
+            folder.children = [];
+            folder.value = folder._id;
+            folder.label = folder.name;
+            tree.push(folder);
+        }else{
+            tree.map(function(targetFolder){
+                if(targetFolder._id.toString() === folder.parentId){
+                    folder.children = [];
+                    folder.value = folder._id;
+                    folder.label = folder.name;
+                    targetFolder.children.push(folder)
+                }else{
+                    var targetLocation = getLocation(targetFolder.path).split('/');
+                    var folderLocation = getLocation(folder.path).split('/');
+                    if(targetLocation[0] === folderLocation[0]){
+                        addToTree(targetFolder.children, folder)
+                    }
+                }
+                
+            })
         }
     }
     Path.find().exec(function(err, data){
         data.map(function(folder){
-            addToTree(folder);
+            addToTree(folderTree, folder.toObject());
         })
         res.send({result: folderTree})
     })

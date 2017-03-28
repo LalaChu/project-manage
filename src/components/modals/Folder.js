@@ -60,9 +60,7 @@ class FolderForm extends Component{
                         {...formLayout}
                         label='父文件夹'
                         hasFeedback>
-                        {getFieldDecorator('parentId')(<TreeSelect>
-                            {treeNodes}
-                        </TreeSelect>)}
+                        {getFieldDecorator('parentId')(<TreeSelect treeData={tree}></TreeSelect>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
