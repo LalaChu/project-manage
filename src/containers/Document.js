@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         setFolderVisible: (visible, method, record) => {
             dispatch(UIAction.setFolderVisible(visible, method, record))
+            if(visible){
+                dispatch(DocumentAction.fetchFolderTree())
+            }
         },
         addFolder: (info) => {
             dispatch(DocumentAction.fetchAddFolder(info))
@@ -29,7 +32,7 @@ const mapDispatchToProps = (dispatch) => {
         setCurrentLocation: (location) => {
             dispatch(DocumentAction.setCurrentLocation(location))
             dispatch(DocumentAction.fetchFiles({parentPath: location}))
-        }
+        },
     }
 }
 

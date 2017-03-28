@@ -22,7 +22,7 @@ class Document extends Component{
     }
     render(){
         console.log(this.props)
-        const { fileList, folderVisible, method, record, setCurrentLocation, location } = this.props
+        const { fileList, folderVisible, method, record, setCurrentLocation, location, folderTree } = this.props
         let locationCurrent = location.split('/public/upload')[1]
         let locationArr = locationCurrent ? locationCurrent.split('/') : []
         let fileNodes = []
@@ -53,6 +53,7 @@ class Document extends Component{
                     {fileNodes}
                 </div>
                 <FolderModal
+                    tree={folderTree}
                     method={method}
                     record={record}
                     cancel={this.handleFolderModalCancel}

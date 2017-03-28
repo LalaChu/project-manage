@@ -4,6 +4,7 @@ import * as DocuemenAction from '../constants/document'
 let initialState = {
     location: '',
     fileList:[],
+    folderTree: [],
     status:'',
     msg:'',
     needFetch:true 
@@ -28,6 +29,12 @@ const DepartmentState = (state = initialState, action ) => {
             return {
                 ...state,
                 location: action.location
+            }
+        case DocuemenAction.GET_FOLDER_TREE: 
+            return {
+                ...state,
+                status: action.status,
+                folderTree: action.list
             }
         default:
             return state

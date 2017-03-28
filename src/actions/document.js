@@ -27,7 +27,33 @@ export const fetchFiles = (location) => {
                 }).catch(function(err){
                     console.log(err)
                 })
-                
+    }
+}
+
+const getFolderTree = (status, list) => {
+    return {
+        type: DocumentAction.GET_FOLDER_TREE,
+        status,
+        list
+    }
+}
+
+export const fetchFolderTree = () => {
+    var init = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(getFolderTree(Status.LOADING, []))
+        return fetch('/fileList',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    // console.log(json)
+                    dispatch(getFolderTree(Status.SUCCESS, json.result))
+                }).catch(function(err){
+                    console.log(err)
+                })
     }
 }
 

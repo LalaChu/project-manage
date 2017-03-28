@@ -9,6 +9,7 @@ import moment from 'moment'
 import { getTitleByMethod } from '../../helper'
 
 const FormItem = Form.Item
+const TreeNode = TreeSelect.TreeNode
 
 class FolderForm extends Component{
     handleCancel = () => {
@@ -36,7 +37,10 @@ class FolderForm extends Component{
             wrapperCol: {span: 14}
         }
         const { getFieldDecorator } = this.props.form
-        const { method } = this.props
+        const { method, tree } = this.props
+        let treeNodes = tree.map(function(item){
+            return <TreeNode value={item._id} key={item._id} title={item.name}></TreeNode>
+        })
         return (
             <Modal
                 onCancel={this.props.cancel}
@@ -54,9 +58,11 @@ class FolderForm extends Component{
                     </FormItem>
                     <FormItem 
                         {...formLayout}
-                        label='描述'
+                        label='父文件夹'
                         hasFeedback>
-                        <TreeSelect />
+                        {getFieldDecorator('parentId')(<TreeSelect>
+                            {treeNodes}
+                        </TreeSelect>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}

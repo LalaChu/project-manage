@@ -556,30 +556,45 @@ router.post('/fileList',function(req,res){
 router.post('/folder', function(req,res){
     var info = req.body;
     res.setHeader("Content-Type","application/json");
-    var parentPath = info.parentPath || path.join(__dirname, '/../../public/upload/');
-    var basePath = parentPath + info.name;
-    info.path = basePath;
-    info.creator = req.user.name;
-    var folder = new Path(info);
-    folder.set('createTime',moment(new Date()))
-    folder.save(function(err){
-        if(err){
-            res.send({result: err});
-        }else{
-            fs.mkdir(basePath, function(err, data){
-                if(err){
-                    res.send({result: err});
-                }else{
-                    res.send({result: 'success'});
-                }
-            })
-        }
+    Path.findById(info.parentId, function(err, parent){
+        var parentPath = parent ? parent.path : path.join(__dirname, '/../../public/upload');
+        // var parentPath = info.parentPath || ;
+        var basePath = parentPath + '/' + info.name;
+        info.path = basePath;
+        info.creator = req.user.name;
+        var folder = new Path(info);
+        folder.set('createTime',moment(new Date()))
+        folder.save(function(err){
+            if(err){
+                res.send({result: err});
+            }else{
+                fs.mkdir(basePath, function(err, data){
+                    if(err){
+                        res.send({result: err});
+                    }else{
+                        res.send({result: 'success'});
+                    }
+                })
+            }
+        })
     })
+    
     
 })
 
 router.post('/folderTree', function(req, res){
-    
+    var folderTree = [];
+    function addToTree(folder){
+        if(!folderTree.parentId){
+            folderTree.push(folder);
+        }
+    }
+    Path.find().exec(function(err, data){
+        data.map(function(folder){
+            addToTree(folder);
+        })
+        res.send({result: folderTree})
+    })
 })
 // app.post('/upload', multipartMiddleware, function(req, resp) {
 //   console.log(req.body, req.files);
