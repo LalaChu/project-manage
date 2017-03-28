@@ -29,7 +29,8 @@ class Document extends Component{
     }
     render(){
         console.log(this.props)
-        const { fileList, folderVisible, method, record, setCurrentLocation, location, folderTree, setFolderVisible } = this.props
+        const { fileList, folderVisible, method, record, setCurrentLocation, 
+                location, folderTree, setFolderVisible, editFolder } = this.props
         let locationCurrent = location.split('/public/upload')[1]
         let locationArr = locationCurrent ? locationCurrent.split('/') : []
         let fileNodes = []
@@ -70,7 +71,8 @@ class Document extends Component{
                     record={record}
                     cancel={this.handleFolderModalCancel}
                     onAdd={this.handleAddFolder}
-                    visible={folderVisible} />
+                    visible={folderVisible}
+                    onEdit={editFolder} />
             </div> 
         )
     }

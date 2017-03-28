@@ -36,6 +36,12 @@ const DepartmentState = (state = initialState, action ) => {
                 status: action.status,
                 folderTree: action.list
             }
+        case DocuemenAction.EDIT_DIR:
+            return {
+                ...state,
+                status: action.status,
+                msg: action.msg
+            }
         default:
             return state
     }

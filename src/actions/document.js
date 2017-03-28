@@ -87,6 +87,37 @@ export const fetchAddFolder = (folder) => {
     }
 }
 
+
+const editFolder = (status, msg) => {
+    return {
+        type: DocumentAction.EDIT_DIR,
+        status,
+        msg
+    }
+}
+
+export const fetchEditFolder = (folder) => {
+    var init = {
+        method: 'PUT',
+        body: JSON.stringify(folder),
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(editFolder(Status.LOADING, ''))
+        return fetch('/folder',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    // console.log(json)
+                    dispatch(editFolder(Status.SUCCESS, 'success'))
+                    dispatch(UIAction.setFolderVisible(false))
+                }).catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}
+
 export const setCurrentLocation = (location) => {
     return {
         type: DocumentAction.SET_CUR_LOCATION,
