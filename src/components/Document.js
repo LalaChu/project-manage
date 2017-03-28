@@ -20,21 +20,34 @@ class Document extends Component{
     handleAddFolder = (info) => {
         this.props.addFolder(info)
     }
+    getPathByIndex = (index) => {
+        let { location } = this.props
+        let locationCurrent = location.split('/public/upload')[1]
+         let locationArr = locationCurrent ? locationCurrent.split('/') : []
+        locationArr.splice(index + 1)
+        return location.split('/public/upload')[0] + '/public/upload' + locationArr.join('/')
+    }
     render(){
         console.log(this.props)
         const { fileList, folderVisible, method, record, setCurrentLocation, location, folderTree } = this.props
         let locationCurrent = location.split('/public/upload')[1]
         let locationArr = locationCurrent ? locationCurrent.split('/') : []
         let fileNodes = []
+        
         fileList.map(function(file){
             fileNodes.push( <Folder onClick={setCurrentLocation} key={file._id} file={file} />)
         })
         let breadList = []
-        breadList.push(<BreadItem key='all_document'>所有文档</BreadItem>  )
+        breadList.push(<BreadItem key='all'><a href='javascript: void(0)'  onClick={() => {setCurrentLocation('')}}>所有文档</a></BreadItem>  )
+        let index = 0;
+        let getPathByIndex = this.getPathByIndex
+
         locationArr.map(function(loca){
             if(loca){
-                breadList.push(<BreadItem key='all_document'>{loca}</BreadItem>  )
+                let path = getPathByIndex(index)
+                breadList.push(<BreadItem key={index}><a href="javascript:void(0)" onClick={() => {setCurrentLocation(path)}}>{loca}</a> </BreadItem>  )
             }
+            index++;
         })
         
         return (
