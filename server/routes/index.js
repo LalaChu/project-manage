@@ -542,11 +542,6 @@ router.post('/fileList',function(req,res){
             res.send({"result": result});
         })
     })
-    // Path.find({parentId: ''}).exec().then(function(data){
-    //     var list = 
-    //         // res.send({result});
-    //     res.send({"result": data})
-    // })
 })
 
 router.post('/folder', function(req,res){
@@ -554,7 +549,6 @@ router.post('/folder', function(req,res){
     res.setHeader("Content-Type","application/json");
     Path.findById(info.parentId, function(err, parent){
         var parentPath = parent ? parent.path : path.join(__dirname, '/../../public/upload');
-        // var parentPath = info.parentPath || ;
         var basePath = parentPath + '/' + info.name;
         info.path = basePath;
         info.creator = req.user.name;
@@ -574,8 +568,55 @@ router.post('/folder', function(req,res){
             }
         })
     })
-    
-    
+})
+
+router.put('/folder', function(req,res){
+    var info = req.body;
+    res.setHeader("Content-Type","application/json");
+    Path.findById(info._id , function(err, folder){
+        if(err){
+            res.send({result: err})
+        }else{
+            var arr = folder.path.split('/');
+            arr[arr.length-1] = info.name;
+            fs.rename(folder.path, arr.join('/'),function(err){
+                if(err){
+                    res.send({result: err});
+                }else{
+                    folder.name = info.name;
+                    folder.description = info.description;
+                    folder.save(function(err){
+                        if(err){
+                            res.send({result: err})
+                        }else{
+                            res.send({result: 'success'})
+                        }
+                    })
+                }
+            })
+        }
+    })
+    // Path.findById(info.parentId, function(err, parent){
+    //     var parentPath = parent ? parent.path : path.join(__dirname, '/../../public/upload');
+    //     var basePath = parentPath + '/' + info.name;
+    //     info.path = basePath;
+    //     info.creator = req.user.name;
+    //     var folder = new Path(info);
+    //     folder.set('createTime',moment(new Date()))
+    //     folder.save(function(err){
+    //         if(err){
+    //             res.send({result: err});
+    //         }else{
+    //             fs.mkdir(basePath, function(err, data){
+    //                 if(err){
+    //                     res.send({result: err});
+    //                 }else{
+    //                     res.send({result: 'success'});
+    //                 }
+    //             })
+    //         }
+    //     })
+    // })
 })
 
 router.post('/folderTree', function(req, res){
@@ -614,10 +655,7 @@ router.post('/folderTree', function(req, res){
         res.send({result: folderTree})
     })
 })
-// app.post('/upload', multipartMiddleware, function(req, resp) {
-//   console.log(req.body, req.files);
-//   // don't forget to delete all req.files when done
-// });
+
 
 module.exports = function (app) {
     app.use('/', router);

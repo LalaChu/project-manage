@@ -60,7 +60,7 @@ class FolderForm extends Component{
                         {...formLayout}
                         label='父文件夹'
                         hasFeedback>
-                        {getFieldDecorator('parentId')(<TreeSelect treeData={tree}></TreeSelect>)}
+                        {getFieldDecorator('parentId')(<TreeSelect treeData={tree} disabled={ method === 'edit' ? true : false } />)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
@@ -81,11 +81,7 @@ const FolderModal = Form.create({mapPropsToFields:function(props){
     }
     return {
         name: {value: props.record.name},
-        state: {value: props.record.state},
-        type: {value: props.record.telephone},
-        manageId: {value: props.record.manageId},
-        startTime: {value: props.record.startTime ? moment(props.record.startTime, 'YYYY-MM-DD') : ''},
-        endTime: {value: props.record.endTime ? moment(props.record.endTime, 'YYYY-MM-DD') : ''},
+        parentId: {value: props.record.parentId},
         description: {value: props.record.description}
     }
 }})(FolderForm)
