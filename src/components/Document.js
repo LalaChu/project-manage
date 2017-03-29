@@ -9,6 +9,12 @@ import { getFolderNameByPath } from '../helper'
 const BreadItem = Breadcrumb.Item
 
 class Document extends Component{
+    componentWillUpdate(){
+        if(this.props.needFetch){
+            console.log('---------------------------',this.props.location)
+            this.props.getFiles({parentPath: this.props.location})
+        }
+    }
     componentWillMount(){
         this.props.getFiles({location: ''})
     }

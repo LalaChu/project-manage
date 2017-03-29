@@ -23,7 +23,8 @@ const DepartmentState = (state = initialState, action ) => {
             return {
                 ...state,
                 msg: action.msg,
-                status: action.status
+                status: action.status,
+                needFetch: action.status === Status.SUCCESS ? true : false,
             }
         case DocuemenAction.SET_CUR_LOCATION:
             return {
@@ -40,7 +41,8 @@ const DepartmentState = (state = initialState, action ) => {
             return {
                 ...state,
                 status: action.status,
-                msg: action.msg
+                msg: action.msg,
+                needFetch: action.status === Status.SUCCESS ? true : false,
             }
         default:
             return state
