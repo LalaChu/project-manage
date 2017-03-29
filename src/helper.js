@@ -38,12 +38,9 @@ export const getParentId = function(list, id){
 }
 
 export const getFolderNameByPath = function(tree, path){
-    console.log('---------tree:', tree)
-    console.log('-------------path:', path)
     let findName = ''
     function deepFind(target, path){
         if(target.path === path){
-            console.log('equal')
             findName = target.name
         }else{
             let basePath = '/public/upload/'

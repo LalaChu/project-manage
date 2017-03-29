@@ -108,13 +108,11 @@ export const fetchEditFolder = (folder) => {
         return fetch('/folder',init)
                 .then((response) => { return response.json()})
                 .then(json =>{ 
-                    // console.log(json)
                     dispatch(editFolder(Status.SUCCESS, 'success'))
                     dispatch(UIAction.setFolderVisible(false))
                 }).catch(function(err){
                     console.log(err)
                 })
-                
     }
 }
 
@@ -122,5 +120,33 @@ export const setCurrentLocation = (location) => {
     return {
         type: DocumentAction.SET_CUR_LOCATION,
         location
+    }
+}
+
+const deleteFolder = (status, msg) => {
+    return {
+        type: DocumentAction.REMOVE_DIR,
+        status,
+        msg
+    }
+}
+
+export const fetchDeleteFolder = (folder) => {
+    var init = {
+        method: 'DELETE',
+        body: JSON.stringify(folder),
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(deleteFolder(Status.LOADING, ''))
+        return fetch('/folder',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(deleteFolder(Status.SUCCESS, 'success'))
+                    // dispatch(UIAction.setFolderVisible(false))
+                }).catch(function(err){
+                    console.log(err)
+                })
     }
 }

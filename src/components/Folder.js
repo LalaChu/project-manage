@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Icon from 'antd/lib/icon'
 import Button from 'antd/lib/button'
 
+
 class Folder extends Component{
     handleClick = (e) => {
         console.log(e)
@@ -11,6 +12,9 @@ class Folder extends Component{
             console.log(this.props.file.path)
             this.props.onClick(path)
         }
+    }
+    handleOpenRemove = () => {
+        this.props.onRemove(this.props.file)
     }
     handleOpenModal = () => {
         this.props.onEdit(true, 'edit', this.props.file)
@@ -24,7 +28,7 @@ class Folder extends Component{
                     <Button onClick={this.handleOpenModal}>
                         <Icon type='edit'></Icon>
                     </Button>
-                    <Button>
+                    <Button onClick={this.handleOpenRemove}>
                         <Icon type='delete'></Icon>
                     </Button>
                 </div>

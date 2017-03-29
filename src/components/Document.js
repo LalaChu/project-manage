@@ -5,13 +5,15 @@ import Button from 'antd/lib/button'
 import Icon from 'antd/lib/icon'
 import FolderModal from './modals/Folder'
 import { getFolderNameByPath } from '../helper'
+import Modal from 'antd/lib/modal'
+
+const confirm = Modal.confirm
 
 const BreadItem = Breadcrumb.Item
 
 class Document extends Component{
     componentWillUpdate(){
         if(this.props.needFetch){
-            console.log('---------------------------',this.props.location)
             this.props.getFiles({parentPath: this.props.location})
         }
     }
@@ -27,6 +29,16 @@ class Document extends Component{
     handleAddFolder = (info) => {
         this.props.addFolder(info)
     }
+    handleRemove = (info) => {
+        confirm({
+            title: '确认删除该文件夹吗？',
+            content: '该文件夹内的所有文件和文件夹都将被删除，该操作无法还原，请谨慎操作',
+            onCancel: () => {},
+            onOk: () => {
+                this.props.deleteFolder(info)
+            }
+        })
+    }
     getPathByIndex = (index) => {
         let { location } = this.props
         let locationCurrent = location.split('/public/upload')[1]
@@ -37,12 +49,18 @@ class Document extends Component{
     render(){
         console.log(this.props)
         const { fileList, folderVisible, method, record, setCurrentLocation, 
-                location, folderTree, setFolderVisible, editFolder } = this.props
+                location, folderTree, setFolderVisible, editFolder, deleteFolder } = this.props
         let locationCurrent = location.split('/public/upload')[1]
         let locationArr = locationCurrent ? locationCurrent.split('/') : []
         let fileNodes = []
+        let handleRemove = this.handleRemove
         fileList.map(function(file){
-            fileNodes.push( <Folder onEdit={setFolderVisible} onClick={setCurrentLocation} key={file._id} file={file} />)
+            fileNodes.push( <Folder
+                                 onRemove={handleRemove}
+                                 onEdit={setFolderVisible} 
+                                 onClick={setCurrentLocation} 
+                                 key={file._id} 
+                                 file={file} />)
         })
         let breadList = []
         breadList.push(<BreadItem key='all'><a href='javascript: void(0)'  onClick={() => {setCurrentLocation('')}}>所有文档</a></BreadItem>  )

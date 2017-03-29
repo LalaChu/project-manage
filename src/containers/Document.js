@@ -36,6 +36,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         editFolder: (info) => {
             dispatch(DocumentAction.fetchEditFolder(info))
+        },
+        deleteFolder: (info) => {
+            dispatch(DocumentAction.fetchDeleteFolder(info))
         }
     }
 }
