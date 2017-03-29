@@ -80,6 +80,7 @@ export const fetchAddFolder = (folder) => {
                     // console.log(json)
                     dispatch(addFolder(Status.SUCCESS, 'success'))
                     dispatch(UIAction.setFolderVisible(false))
+                    dispatch(addFolder('', ''))
                 }).catch(function(err){
                     console.log(err)
                 })
@@ -109,7 +110,9 @@ export const fetchEditFolder = (folder) => {
                 .then((response) => { return response.json()})
                 .then(json =>{ 
                     dispatch(editFolder(Status.SUCCESS, 'success'))
+                    dispatch(editFolder('', ''))
                     dispatch(UIAction.setFolderVisible(false))
+                    
                 }).catch(function(err){
                     console.log(err)
                 })
@@ -127,7 +130,7 @@ const deleteFolder = (status, msg) => {
     return {
         type: DocumentAction.REMOVE_DIR,
         status,
-        msg
+        msg     
     }
 }
 

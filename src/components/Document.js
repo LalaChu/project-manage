@@ -6,6 +6,7 @@ import Icon from 'antd/lib/icon'
 import FolderModal from './modals/Folder'
 import { getFolderNameByPath } from '../helper'
 import Modal from 'antd/lib/modal'
+import Notification from 'antd/lib/notification'
 
 const confirm = Modal.confirm
 
@@ -13,9 +14,29 @@ const BreadItem = Breadcrumb.Item
 
 class Document extends Component{
     componentWillUpdate(){
-        console.log('needFetch---------',this.props)
         if(this.props.needFetch){
             this.props.getFiles({parentPath: this.props.location})
+        }
+    }
+    componentDidUpdate(){
+        console.log('--------------------updated,', this.props)
+        const { method, msg } = this.props
+        if(method && msg){
+            let description = '', icon 
+            if(msg === 'success'){
+                description = '恭喜您，操作成功'
+                icon = <Icon type="smile-circle" style={{ color: '#108ee9' }} />
+            }else if(msg !== ''){
+                description = '对不起，操作失败，请重试'
+                icon = <Icon type="frown-o" style={{ color: '#108ee9' }}/>
+            }else{
+                return
+            }
+            Notification.open({
+                message: '文件管理通知',
+                description: description,
+                icon: icon,
+            });
         }
     }
     componentWillMount(){
