@@ -15,6 +15,7 @@ var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 var path = require('path');
 var moment = require('moment');
+var removePath = require('child_process');
 
 
 router.get('*', function(req, res, next){
@@ -600,12 +601,33 @@ router.delete('/folder', function(req,res){
     var info = req.body;
     res.setHeader("Content-Type","application/json");
     Path.findById(info._id , function(err, delFolder){
-        var path = delFolder.path
+        var pathtemp = delFolder.path;
+        console.log(pathtemp)
         if(err){
             res.send({result: err})
         }else{
-            Path.find({$where: this.path.indexof(path) > 0}).exec(function(err, data){
-                res.send({result: data})
+            removePath.exec('rm -rf ' + pathtemp, function(err){
+
+            // });
+            // fs.rmdir(pathtemp, function(err){
+                if(err){
+                    console.log('pathtemp err')
+                    res.send({result: err});
+                }else{
+
+                    pathtemp = pathtemp.replace(/\//g, '\/')
+                    Path.find().remove({path: {$regex: new RegExp(pathtemp)}}).exec(function(err){
+                        if(err){
+                            console.log('db err')
+                            res.send({result: err})
+                        }else{
+                            res.send({result: 'success'})
+                        }
+                    })
+                    // Path.find({path: {$regex: new RegExp(pathtemp)}}).exec(function(err, data){
+                    //     res.send({result: data})
+                    // })
+                }
             })
         }
     })
