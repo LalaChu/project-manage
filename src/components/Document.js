@@ -13,6 +13,7 @@ const BreadItem = Breadcrumb.Item
 
 class Document extends Component{
     componentWillUpdate(){
+        console.log('needFetch---------',this.props)
         if(this.props.needFetch){
             this.props.getFiles({parentPath: this.props.location})
         }

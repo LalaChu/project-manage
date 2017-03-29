@@ -144,7 +144,7 @@ export const fetchDeleteFolder = (folder) => {
                 .then((response) => { return response.json()})
                 .then(json =>{ 
                     dispatch(deleteFolder(Status.SUCCESS, 'success'))
-                    // dispatch(UIAction.setFolderVisible(false))
+                    dispatch(deleteFolder('',''))
                 }).catch(function(err){
                     console.log(err)
                 })
