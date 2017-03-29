@@ -596,6 +596,21 @@ router.put('/folder', function(req,res){
     })
 })
 
+router.delete('/folder', function(req,res){
+    var info = req.body;
+    res.setHeader("Content-Type","application/json");
+    Path.findById(info._id , function(err, delFolder){
+        var path = delFolder.path
+        if(err){
+            res.send({result: err})
+        }else{
+            Path.find({$where: this.path.indexof(path) > 0}).exec(function(err, data){
+                res.send({result: data})
+            })
+        }
+    })
+})
+
 router.post('/folderTree', function(req, res){
     var folderTree = [];
     function getLocation(location){
