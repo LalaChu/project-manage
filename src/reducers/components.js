@@ -11,6 +11,7 @@ let initialState = {
     staffVisible: false,
     dailyVisible: false,
     folderVisible: false,
+    fileVisible: false,
     method: '',
     record: ''
 }
@@ -74,6 +75,13 @@ const UIState = (state = initialState, action ) => {
             return {
                 ...state,
                 folderVisible: action.folderVisible,
+                method: action.method,
+                record: action.record
+            }
+        case UIType.SET_FILE_VISIBLE:
+            return {
+                ...state,
+                fileVisible: action.fileVisible,
                 method: action.method,
                 record: action.record
             }

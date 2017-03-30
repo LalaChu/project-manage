@@ -7,6 +7,7 @@ import FolderModal from './modals/Folder'
 import { getFolderNameByPath } from '../helper'
 import Modal from 'antd/lib/modal'
 import Notification from 'antd/lib/notification'
+import FileModal from './modals/File'
 
 const confirm = Modal.confirm
 
@@ -44,8 +45,14 @@ class Document extends Component{
     handleOpenFolderModal = () => {
         this.props.setFolderVisible(true, 'add')
     }
+    handleOpenFileModal = () => {
+        this.props.setFileVisible(true, 'add')
+    }
     handleFolderModalCancel = () => {
         this.props.setFolderVisible(false)
+    }
+    handleFileModalCancel = () => {
+        this.props.setFileVisible(false)
     }
     handleAddFolder = (info) => {
         this.props.addFolder(info)
@@ -70,7 +77,8 @@ class Document extends Component{
     render(){
         console.log(this.props)
         const { fileList, folderVisible, method, record, setCurrentLocation, 
-                location, folderTree, setFolderVisible, editFolder, deleteFolder } = this.props
+                location, folderTree, setFolderVisible, editFolder, deleteFolder,
+                fileVisible } = this.props
         let locationCurrent = location.split('/public/upload')[1]
         let locationArr = locationCurrent ? locationCurrent.split('/') : []
         let fileNodes = []
@@ -100,7 +108,7 @@ class Document extends Component{
             <div className='document'>
                 <div className='document-manage'>
                     <Button onClick={this.handleOpenFolderModal}><Icon type='plus' />添加文件夹</Button>
-                    <Button><Icon type='upload' />上传文件</Button>
+                    <Button onClick={this.handleOpenFileModal}><Icon type='upload' />上传文件</Button>
                 </div> 
                 <div className='document-bread'>
                     当前位置：
@@ -119,6 +127,11 @@ class Document extends Component{
                     onAdd={this.handleAddFolder}
                     visible={folderVisible}
                     onEdit={editFolder} />
+                <FileModal
+                    cancel={this.handleFileModalCancel}
+                    visible={fileVisible}
+                    method={method}
+                />
             </div> 
         )
     }

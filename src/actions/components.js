@@ -78,3 +78,12 @@ export const setFolderVisible = (visible, method, record) => {
         record
     }
 }
+
+export const setFileVisible = (visible, method, record) => {
+    return {
+        type: UIType.SET_FILE_VISIBLE,
+        fileVisible: visible,
+        method,
+        record
+    }
+}

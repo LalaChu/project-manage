@@ -11,25 +11,8 @@ import { getTitleByMethod } from '../../helper'
 const FormItem = Form.Item
 const TreeNode = TreeSelect.TreeNode
 
-class FolderForm extends Component{
-    handleCancel = () => {
-        this.props.onCancel(false)
-    }
+class FileForm extends Component{
     handleAdd = () => {
-        const {method, record} = this.props
-        this.props.form.validateFieldsAndScroll((err,values) => {
-            if(!err){
-                if(method === 'add'){
-                    this.props.onAdd(values)
-                }else{
-                    this.props.onEdit({
-                        ...record,
-                        ...values
-                    })
-                }
-                
-            }
-        })
     }
     render(){
         const formLayout = {
@@ -38,15 +21,12 @@ class FolderForm extends Component{
         }
         const { getFieldDecorator } = this.props.form
         const { method, tree } = this.props
-        let treeNodes = tree.map(function(item){
-            return <TreeNode value={item._id} key={item._id} title={item.name}></TreeNode>
-        })
         return (
             <Modal
                 onCancel={this.props.cancel}
                 visible={this.props.visible}
                 onOk={this.handleAdd}
-                title={getTitleByMethod(method) + '文件夹'}>
+                title={getTitleByMethod(method) + '文件'}>
                 <Form>
                     <FormItem 
                         {...formLayout}
@@ -60,7 +40,7 @@ class FolderForm extends Component{
                         {...formLayout}
                         label='父文件夹'
                         hasFeedback>
-                        {getFieldDecorator('parentId')(<TreeSelect treeData={tree} disabled={ method === 'edit' ? true : false } />)}
+                        {getFieldDecorator('parentId')(<TreeSelect disabled={ method === 'edit' ? true : false } />)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
@@ -74,7 +54,7 @@ class FolderForm extends Component{
     }
 }
 
-const FolderModal = Form.create({mapPropsToFields:function(props){
+const FileModal = Form.create({mapPropsToFields:function(props){
     if(!props.record){
         return {}
     }
@@ -83,6 +63,6 @@ const FolderModal = Form.create({mapPropsToFields:function(props){
         parentId: {value: props.record.parentId},
         description: {value: props.record.description}
     }
-}})(FolderForm)
+}})(FileForm)
 
-export default FolderModal
+export default FileModal
