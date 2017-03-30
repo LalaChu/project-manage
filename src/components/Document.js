@@ -20,8 +20,8 @@ class Document extends Component{
     }
     componentDidUpdate(){
         console.log('--------------------updated,', this.props)
-        const { method, msg } = this.props
-        if(method && msg){
+        const { msg } = this.props
+        if(msg){
             let description = '', icon 
             if(msg === 'success'){
                 description = '恭喜您，操作成功'

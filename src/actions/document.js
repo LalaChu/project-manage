@@ -79,8 +79,8 @@ export const fetchAddFolder = (folder) => {
                 .then(json =>{ 
                     // console.log(json)
                     dispatch(addFolder(Status.SUCCESS, 'success'))
-                    dispatch(UIAction.setFolderVisible(false))
                     dispatch(addFolder('', ''))
+                    dispatch(UIAction.setFolderVisible(false))
                 }).catch(function(err){
                     console.log(err)
                 })
