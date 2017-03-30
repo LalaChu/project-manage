@@ -6,10 +6,10 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var document = new Schema({
     name: String,
     description: String,
-    documentId: String,
     creatot: String,
     createTime: String,
-    type: String
+    type: String,
+    pathId: String
 },{
     collection: 'document'
 });

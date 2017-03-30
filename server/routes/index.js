@@ -6,7 +6,7 @@ var Staff = require('../models/staff');
 var Department = require('../models/department');
 var Project = require('../models/project');
 var Daily = require('../models/daily');
-var Document = require('../models/document');
+var Documents = require('../models/document');
 var Path = require('../models/path');
 var Task = require('../models/task');
 var path = require('path');
@@ -499,31 +499,7 @@ router.delete('/task',function(req,res){
     })
 })
 
-router.post('/file/daily',multipartMiddleware,function(req,res){
-    
-    // var filePath = req.files.file.path;
-    // var extName = path.extname(req.files.file.name);
-    // var tarUrl = '/upload/daily/' + path.basename(filePath) + extName;
-    // var newPath = path.join(__dirname, '../../public/upload' + tarUrl)
-    // res.setHeader("Content-Type","application/json");
-    // fs.readFile(filePath,function(err,data){
-    //     if(err){
-    //         res.send(err)
-    //         return;
-    //     }
-    //     fs.writeFile(newPath, data, function(err){
-    //         if(!err){
-    //             var fileInfo = new Document({
-    //                 name: path.basename(filePath),
-    //                 path: newPath
-    //             })
-    //             res.send({result: path.basename(filePath)});
-    //         }else{
-    //             res.send(err)
-    //         }
-    //     })
-    // })
-})
+
 
 router.post('/fileList',function(req,res){
     var info = req.body;
@@ -661,6 +637,65 @@ router.post('/folderTree', function(req, res){
     })
 })
 
+router.post('/file', multipartMiddleware, function(req,res){
+    var info = req.body;
+    info.creator = req.user.name;
+    var filePath = req.files.file.path;
+    var filename = path.basename(filePath);
+    res.setHeader("Content-Type","application/json");
+    info.name = filename;
+    Path.findById(info.pathId, function(err, folder){
+        var folderPath = folder ? folder.path : path.join(__dirname, '../../public/upload/')
+        var targetUrl = path.join(folderPath + filename);
+        var document = new Documents(info);
+        document.set('createTime',moment(new Date()))
+        document.save(function(err, msg){
+            if(err){
+                res.send({result: err})
+            }else{
+                fs.readFile(filePath,function(err,data){
+                    if(err){
+                        res.send(err)
+                        return;
+                    }
+                    fs.writeFile(targetUrl, data, function(err){
+                        if(err){
+                            res.send({result: err})
+                        }else{
+                            res.send({result: 'success'})
+                        }
+                    })
+                })
+            }
+        })
+    })
+    // res.send({result: req.files})
+})
+
+router.post('/file/daily',multipartMiddleware,function(req,res){
+    // var filePath = req.files.file.path;
+    // var extName = path.extname(req.files.file.name);
+    // var tarUrl = '/upload/daily/' + path.basename(filePath) + extName;
+    // var newPath = path.join(__dirname, '../../public/upload' + tarUrl)
+    // 
+    // fs.readFile(filePath,function(err,data){
+    //     if(err){
+    //         res.send(err)
+    //         return;
+    //     }
+    //     fs.writeFile(newPath, data, function(err){
+    //         if(!err){
+    //             var fileInfo = new Document({
+    //                 name: path.basename(filePath),
+    //                 path: newPath
+    //             })
+    //             res.send({result: path.basename(filePath)});
+    //         }else{
+    //             res.send(err)
+    //         }
+    //     })
+    // })
+})
 
 module.exports = function (app) {
     app.use('/', router);

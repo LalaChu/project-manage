@@ -19,7 +19,6 @@ class Document extends Component{
         }
     }
     componentDidUpdate(){
-        console.log('--------------------updated,', this.props)
         const { msg } = this.props
         if(msg){
             let description = '', icon 
