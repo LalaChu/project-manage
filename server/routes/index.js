@@ -699,7 +699,6 @@ router.put('/file', function(req, res){
                 var targetPath = folder.path;
                 var oldPath = path.join(__dirname, '../../public/upload/' + file._id.toString() + `.${file.type}`);
                 var newPath = path.join(targetPath, file._id.toString() + `.${file.type}`);
-                console.log(targetPath)
                 fs.rename(oldPath, newPath, function(err){
                     if(err){
                         res.send({result: err});
@@ -713,29 +712,28 @@ router.put('/file', function(req, res){
                         })
                     }
                 })
-                // fs.readFile(oldPath,function(err,data){
-                //     if(err){
-                //         res.send(err)
-                //         return;
-                //     }
-                //     fs.writeFile(path.join(targetPath, file._id.toString() + `.${file.type}`) , data, function(err){
-                //         if(err){
-                //             res.send({result: err})
-                //         }else{
-                            
-                //             file.save(function(err){
-                //                 if(err){
-                //                     res.send({result: err})
-                //                 }else{
-                //                     res.send({result: 'success'})
-                //                 }
-                //             })
-                //             // res.send({result: {id: msg._id}})
-                //         }
-                //     })
-                // })
             }
-            
+        })
+    })
+})
+router.delete('/file', function(req, res){
+    var info = req.body;
+    Documents.findById(info._id, function(err, file){
+        Path.findById(file.pathId, function(err, folder){
+            var nowPath = path.join(folder.path, `${file._id}.${file.type}`);
+            fs.unlink(nowPath, function(err){
+                if(err){
+                    res.send({result: err})
+                }else{
+                    file.remove(function(err){
+                        if(err){
+                            res.send({result: err})
+                        }else{
+                            res.send({result: 'success'})
+                        }
+                    })
+                }
+            })
         })
     })
 })
