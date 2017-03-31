@@ -653,7 +653,8 @@ router.post('/file', multipartMiddleware, function(req,res){
     var filePath = req.files.file.path;
     var filename = path.basename(filePath);
     res.setHeader("Content-Type","application/json");
-    info.name = filename;
+    info.name = filename.split('.')[0];
+    info.type = filename.split('.')[1];
     var folderPath = path.join(__dirname, '../../public/upload')
     var targetUrl = path.join(folderPath, filename);
     var document = new Documents(info);
@@ -685,13 +686,56 @@ router.put('/file', function(req, res){
         file.set('name', info.name);
         file.set('pathId', info.pathId);
         file.set('description', info.description);
-        // file.set('')
-        file.save(function(err){
-            if(err){
-                res.send({result: err})
+        Path.findById(info.pathId, function(err, folder){
+            if(!folder){
+                file.save(function(err){
+                    if(err){
+                        res.send({result: err})
+                    }else{
+                        res.send({result: 'success'})
+                    }
+                })
             }else{
-                res.send({result: 'success'})
+                var targetPath = folder.path;
+                var oldPath = path.join(__dirname, '../../public/upload/' + file._id.toString() + `.${file.type}`);
+                var newPath = path.join(targetPath, file._id.toString() + `.${file.type}`);
+                console.log(targetPath)
+                fs.rename(oldPath, newPath, function(err){
+                    if(err){
+                        res.send({result: err});
+                    }else{
+                        file.save(function(err){
+                            if(err){
+                                res.send({result: err})
+                            }else{
+                                res.send({result: 'success'})
+                            }
+                        })
+                    }
+                })
+                // fs.readFile(oldPath,function(err,data){
+                //     if(err){
+                //         res.send(err)
+                //         return;
+                //     }
+                //     fs.writeFile(path.join(targetPath, file._id.toString() + `.${file.type}`) , data, function(err){
+                //         if(err){
+                //             res.send({result: err})
+                //         }else{
+                            
+                //             file.save(function(err){
+                //                 if(err){
+                //                     res.send({result: err})
+                //                 }else{
+                //                     res.send({result: 'success'})
+                //                 }
+                //             })
+                //             // res.send({result: {id: msg._id}})
+                //         }
+                //     })
+                // })
             }
+            
         })
     })
 })

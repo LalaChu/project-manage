@@ -86,7 +86,7 @@ class FileForm extends Component{
                         {...formLayout}
                         label='父文件夹'
                         hasFeedback>
-                        {getFieldDecorator('parentId')(<TreeSelect treeData={tree}/>)}
+                        {getFieldDecorator('pathId')(<TreeSelect treeData={tree}/>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
