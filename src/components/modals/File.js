@@ -7,6 +7,9 @@ import DatePicker from 'antd/lib/date-picker'
 import Col from 'antd/lib/col'
 import moment from 'moment'
 import { getTitleByMethod } from '../../helper'
+import Upload from 'antd/lib/upload'
+import Button from 'antd/lib/button'
+import Icon from 'antd/lib/icon'
 
 const FormItem = Form.Item
 const TreeNode = TreeSelect.TreeNode
@@ -18,16 +21,26 @@ class FileForm extends Component{
             return;
             if(!err){
                 if(method === 'add'){
+                    values.id = this.state.id
                     this.props.onAdd(values)
                 }else{
                     this.props.onEdit({
                         ...record,
-                        ...values
+                        ...values,
+                        
                     })
                 }
                 
             }
         })
+    }
+    handleUploadSuccess = (e) => {
+        // console.log(e.file.response)
+        if(e.file.response){
+            this.setState({
+                id: e.file.response.result.id
+            })
+        }
     }
     render(){
         const formLayout = {
@@ -65,9 +78,19 @@ class FileForm extends Component{
                     </FormItem>
                     <FormItem 
                         {...formLayout}
-                        label='上传文件'
+                        label='文件'
                         hasFeedback>
-                        {getFieldDecorator('test')(<input type='text'/>)}
+                        {getFieldDecorator('file',{
+                            rules: [{required: true, message: '请上传文件'}]
+                        })(
+                            <Upload
+                                onChange={this.handleUploadSuccess}
+                                action={'/file'}>
+                                <Button>
+                                    <Icon type="upload" /> 上传文件
+                                </Button>
+                            </Upload>
+                        )}
                     </FormItem>
                 </Form>
             </Modal>

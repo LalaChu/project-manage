@@ -516,7 +516,17 @@ router.post('/fileList',function(req,res){
                     }
                 })
             })
-            res.send({"result": result});
+            Documents.find().exec().then(function(files){
+                folders.map(function(folder){
+                    files.map(function(file){
+                        if(folder.split('.')[0] === file._id.toString()){
+                            result.push(file)
+                        }
+                    })
+                })
+                 res.send({"result": result});
+            })
+           
         })
     })
 })
@@ -657,11 +667,17 @@ router.post('/file', multipartMiddleware, function(req,res){
                     res.send(err)
                     return;
                 }
-                fs.writeFile(targetUrl.replace(filename, msg._id), data, function(err){
+                fs.writeFile(targetUrl.replace(filename.split('.')[0], msg._id), data, function(err){
                     if(err){
                         res.send({result: err})
                     }else{
-                        res.send({result: 'success'})
+                        // msg.set('path', targetUrl.replace(filename.split('.')[0], msg._id));
+                        // msg.save(function(err){
+                            // if(!err){
+                                res.send({result: {id: msg._id}})
+                            // }
+                        // })
+                        
                     }
                 })
             })
