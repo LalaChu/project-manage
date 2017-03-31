@@ -181,3 +181,31 @@ export const fetchEditFile = (file) => {
                 })
     }
 }
+
+const deleteFile = (status, msg) => {
+    return {
+        type: DocumentAction.REMOVE_FILE,
+        status,
+        msg     
+    }
+}
+
+export const fetchDeleteFile = (file) => {
+    var init = {
+        method: 'DELETE',
+        body: JSON.stringify(file),
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(deleteFile(Status.LOADING, ''))
+        return fetch('/file',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(deleteFile(Status.SUCCESS, 'success'))
+                    dispatch(deleteFile('',''))
+                }).catch(function(err){
+                    console.log(err)
+                })
+    }
+}

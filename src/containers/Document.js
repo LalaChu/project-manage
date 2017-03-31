@@ -49,6 +49,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         editFile: (file) => {
             dispatch(DocumentAction.fetchEditFile(file))
+        },
+        removeFile: (file) => {
+            dispatch(DocumentAction.fetchDeleteFile(file))
         }
     }
 }

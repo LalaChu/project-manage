@@ -720,7 +720,13 @@ router.delete('/file', function(req, res){
     var info = req.body;
     Documents.findById(info._id, function(err, file){
         Path.findById(file.pathId, function(err, folder){
-            var nowPath = path.join(folder.path, `${file._id}.${file.type}`);
+            var nowPath = '';
+            if(folder){
+                nowPath = path.join(folder.path, `${file._id}.${file.type}`)
+            }else{
+                nowPath = path.join(__dirname, `../../public/upload/${file._id}.${file.type}`)
+            }
+            
             fs.unlink(nowPath, function(err){
                 if(err){
                     res.send({result: err})

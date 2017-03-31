@@ -58,6 +58,13 @@ const DepartmentState = (state = initialState, action ) => {
                 msg: action.msg,
                 needFetch: action.status === Status.SUCCESS ? true : false
             }
+        case DocuemenAction.REMOVE_FILE:
+            return {
+                ...state,
+                status: action.status,
+                msg: action.msg,
+                needFetch: action.status === Status.SUCCESS ? true : false
+            }
         default:
             return state
     }

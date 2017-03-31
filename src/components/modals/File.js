@@ -63,7 +63,7 @@ class FileForm extends Component{
                             rules: [{required: true, message: '请上传文件'}]
                         })(
                             <Upload
-                               
+                                onChange={handleUploadSuccess}
                                 action={'/file'}>
                                 <Button>
                                     <Icon type="upload" /> 上传文件
