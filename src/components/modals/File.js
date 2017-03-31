@@ -22,7 +22,7 @@ class FileForm extends Component{
             // return;
             if(!err){
                 if(method === 'add'){
-                    values.id = this.state.id
+                    values._id = this.state.id
                     this.props.onEdit(values)
                 }else{
                     this.props.onEdit({
@@ -50,7 +50,12 @@ class FileForm extends Component{
         }
         const { getFieldDecorator } = this.props.form
         const { method, tree } = this.props
-        const fileUpload = <FormItem 
+        let handleUploadSuccess = this.handleUploadSuccess;
+        let file ;
+            if(method === 'edit'){
+                file = [];
+            }else{
+                file =  <FormItem 
                         {...formLayout}
                         label='文件'
                         hasFeedback>
@@ -58,7 +63,7 @@ class FileForm extends Component{
                             rules: [{required: true, message: '请上传文件'}]
                         })(
                             <Upload
-                                onChange={this.handleUploadSuccess}
+                               
                                 action={'/file'}>
                                 <Button>
                                     <Icon type="upload" /> 上传文件
@@ -66,7 +71,8 @@ class FileForm extends Component{
                             </Upload>
                         )}
                     </FormItem>
-        const file = method === 'edit' ? [] : fileUpload
+            }
+        
         return (
             <Modal
                 onCancel={this.props.cancel}

@@ -682,7 +682,7 @@ router.post('/file', multipartMiddleware, function(req,res){
 router.put('/file', function(req, res){
     var info = req.body;
     res.setHeader("Content-Type","application/json");
-    Documents.findById(info.id, function(err, file){
+    Documents.findById(info._id, function(err, file){
         file.set('name', info.name);
         file.set('pathId', info.pathId);
         file.set('description', info.description);
