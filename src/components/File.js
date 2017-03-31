@@ -19,13 +19,14 @@ class File extends Component{
     handleOpenModal = () => {
         this.props.onEdit(true, 'edit', this.props.file)
     }
+
     render(){
         return (
             <div className='file' onClick={this.handleClick}>
                 <Icon type="file" />
                 {this.props.file.name}
                 <div className='file-manage'>
-                    <Button onClick={this.handleOpenRemove}>
+                    <Button>
                         <Icon type='download'></Icon>
                     </Button>
                     <Button onClick={this.handleOpenModal}>

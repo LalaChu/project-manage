@@ -50,6 +50,23 @@ class FileForm extends Component{
         }
         const { getFieldDecorator } = this.props.form
         const { method, tree } = this.props
+        const fileUpload = <FormItem 
+                        {...formLayout}
+                        label='文件'
+                        hasFeedback>
+                        {getFieldDecorator('file',{
+                            rules: [{required: true, message: '请上传文件'}]
+                        })(
+                            <Upload
+                                onChange={this.handleUploadSuccess}
+                                action={'/file'}>
+                                <Button>
+                                    <Icon type="upload" /> 上传文件
+                                </Button>
+                            </Upload>
+                        )}
+                    </FormItem>
+        const file = method === 'edit' ? [] : fileUpload
         return (
             <Modal
                 onCancel={this.props.cancel}
@@ -77,22 +94,7 @@ class FileForm extends Component{
                         hasFeedback>
                         {getFieldDecorator('description')(<Input type='textarea'/>)}
                     </FormItem>
-                    <FormItem 
-                        {...formLayout}
-                        label='文件'
-                        hasFeedback>
-                        {getFieldDecorator('file',{
-                            rules: [{required: true, message: '请上传文件'}]
-                        })(
-                            <Upload
-                                onChange={this.handleUploadSuccess}
-                                action={'/file'}>
-                                <Button>
-                                    <Icon type="upload" /> 上传文件
-                                </Button>
-                            </Upload>
-                        )}
-                    </FormItem>
+                    {file}
                 </Form>
             </Modal>
         )

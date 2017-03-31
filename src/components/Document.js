@@ -79,7 +79,7 @@ class Document extends Component{
         console.log(this.props)
         const { fileList, folderVisible, method, record, setCurrentLocation, 
                 location, folderTree, setFolderVisible, editFolder, deleteFolder,
-                fileVisible } = this.props
+                fileVisible, setFileVisible } = this.props
         let locationCurrent = location.split('/public/upload')[1]
         let locationArr = locationCurrent ? locationCurrent.split('/') : []
         let fileNodes = []
@@ -97,6 +97,7 @@ class Document extends Component{
                     <File 
                         key={file._id} 
                         file={file}
+                        onEdit={setFileVisible}
                         />
                 )
             }
@@ -143,6 +144,7 @@ class Document extends Component{
                     onEdit={this.props.editFile}
                     visible={fileVisible}
                     method={method}
+                    record={record}
                 />
             </div> 
         )
