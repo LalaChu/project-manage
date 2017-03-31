@@ -153,3 +153,31 @@ export const fetchDeleteFolder = (folder) => {
                 })
     }
 }
+
+const editFile = (status, msg) => {
+    return {
+        type: DocumentAction.EDIT_FILE,
+        status,
+        msg
+    }
+}
+export const fetchEditFile = (file) => {
+    var init = {
+        method: 'PUT',
+        body: JSON.stringify(file),
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(editFile(Status.LOADING, ''))
+        return fetch('/file',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(editFile(Status.SUCCESS, 'success'))
+                    dispatch(editFile('',''))
+                    dispatch(UIAction.setFileVisible(false))
+                }).catch(function(err){
+                    console.log(err)
+                })
+    }
+}

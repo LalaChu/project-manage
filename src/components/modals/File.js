@@ -16,13 +16,14 @@ const TreeNode = TreeSelect.TreeNode
 
 class FileForm extends Component{
     handleAdd = () => {
+        const {method, record} = this.props 
         this.props.form.validateFieldsAndScroll((err,values) => {
             console.log(values)
-            return;
+            // return;
             if(!err){
                 if(method === 'add'){
                     values.id = this.state.id
-                    this.props.onAdd(values)
+                    this.props.onEdit(values)
                 }else{
                     this.props.onEdit({
                         ...record,

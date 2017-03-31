@@ -94,8 +94,10 @@ class Document extends Component{
                     file={file} />)
             }else{
                 fileNodes.push(
-                    <File key={file._id} 
-                    file={file}/>
+                    <File 
+                        key={file._id} 
+                        file={file}
+                        />
                 )
             }
             
@@ -138,6 +140,7 @@ class Document extends Component{
                     onEdit={editFolder} />
                 <FileModal
                     cancel={this.handleFileModalCancel}
+                    onEdit={this.props.editFile}
                     visible={fileVisible}
                     method={method}
                 />

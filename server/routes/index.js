@@ -671,17 +671,28 @@ router.post('/file', multipartMiddleware, function(req,res){
                     if(err){
                         res.send({result: err})
                     }else{
-                        // msg.set('path', targetUrl.replace(filename.split('.')[0], msg._id));
-                        // msg.save(function(err){
-                            // if(!err){
-                                res.send({result: {id: msg._id}})
-                            // }
-                        // })
-                        
+                        res.send({result: {id: msg._id}})
                     }
                 })
             })
         }
+    })
+})
+router.put('/file', function(req, res){
+    var info = req.body;
+    res.setHeader("Content-Type","application/json");
+    Documents.findById(info.id, function(err, file){
+        file.set('name', info.name);
+        file.set('pathId', info.pathId);
+        file.set('description', info.description);
+        // file.set('')
+        file.save(function(err){
+            if(err){
+                res.send({result: err})
+            }else{
+                res.send({result: 'success'})
+            }
+        })
     })
 })
 

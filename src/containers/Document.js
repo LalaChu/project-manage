@@ -46,6 +46,9 @@ const mapDispatchToProps = (dispatch) => {
             if(visible){
                 dispatch(DocumentAction.fetchFolderTree())
             }
+        },
+        editFile: (file) => {
+            dispatch(DocumentAction.fetchEditFile(file))
         }
     }
 }
