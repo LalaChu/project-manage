@@ -129,20 +129,7 @@ table .anticon{
 .document-bread .ant-breadcrumb{
     display: inline-block;
 }
-.folder{
-    text-align: left;
-    line-height: 40px;
-    height: 40px;
-    color: #108ee9;
-    font-size: 1.2em;
-    border-bottom: 1px solid #ccc;
-}
-.folder:hover{
-    cursor: pointer;
-}
-.folder .anticon{
-    margin: 5px 10px;
-}
+
 
 .user-avatar{
     text-align: center;
@@ -184,6 +171,50 @@ table .anticon{
     position: absolute;
     right: 5px;
     display: none;
+}
+.folder{
+    text-align: left;
+    line-height: 40px;
+    height: 40px;
+    color: #108ee9;
+    font-size: 1.2em;
+    border-bottom: 1px solid #ccc;
+}
+.folder:hover{
+    cursor: pointer;
+}
+.folder .anticon{
+    margin: 5px 10px;
+}
+
+.file .ant-btn{
+    border: none;
+    padding: 0;
+    /*display: none;*/
+}
+
+.file:hover .file-manage{
+    display: inline-block;
+}
+
+.file .file-manage{
+    position: absolute;
+    right: 5px;
+    display: none;
+}
+.file{
+    text-align: left;
+    line-height: 40px;
+    height: 40px;
+    color: #108ee9;
+    font-size: 1.2em;
+    border-bottom: 1px solid #ccc;
+}
+.file:hover{
+    cursor: pointer;
+}
+.file .anticon{
+    margin: 5px 10px;
 }
 
 input[type=file]{

@@ -9,7 +9,7 @@ var document = new Schema({
     creatot: String,
     createTime: String,
     type: String,
-    pathId: String
+    pathId: {type: String, default: ''}
 },{
     collection: 'document'
 });

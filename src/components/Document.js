@@ -8,6 +8,7 @@ import { getFolderNameByPath } from '../helper'
 import Modal from 'antd/lib/modal'
 import Notification from 'antd/lib/notification'
 import FileModal from './modals/File'
+import File from './File'
 
 const confirm = Modal.confirm
 
@@ -84,12 +85,20 @@ class Document extends Component{
         let fileNodes = []
         let handleRemove = this.handleRemove
         fileList.map(function(file){
-            fileNodes.push( <Folder
-                                 onRemove={handleRemove}
-                                 onEdit={setFolderVisible} 
-                                 onClick={setCurrentLocation} 
-                                 key={file._id} 
-                                 file={file} />)
+            if(file.pathId === undefined){
+                fileNodes.push( <Folder
+                    onRemove={handleRemove}
+                    onEdit={setFolderVisible} 
+                    onClick={setCurrentLocation} 
+                    key={file._id} 
+                    file={file} />)
+            }else{
+                fileNodes.push(
+                    <File key={file._id} 
+                    file={file}/>
+                )
+            }
+            
         })
         let breadList = []
         breadList.push(<BreadItem key='all'><a href='javascript: void(0)'  onClick={() => {setCurrentLocation('')}}>所有文档</a></BreadItem>  )
