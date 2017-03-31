@@ -638,38 +638,35 @@ router.post('/folderTree', function(req, res){
 })
 
 router.post('/file', multipartMiddleware, function(req,res){
-    var info = req.body;
+    var info = {};
     info.creator = req.user.name;
     var filePath = req.files.file.path;
     var filename = path.basename(filePath);
     res.setHeader("Content-Type","application/json");
     info.name = filename;
-    Path.findById(info.pathId, function(err, folder){
-        var folderPath = folder ? folder.path : path.join(__dirname, '../../public/upload/')
-        var targetUrl = path.join(folderPath + filename);
-        var document = new Documents(info);
-        document.set('createTime',moment(new Date()))
-        document.save(function(err, msg){
-            if(err){
-                res.send({result: err})
-            }else{
-                fs.readFile(filePath,function(err,data){
+    var folderPath = path.join(__dirname, '../../public/upload')
+    var targetUrl = path.join(folderPath, filename);
+    var document = new Documents(info);
+    document.set('createTime', moment(new Date()));
+    document.save(function(err, msg){
+        if(err){
+            res.send({result: err})
+        }else{
+            fs.readFile(filePath,function(err,data){
+                if(err){
+                    res.send(err)
+                    return;
+                }
+                fs.writeFile(targetUrl.replace(filename, msg._id), data, function(err){
                     if(err){
-                        res.send(err)
-                        return;
+                        res.send({result: err})
+                    }else{
+                        res.send({result: 'success'})
                     }
-                    fs.writeFile(targetUrl, data, function(err){
-                        if(err){
-                            res.send({result: err})
-                        }else{
-                            res.send({result: 'success'})
-                        }
-                    })
                 })
-            }
-        })
+            })
+        }
     })
-    // res.send({result: req.files})
 })
 
 router.post('/file/daily',multipartMiddleware,function(req,res){

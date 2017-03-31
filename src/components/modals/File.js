@@ -13,6 +13,21 @@ const TreeNode = TreeSelect.TreeNode
 
 class FileForm extends Component{
     handleAdd = () => {
+        this.props.form.validateFieldsAndScroll((err,values) => {
+            console.log(values)
+            return;
+            if(!err){
+                if(method === 'add'){
+                    this.props.onAdd(values)
+                }else{
+                    this.props.onEdit({
+                        ...record,
+                        ...values
+                    })
+                }
+                
+            }
+        })
     }
     render(){
         const formLayout = {
@@ -47,6 +62,12 @@ class FileForm extends Component{
                         label='描述'
                         hasFeedback>
                         {getFieldDecorator('description')(<Input type='textarea'/>)}
+                    </FormItem>
+                    <FormItem 
+                        {...formLayout}
+                        label='上传文件'
+                        hasFeedback>
+                        {getFieldDecorator('test')(<input type='text'/>)}
                     </FormItem>
                 </Form>
             </Modal>
