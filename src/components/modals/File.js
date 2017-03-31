@@ -86,7 +86,7 @@ class FileForm extends Component{
                         {...formLayout}
                         label='父文件夹'
                         hasFeedback>
-                        {getFieldDecorator('parentId')(<TreeSelect disabled={ method === 'edit' ? true : false } />)}
+                        {getFieldDecorator('parentId')(<TreeSelect treeData={tree}/>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}

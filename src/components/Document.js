@@ -140,6 +140,7 @@ class Document extends Component{
                     visible={folderVisible}
                     onEdit={editFolder} />
                 <FileModal
+                    tree={folderTree}
                     cancel={this.handleFileModalCancel}
                     onEdit={this.props.editFile}
                     visible={fileVisible}
