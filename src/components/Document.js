@@ -94,7 +94,8 @@ class Document extends Component{
                     file={file} />)
             }else{
                 fileNodes.push(
-                    <File 
+                    <File
+                        location={location}
                         key={file._id} 
                         file={file}
                         onEdit={setFileVisible}

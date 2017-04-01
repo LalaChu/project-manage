@@ -21,13 +21,15 @@ class File extends Component{
     }
 
     render(){
+        const {location, file} = this.props
+        let fileUrl = location ? location.split('/public/upload/')[1] + '/' : ''
         return (
             <div className='file' onClick={this.handleClick}>
                 <Icon type="file" />
-                {this.props.file.name}
+                {file.name}
                 <div className='file-manage'>
                     <Button>
-                        <Icon type='download'></Icon>
+                        <a href={`/public/upload/${fileUrl}${file._id}.${file.type}`}><Icon type='download'></Icon></a>
                     </Button>
                     <Button onClick={this.handleOpenModal}>
                         <Icon type='edit'></Icon>
