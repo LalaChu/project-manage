@@ -4,6 +4,14 @@ import createColumns from '../tableStructure/daily'
 import Button from 'antd/lib/button'
 import Icon from 'antd/lib/icon'
 import DailyModal from './modals/Daily'
+import Calendar from 'antd/lib/calendar'
+import moment from 'moment'
+import Alert from 'antd/lib/alert'
+
+
+import 'moment/locale/zh-cn'
+moment.locale('zh-cn')
+
 
 class MyDaily extends Component{
     handleClick = () => {
@@ -12,6 +20,8 @@ class MyDaily extends Component{
     }
     handleCancel = () => {
         this.props.setDailyVisible(false)
+    }
+    renderCell = () => {
     }
     render(){
         console.log(this.props)
@@ -24,10 +34,7 @@ class MyDaily extends Component{
                     className='add-item'>
                     <Icon type="plus" />添加日报
                 </Button>
-                <Table
-                    bordered
-                    size='middle'
-                    columns={columns} />
+                <Calendar></Calendar>
                 <DailyModal
                     taskList={taskList}
                     visible={visible}

@@ -718,6 +718,7 @@ router.put('/file', function(req, res){
 })
 router.delete('/file', function(req, res){
     var info = req.body;
+    res.setHeader("Content-Type","application/json");
     Documents.findById(info._id, function(err, file){
         Path.findById(file.pathId, function(err, folder){
             var nowPath = '';
@@ -744,29 +745,19 @@ router.delete('/file', function(req, res){
     })
 })
 
-router.post('/file/daily',multipartMiddleware,function(req,res){
-    // var filePath = req.files.file.path;
-    // var extName = path.extname(req.files.file.name);
-    // var tarUrl = '/upload/daily/' + path.basename(filePath) + extName;
-    // var newPath = path.join(__dirname, '../../public/upload' + tarUrl)
-    // 
-    // fs.readFile(filePath,function(err,data){
-    //     if(err){
-    //         res.send(err)
-    //         return;
-    //     }
-    //     fs.writeFile(newPath, data, function(err){
-    //         if(!err){
-    //             var fileInfo = new Document({
-    //                 name: path.basename(filePath),
-    //                 path: newPath
-    //             })
-    //             res.send({result: path.basename(filePath)});
-    //         }else{
-    //             res.send(err)
-    //         }
-    //     })
-    // })
+router.post('/daily', function(req, res){
+    var info = req.body;
+    res.setHeader("Content-Type","application/json");
+    info.date = moment(new Date());
+    info.staffId = req.user._id;
+    var daily = new Daily(info);
+    daily.save(function(err){
+        if(err){
+            res.send({result: err})
+        }else{
+            res.send({result: 'success'})
+        }
+    })
 })
 
 module.exports = function (app) {

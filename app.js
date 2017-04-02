@@ -27,7 +27,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(require('express-session')({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {secure: false}
 })); 
 app.use(passport.initialize());
 app.use(passport.session());

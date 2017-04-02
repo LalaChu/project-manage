@@ -31,6 +31,9 @@ body, html, #root, .ant-layout, .ant-layout-sider{
 
 .add-item{
     margin-bottom: 5px;
+    position: absolute;
+    left: 20px;
+    top: 21px;
 }
 .select-row{
     padding: 30px 25px 25px 25px;
@@ -220,4 +223,15 @@ table .anticon{
 input[type=file]{
     border: 1px solid #d9d9d9;
     border-radius: 5px;
+}
+.daily-calendar{
+    width: 100%;
+    height: 50%;
+}
+
+.ant-fullcalendar-fullscreen .ant-fullcalendar-date{
+    height: 105px;
+}
+.ant-fullcalendar-header .ant-radio-group{
+    display: none;
 }

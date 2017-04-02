@@ -39,9 +39,11 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function (user, done) {
+  // console.log('serializeUser')
   done(null, user.telephone);
 });
 passport.deserializeUser(function (username, done) {
+  // console.log('deserializeUser')
   Staff.findOne({"telephone":username}, function (err, user) {
     if (err) {
       return done(err);

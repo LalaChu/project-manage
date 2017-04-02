@@ -25,6 +25,8 @@ export const fetchLogin = (username, password) => {
         dispatch(login(Status.LOADING))
         return fetch('/login',init)
                 .then((response) => {
+                    // console.log(response)
+                    // return ;
                     if(response.url.indexOf('login') > 0){
                         dispatch(login(Status.ERROR))
                     }else{
