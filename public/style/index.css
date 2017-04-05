@@ -240,3 +240,20 @@ input[type=file]{
     color: #108ee9;
     margin-right: 2px;
 }
+.ant-fullcalendar-date:hover .date-box-manage{
+    display: block;
+}
+.date-box-manage{
+    display: none;
+    background-color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    width: 72%;
+}
+.date-box-manage span{
+    padding-top: 2px;
+    text-align: center;
+    display: inline-block;
+    width: 50%;
+    font-size: 0.9em;
+}

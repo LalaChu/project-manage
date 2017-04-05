@@ -87,7 +87,7 @@ class DailyForm extends Component{
                         label='标题'
                         hasFeedback>
                         {getFieldDecorator('title',{
-                            rules:[{required:true, message: '姓名不能为空'}]
+                            rules:[{required:true, message: '标题不能为空'}]
                         })(<Input />)}
                     </FormItem>
                     <FormItem 
@@ -123,17 +123,17 @@ class DailyForm extends Component{
 }
 
 const DailyModal = Form.create({mapPropsToFields:function(props){
-    console.log(props)
+    // console.log(props)
     if(!props.record){
         return {}
     }
-    let departmentId = props.record.departmentId
+    let taskId = props.record.taskId
     return {
-        name: {value: props.record.name},
-        email: {value: props.record.email},
-        telephone: {value: props.record.telephone},
-        authority: {value: props.record.authority},
-        departmentId: {value: departmentId ? departmentId[1] : departmentId[0] || ''}
+        title: {value: props.record.title},
+        type: {value: props.record.type},
+        content: {value: props.record.content},
+        // authority: {value: props.record.authority},
+        taskId: {value: taskId ? taskId : ''}
     }
 }})(DailyForm)
 

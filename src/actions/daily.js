@@ -48,7 +48,7 @@ export const fetchMyDaily = () => {
         redirect: 'follow'
     }
     return function(dispatch){
-        dispatch(getMyDaily(Status.LOADING, ''))
+        dispatch(getMyDaily(Status.LOADING, []))
         return fetch('/myDailyList',init)
                 .then((response) => { return response.json()})
                 .then(json =>{ 

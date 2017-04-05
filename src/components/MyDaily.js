@@ -28,25 +28,32 @@ class MyDaily extends Component{
         this.props.addDaily(info)
     }
     handleRenderDate = (date) => {
-        let value = []
+        const { setDailyVisible } = this.props
+        let value = {}
         this.props.myDailyList.map(function(daily){
             if(date.isSame(moment(daily.date),'day')){
-                value.push(daily)
+                value = daily
             }
-            // console.log(date.isSame(moment(daily.date),'day')
         })
-        let content = value.map(function(item){
-            return <li key={item._id}>
-                <span className='list-dot'>●</span>
-                {item.title}
-            </li>
-        })
-        return <ul>{content}</ul>
+        if(!value.hasOwnProperty('_id')){
+            return ''
+        }else{
+            return (
+            <div className='date-box'>
+                <span className='list-dot'>●</span><span>{value.title}</span>
+                <div className='date-box-manage'>
+                    <span onClick={(e) => {setDailyVisible(true, 'view', value)}}><Icon type='eye-o' /></span>
+                    <span onClick={(e) => {setDailyVisible(true, 'edit', value)}}><Icon type='edit' /></span>
+                </div>
+                
+            </div>)
+        }
+        
     }
     render(){
         console.log(this.props)
         const columns = createColumns()
-        const { visible, taskList, method } = this.props
+        const { visible, taskList, method, record  } = this.props
         return (
             <div className='my-daily'>
                 <Button 
@@ -57,6 +64,7 @@ class MyDaily extends Component{
                 <Calendar 
                     dateCellRender={this.handleRenderDate}/>
                 <DailyModal
+                    record={record}
                     method={method}
                     onAdd={this.handleAddDaily}
                     taskList={taskList}
