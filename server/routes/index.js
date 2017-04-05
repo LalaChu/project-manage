@@ -759,6 +759,17 @@ router.post('/daily', function(req, res){
         }
     })
 })
+router.post('/myDailyList', function(req, res){
+    var user = req.user._id;
+    res.setHeader("Content-Type","application/json");
+    Daily.find({staffId: mongoose.Types.ObjectId(user)}).exec(function(err, list){
+        if(err){
+            res.send({result: err})
+        }else{
+            res.send({result: list})
+        }
+    })
+})
 
 module.exports = function (app) {
     app.use('/', router);

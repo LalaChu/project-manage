@@ -14,6 +14,9 @@ moment.locale('zh-cn')
 
 
 class MyDaily extends Component{
+    componentWillMount = () => {
+        this.props.fetchMyDaily()
+    }
     handleClick = () => {
         console.log('tetett')
         this.props.setDailyVisible(true, 'add')
@@ -23,6 +26,22 @@ class MyDaily extends Component{
     }
     handleAddDaily = (info) => {
         this.props.addDaily(info)
+    }
+    handleRenderDate = (date) => {
+        let value = []
+        this.props.myDailyList.map(function(daily){
+            if(date.isSame(moment(daily.date),'day')){
+                value.push(daily)
+            }
+            // console.log(date.isSame(moment(daily.date),'day')
+        })
+        let content = value.map(function(item){
+            return <li key={item._id}>
+                <span className='list-dot'>●</span>
+                {item.title}
+            </li>
+        })
+        return <ul>{content}</ul>
     }
     render(){
         console.log(this.props)
@@ -35,7 +54,8 @@ class MyDaily extends Component{
                     className='add-item'>
                     <Icon type="plus" />添加日报
                 </Button>
-                <Calendar></Calendar>
+                <Calendar 
+                    dateCellRender={this.handleRenderDate}/>
                 <DailyModal
                     method={method}
                     onAdd={this.handleAddDaily}

@@ -32,3 +32,33 @@ export const fetchAddDaily = (info) => {
                 
     }
 }
+
+const getMyDaily = (status, list) => {
+    return {
+        type: DailyAction.GET_MY_DAILY,
+        status,
+        myDailyList: list
+    }
+}
+
+export const fetchMyDaily = () => {
+    var init = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(getMyDaily(Status.LOADING, ''))
+        return fetch('/myDailyList',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(getMyDaily(Status.SUCCESS, json.result))
+                    // dispatch(addDaily('',''))
+                    // dispatch(UIAction.setDailyVisible(false, ''))
+                    
+                }).catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}

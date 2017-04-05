@@ -10,12 +10,13 @@ const mapStateToProps = (state, ownProps) => {
         dailyVisible,
         method,
         record
-    }, ProjectState: { taskList }} = state
+    }, ProjectState: { taskList }, DailyState} = state
     return {
         visible: dailyVisible,
         method,
         record,
-        taskList
+        taskList,
+        ...DailyState
         
     }
 }
@@ -29,6 +30,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         addDaily: (info) => {
             dispatch(DailyAction.fetchAddDaily(info))
+        },
+        fetchMyDaily: () => {
+            dispatch(DailyAction.fetchMyDaily())
         }
     }
 }

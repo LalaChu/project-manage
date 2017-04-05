@@ -235,3 +235,8 @@ input[type=file]{
 .ant-fullcalendar-header .ant-radio-group{
     display: none;
 }
+
+.list-dot{
+    color: #108ee9;
+    margin-right: 2px;
+}
