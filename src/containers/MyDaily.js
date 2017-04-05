@@ -2,9 +2,8 @@ import { connect } from 'react-redux'
 import * as UIAction from '../actions/components'
 // import * as Status from '../constants/status'
 import MyDaily from '../components/MyDaily'
+import * as DailyAction from '../actions/daily'
 import * as ProjectAction from '../actions/project'
-// import * as StaffAction from '../actions/staff'
-// import * as DepartmentAction from '../actions/department'
 
 const mapStateToProps = (state, ownProps) => {
     const {UIState : {
@@ -27,6 +26,9 @@ const mapDispatchToProps = (dispatch) => {
             if(visible){
                 dispatch(ProjectAction.fetchTaskList())
             }
+        },
+        addDaily: (info) => {
+            dispatch(DailyAction.fetchAddDaily(info))
         }
     }
 }

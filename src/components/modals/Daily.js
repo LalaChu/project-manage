@@ -18,6 +18,24 @@ const Option = Select.Option
 const TreeNode = TreeSelect.TreeNode
 
 class DailyForm extends Component{
+    handleAdd = () => {
+        console.log(this.props)
+        const { method, form, onAdd } = this.props
+        form.validateFieldsAndScroll((err,values) => {
+            if(!err){
+                console.log(method)
+                if(method === 'add'){
+                    onAdd(values);
+                }else{
+                    // this.props.onEdit({
+                    //     ...record,
+                    //     ...values
+                    // })
+                }
+                
+            }
+        })
+    }
     render(){
         const formLayout = {
             labelCol: {span : 6},

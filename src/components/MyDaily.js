@@ -21,12 +21,13 @@ class MyDaily extends Component{
     handleCancel = () => {
         this.props.setDailyVisible(false)
     }
-    renderCell = () => {
+    handleAddDaily = (info) => {
+        this.props.addDaily(info)
     }
     render(){
         console.log(this.props)
         const columns = createColumns()
-        const { visible, taskList } = this.props
+        const { visible, taskList, method } = this.props
         return (
             <div className='my-daily'>
                 <Button 
@@ -36,6 +37,8 @@ class MyDaily extends Component{
                 </Button>
                 <Calendar></Calendar>
                 <DailyModal
+                    method={method}
+                    onAdd={this.handleAddDaily}
                     taskList={taskList}
                     visible={visible}
                     onCancel={this.handleCancel}/>
