@@ -20,17 +20,19 @@ class Folder extends Component{
         this.props.onEdit(true, 'edit', this.props.file)
     }
     render(){
+        let manage = []
+        if(this.props.file._id === -1){
+            manage.push(<Button className='folder-manage-disabled' disabled={true}>系统文件不可操作</Button>)
+        }else{
+            manage.push(<Button onClick={this.handleOpenModal}><Icon type='edit'></Icon></Button>)
+            manage.push(<Button onClick={this.handleOpenRemove}><Icon type='delete'></Icon></Button>)
+        }
         return (
             <div className='folder' onClick={this.handleClick}>
                 <Icon type="folder" />
                 {this.props.file.name}
                 <div className='folder-manage'>
-                    <Button onClick={this.handleOpenModal}>
-                        <Icon type='edit'></Icon>
-                    </Button>
-                    <Button onClick={this.handleOpenRemove}>
-                        <Icon type='delete'></Icon>
-                    </Button>
+                    {manage}
                 </div>
                 
             </div>

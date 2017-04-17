@@ -524,7 +524,15 @@ router.post('/fileList',function(req,res){
                         }
                     })
                 })
-                 res.send({"result": result});
+                if(info.parentPath === ''){
+                    result.push({
+                        name: 'daily',
+                        parentId: '',
+                        path: path.join(__dirname, '../../public/upload/daily'),
+                        _id: -1
+                    })
+                }
+                res.send({"result": result});
             })
            
         })
