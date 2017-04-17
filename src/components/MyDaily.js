@@ -21,8 +21,13 @@ class MyDaily extends Component{
         this.props.setDailyVisible(true, 'add')
     }
     componentDidUpdate(){
+        // console.log(this.props)
         if(this.props.status && this.props.msg){
+            console.log(this.props)
             this.showNotification(this.props.status)
+        }
+        if(this.props.needFetch){
+            this.props.fetchMyDaily()
         }
         
     }
