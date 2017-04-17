@@ -51,10 +51,6 @@ class DailyForm extends Component{
                 return <Option key={task._id} value={task._id}>{task.name}</Option>
             })
         }
-        let typeNodes = []
-        typeNodes.push(<Option key='study' value='study'>学习</Option>)
-        typeNodes.push(<Option key='work' value='work'>工作</Option>)
-        typeNodes.push(<Option key='meeting' value='meeting'>会议</Option>)
         // let nodes = [] 
         // departmentList.forEach(function(depart){
             // let children = []
@@ -89,15 +85,6 @@ class DailyForm extends Component{
                         {getFieldDecorator('title',{
                             rules:[{required:true, message: '标题不能为空'}]
                         })(<Input />)}
-                    </FormItem>
-                    <FormItem 
-                        {...formLayout}
-                        label='类型'
-                        hasFeedback>
-                        {getFieldDecorator('type',{
-                            rules:[{required:true, message: '类型不能为空'}]
-                        })(<Select>{typeNodes}</Select>)}
-                        
                     </FormItem>
                     <FormItem 
                         {...formLayout}

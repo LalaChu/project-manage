@@ -14,6 +14,9 @@ import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
 
 class MyDaily extends Component{
+    constructor(){
+        super()
+    }
     componentWillMount = () => {
         this.props.fetchMyDaily()
     }
@@ -79,15 +82,25 @@ class MyDaily extends Component{
         
     }
     render(){
-        console.log(this.props)
         const columns = createColumns()
         const { visible, taskList, method, record  } = this.props
+        console.log(this.props)
+        let isTodayPosted = false
+        if(this.props.myDailyList.length){
+            this.props.myDailyList.map(function(daily){
+                if(moment(daily.date).isSame(moment(new Date()), 'day')){
+                    isTodayPosted = true
+                }
+            })
+        }
+        console.log(isTodayPosted)
         return (
             <div className='my-daily'>
                 <Button 
+                    disabled={isTodayPosted}
                     onClick={this.handleClick}
                     className='add-item'>
-                    <Icon type="plus" />添加日报
+                    <Icon type="plus" />{isTodayPosted ? '今天已提交过日报' : '添加日报'}
                 </Button>
                 <Calendar 
                     dateCellRender={this.handleRenderDate}/>
