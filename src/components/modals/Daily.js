@@ -18,6 +18,13 @@ const Option = Select.Option
 const TreeNode = TreeSelect.TreeNode
 
 class DailyForm extends Component{
+    constructor(){
+        super()
+        this.state = {
+            id: '',
+            buttonDisabled: false
+        }
+    }
     handleAdd = () => {
         console.log(this.props)
         const { method, form, onAdd } = this.props
@@ -25,7 +32,10 @@ class DailyForm extends Component{
             if(!err){
                 console.log(method)
                 if(method === 'add'){
-                    onAdd(values);
+                    onAdd({
+                        ...values,
+                        documentId: this.state.id
+                    });
                 }else{
                     // this.props.onEdit({
                     //     ...record,
@@ -34,6 +44,20 @@ class DailyForm extends Component{
                 }
                 
             }
+        })
+    }
+    handleUploadSuccess = (e) => {
+        // console.log(e.file.response)
+        if(e.file.response){
+            this.setState({
+                id: e.file.response.result.id,
+                buttonDisabled: false
+            })
+        }
+    }
+    handleBeforeUpload = () => {
+        this.setState({
+            buttonDisabled: true
         })
     }
     render(){
@@ -51,24 +75,15 @@ class DailyForm extends Component{
                 return <Option key={task._id} value={task._id}>{task.name}</Option>
             })
         }
-        // let nodes = [] 
-        // departmentList.forEach(function(depart){
-            // let children = []
-            // depart.children.forEach(function(item){
-                // children.push(<TreeNode key={item._id} value={item._id} title={item.name}/>)
-            // })
-            // nodes.push(<TreeNode key={depart._id} value={depart._id} title={depart.name}>{children}</TreeNode>)
-        // })
-        // let authorities = []
-        // for(let e in Authority){
-            // authorities.push(<Option value={e} key={e}>{Authority[e]}</Option>)
-        // }
+        let handleUploadSuccess = this.handleUploadSuccess
+        let handleBeforeUpload = this.handleBeforeUpload
         return (
             <Modal
                 visible={visible}
                 title={title}
                 onCancel={this.props.onCancel}
                 onOk={this.handleAdd}
+                confirmLoading={this.state.buttonDisabled}
                 >
                 <Form>
                     <FormItem
@@ -97,7 +112,10 @@ class DailyForm extends Component{
                         label='相关文件'
                         hasFeedback>
                         {getFieldDecorator('file')(
-                            <Upload>
+                            <Upload
+                                beforeUpload={handleBeforeUpload}
+                                onChange={handleUploadSuccess}
+                                action={'/file'}>
                                 <Button>
                                 <Icon type="upload" />上传文件
                                 </Button>

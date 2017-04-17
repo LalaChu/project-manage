@@ -22,10 +22,10 @@ class Folder extends Component{
     render(){
         let manage = []
         if(this.props.file._id === -1){
-            manage.push(<Button className='folder-manage-disabled' disabled={true}>系统文件不可操作</Button>)
+            manage.push(<Button key='1' className='folder-manage-disabled' disabled={true}>系统文件不可操作</Button>)
         }else{
-            manage.push(<Button onClick={this.handleOpenModal}><Icon type='edit'></Icon></Button>)
-            manage.push(<Button onClick={this.handleOpenRemove}><Icon type='delete'></Icon></Button>)
+            manage.push(<Button key='1' onClick={this.handleOpenModal}><Icon type='edit'></Icon></Button>)
+            manage.push(<Button key='2' onClick={this.handleOpenRemove}><Icon type='delete'></Icon></Button>)
         }
         return (
             <div className='folder' onClick={this.handleClick}>
