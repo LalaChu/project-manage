@@ -7,19 +7,42 @@ import DailyModal from './modals/Daily'
 import Calendar from 'antd/lib/calendar'
 import moment from 'moment'
 import Alert from 'antd/lib/alert'
-
+import Notification from 'antd/lib/notification' 
+import * as Status from '../constants/status'
 
 import 'moment/locale/zh-cn'
 moment.locale('zh-cn')
-
 
 class MyDaily extends Component{
     componentWillMount = () => {
         this.props.fetchMyDaily()
     }
     handleClick = () => {
-        console.log('tetett')
         this.props.setDailyVisible(true, 'add')
+    }
+    componentDidUpdate(){
+        if(this.props.status && this.props.msg){
+            this.showNotification(this.props.status)
+        }
+        
+    }
+    showNotification(status){
+        let description = ''
+        let icon = ''
+        if(status === Status.SUCCESS){
+            description = '恭喜您，操作成功'
+            icon = <Icon type="smile-circle" style={{ color: '#108ee9' }} />
+        }else if(status === Status.ERROR){
+            description = '对不起，操作失败，请重试'
+            icon = <Icon type="frown-o" style={{ color: '#108ee9' }}/>
+        }else{
+            return
+        }
+        Notification.open({
+            message: '日报通知',
+            description: description,
+            icon: icon,
+        });
     }
     handleCancel = () => {
         this.props.setDailyVisible(false)
@@ -42,7 +65,7 @@ class MyDaily extends Component{
             <div className='date-box'>
                 <span className='list-dot'>●</span><span>{value.title}</span>
                 <div className='date-box-manage'>
-                    <span onClick={(e) => {setDailyVisible(true, 'view', value)}}><Icon type='eye-o' /></span>
+                    <span style={{borderRight: '1px solid #ddd'}} onClick={(e) => {setDailyVisible(true, 'view', value)}}><Icon type='eye-o' /></span>
                     <span onClick={(e) => {setDailyVisible(true, 'edit', value)}}><Icon type='edit' /></span>
                 </div>
                 

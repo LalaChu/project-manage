@@ -248,7 +248,12 @@ input[type=file]{
     background-color: #ffffff;
     position: absolute;
     bottom: 0;
-    width: 72%;
+    left: 4px;
+    width: calc(100% - 8px);
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-radius: 4px;
 }
 .date-box-manage span{
     padding-top: 2px;

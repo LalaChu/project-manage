@@ -103,7 +103,7 @@ class DailyForm extends Component{
                         {...formLayout}
                         label='内容'
                         hasFeedback>
-                        {getFieldDecorator('content')(<Input />)}
+                        {getFieldDecorator('content')(<Input type='textarea'/>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
