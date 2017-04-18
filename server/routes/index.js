@@ -524,7 +524,7 @@ router.post('/fileList',function(req,res){
                         }
                     })
                 })
-                if(info.parentPath === ''){
+                if(info.parentPath === '' || info.location === ''){
                     result.push({
                         name: 'daily',
                         parentId: '',
@@ -765,7 +765,7 @@ router.post('/daily', function(req, res){
         }else{
             if(info.documentId){
                 Documents.findById(info.documentId, function(err, file){
-                file.set('name', `${req.user.name}--${moment(new Date()).format('YYYY MM DD')}--日报文件`);
+                file.set('name', `${req.user.name}--${moment(new Date()).format('YYYY年MM月DD日')}--日报文件`);
                 var oldPath = path.join(__dirname, `../../public/upload/${file._id.toString()}.${file.type}`);
                 var targetPath = path.join(__dirname, `../../public/upload/daily/${file._id.toString()}.${file.type}`);
                 fs.rename(oldPath, targetPath, function(err){
