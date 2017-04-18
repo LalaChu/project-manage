@@ -77,6 +77,7 @@ class DailyForm extends Component{
         }
         let handleUploadSuccess = this.handleUploadSuccess
         let handleBeforeUpload = this.handleBeforeUpload
+        let disabled = method === 'view' ? true : false
         return (
             <Modal
                 visible={visible}
@@ -91,31 +92,32 @@ class DailyForm extends Component{
                         label='相关任务'
                         >
                         {getFieldDecorator('taskId')(
-                            <Select>{nodes}</Select>)}
+                            <Select disabled={disabled}>{nodes}</Select>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
                         label='标题'
-                        hasFeedback>
+                        hasFeedback={!disabled}>
                         {getFieldDecorator('title',{
                             rules:[{required:true, message: '标题不能为空'}]
-                        })(<Input />)}
+                        })(<Input disabled={disabled}/>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
                         label='内容'
-                        hasFeedback>
-                        {getFieldDecorator('content')(<Input type='textarea'/>)}
+                        hasFeedback={!disabled}>
+                        {getFieldDecorator('content')(<Input disabled={disabled} type='textarea'/>)}
                     </FormItem>
                     <FormItem 
                         {...formLayout}
                         label='相关文件'
-                        hasFeedback>
+                        hasFeedback={!disabled}>
                         {getFieldDecorator('file')(
                             <Upload
                                 beforeUpload={handleBeforeUpload}
                                 onChange={handleUploadSuccess}
-                                action={'/file'}>
+                                action={'/file'}
+                                disabled={disabled}>
                                 <Button>
                                 <Icon type="upload" />上传文件
                                 </Button>

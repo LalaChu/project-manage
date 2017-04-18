@@ -114,7 +114,6 @@ class Document extends Component{
         locationArr.map(function(loca){
             if(loca){
                 let path = getPathByIndex(index)
-                console.log(path)
                 breadList.push(<BreadItem key={index}><a href="javascript:void(0)" onClick={() => {setCurrentLocation(path)}}>{getFolderNameByPath(folderTree, path)}</a> </BreadItem>  )
             }
             index++;
