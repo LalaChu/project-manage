@@ -38,6 +38,9 @@ export const getParentId = function(list, id){
 }
 
 export const getFolderNameByPath = function(tree, path){
+    if(path.indexOf('daily') > 0){
+        return 'daily'
+    }
     let findName = ''
     function deepFind(target, path){
         if(target.path === path){

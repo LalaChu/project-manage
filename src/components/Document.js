@@ -76,12 +76,13 @@ class Document extends Component{
         return location.split('/public/upload')[0] + '/public/upload' + locationArr.join('/')
     }
     render(){
-        console.log(this.props)
+        // console.log(this.props)
         const { fileList, folderVisible, method, record, setCurrentLocation, 
                 location, folderTree, setFolderVisible, editFolder, deleteFolder,
                 fileVisible, setFileVisible, removeFile } = this.props
         let locationCurrent = location.split('/public/upload')[1]
         let locationArr = locationCurrent ? locationCurrent.split('/') : []
+        console.log(locationArr)
         let fileNodes = []
         let handleRemove = this.handleRemove
         fileList.map(function(file){
@@ -113,6 +114,7 @@ class Document extends Component{
         locationArr.map(function(loca){
             if(loca){
                 let path = getPathByIndex(index)
+                console.log(path)
                 breadList.push(<BreadItem key={index}><a href="javascript:void(0)" onClick={() => {setCurrentLocation(path)}}>{getFolderNameByPath(folderTree, path)}</a> </BreadItem>  )
             }
             index++;

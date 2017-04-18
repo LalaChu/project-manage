@@ -509,6 +509,14 @@ router.post('/fileList',function(req,res){
     fs.readdir(filePath,function(err, folders){
         Path.find().exec().then(function(infos){
             var result = [];
+            if(info.parentPath === '' || info.location === ''){
+                result.push({
+                    name: 'daily',
+                    parentId: '',
+                    path: path.join(__dirname, '../../public/upload/daily'),
+                    _id: -1
+                })
+            }
             folders.map(function(folder){
                 infos.map(function(info){
                     if(info.path === filePath + '/' + folder){
@@ -524,14 +532,6 @@ router.post('/fileList',function(req,res){
                         }
                     })
                 })
-                if(info.parentPath === '' || info.location === ''){
-                    result.push({
-                        name: 'daily',
-                        parentId: '',
-                        path: path.join(__dirname, '../../public/upload/daily'),
-                        _id: -1
-                    })
-                }
                 res.send({"result": result});
             })
            
