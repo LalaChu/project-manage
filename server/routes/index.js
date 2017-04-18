@@ -763,7 +763,58 @@ router.post('/daily', function(req, res){
         if(err){
             res.send({result: err})
         }else{
-            res.send({result: 'success'})
+            if(info.documentId){
+                Documents.findById(info.documentId, function(err, file){
+                file.set('name', `${req.user.name}--${moment(new Date()).format('YYYY MM DD')}--日报文件`);
+                var oldPath = path.join(__dirname, `../../public/upload/${file._id.toString()}.${file.type}`);
+                var targetPath = path.join(__dirname, `../../public/upload/daily/${file._id.toString()}.${file.type}`);
+                fs.rename(oldPath, targetPath, function(err){
+                    if(err){
+                        res.send({result: err})
+                    }else{
+                        file.save(function(err){
+                            if(err){
+                                res.send({result: err});
+                            }else{
+                                res.send({result: 'success'})
+                            }
+                        })
+                    }
+                })
+                // file.set('pathId', info.pathId);
+                // Path.findById(info.pathId, function(err, folder){
+                //     if(!folder){
+                //         file.save(function(err){
+                //             if(err){
+                //                 res.send({result: err})
+                //             }else{
+                //                 res.send({result: 'success'})
+                //             }
+                //         })
+                //     }else{
+                //         var targetPath = folder.path;
+                //         var oldPath = path.join(__dirname, '../../public/upload/' + file._id.toString() + `.${file.type}`);
+                //         var newPath = path.join(targetPath, file._id.toString() + `.${file.type}`);
+                //         fs.rename(oldPath, newPath, function(err){
+                //             if(err){
+                //                 res.send({result: err});
+                //             }else{
+                //                 file.save(function(err){
+                //                     if(err){
+                //                         res.send({result: err})
+                //                     }else{
+                //                         res.send({result: 'success'})
+                //                     }
+                //                 })
+                //             }
+                //         })
+                //     }
+                // })
+            })
+            }else{
+                res.send({result: 'success'})
+            }
+            
         }
     })
 })
