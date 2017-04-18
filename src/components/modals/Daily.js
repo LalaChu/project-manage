@@ -61,6 +61,7 @@ class DailyForm extends Component{
         })
     }
     render(){
+        console.log(this.props)
         const formLayout = {
             labelCol: {span : 6},
             wrapperCol: {span: 14}
@@ -78,6 +79,38 @@ class DailyForm extends Component{
         let handleUploadSuccess = this.handleUploadSuccess
         let handleBeforeUpload = this.handleBeforeUpload
         let disabled = method === 'view' ? true : false
+        let upload
+        if(method !== 'add' && this.props.record){
+            let fileId = this.props.record.documentId
+            if(fileId === undefined){
+                upload = ''
+            }else{
+                upload = <FormItem 
+                        {...formLayout}
+                        label='相关文件'>
+                        <Button>
+                            <a href={`/public/upload/daily/${fileId}.doc`}><Icon type='download' />下载文件</a>
+                        </Button>
+                    </FormItem>
+            }
+
+        }else{
+            upload = <FormItem 
+                        {...formLayout}
+                        label='相关文件'
+                        hasFeedback={!disabled}>
+                        {getFieldDecorator('file')(
+                            <Upload
+                                beforeUpload={handleBeforeUpload}
+                                onChange={handleUploadSuccess}
+                                action={'/file'}
+                                disabled={disabled}>
+                                <Button>
+                                <Icon type="upload" />上传文件
+                                </Button>
+                            </Upload>)}
+                    </FormItem>
+        }
         return (
             <Modal
                 visible={visible}
@@ -108,21 +141,7 @@ class DailyForm extends Component{
                         hasFeedback={!disabled}>
                         {getFieldDecorator('content')(<Input disabled={disabled} type='textarea'/>)}
                     </FormItem>
-                    <FormItem 
-                        {...formLayout}
-                        label='相关文件'
-                        hasFeedback={!disabled}>
-                        {getFieldDecorator('file')(
-                            <Upload
-                                beforeUpload={handleBeforeUpload}
-                                onChange={handleUploadSuccess}
-                                action={'/file'}
-                                disabled={disabled}>
-                                <Button>
-                                <Icon type="upload" />上传文件
-                                </Button>
-                            </Upload>)}
-                    </FormItem>
+                    {upload}
                 </Form>
             </Modal>
         )

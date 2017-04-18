@@ -781,35 +781,6 @@ router.post('/daily', function(req, res){
                         })
                     }
                 })
-                // file.set('pathId', info.pathId);
-                // Path.findById(info.pathId, function(err, folder){
-                //     if(!folder){
-                //         file.save(function(err){
-                //             if(err){
-                //                 res.send({result: err})
-                //             }else{
-                //                 res.send({result: 'success'})
-                //             }
-                //         })
-                //     }else{
-                //         var targetPath = folder.path;
-                //         var oldPath = path.join(__dirname, '../../public/upload/' + file._id.toString() + `.${file.type}`);
-                //         var newPath = path.join(targetPath, file._id.toString() + `.${file.type}`);
-                //         fs.rename(oldPath, newPath, function(err){
-                //             if(err){
-                //                 res.send({result: err});
-                //             }else{
-                //                 file.save(function(err){
-                //                     if(err){
-                //                         res.send({result: err})
-                //                     }else{
-                //                         res.send({result: 'success'})
-                //                     }
-                //                 })
-                //             }
-                //         })
-                //     }
-                // })
             })
             }else{
                 res.send({result: 'success'})
