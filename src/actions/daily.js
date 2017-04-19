@@ -83,7 +83,7 @@ export const fetchDeleteDailyFile = (info) => {
         return fetch('/dailyFile',init)
                 .then((response) => { return response.json()})
                 .then(json =>{ 
-                    dispatch(deleteDailyFile(Status.SUCCESS, 'success'))
+                    dispatch(deleteDailyFile(Status.SUCCESS, ''))
                     // dispatch(addDaily('',''))
                     // dispatch(UIAction.setDailyVisible(false, ''))
                     
