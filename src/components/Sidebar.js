@@ -14,7 +14,6 @@ class Sidebar extends Component{
         this.props.onLogout();
     }
     render(){
-        console.log(this.props)
         let openKeys = this.props.openNow === '' ? [] :[this.props.openNow] 
         const { user } = this.props
         return (

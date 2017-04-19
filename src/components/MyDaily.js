@@ -26,7 +26,6 @@ class MyDaily extends Component{
     componentDidUpdate(){
         // console.log(this.props)
         if(this.props.status && this.props.msg){
-            console.log(this.props)
             this.showNotification(this.props.status)
         }
         if(this.props.needFetch){
@@ -72,7 +71,7 @@ class MyDaily extends Component{
             let edit 
             if(date.isSame(moment(new Date()), 'day')){
                 edit = <div className='date-box-manage'>
-                        <span onClick={(e) => {setDailyVisible(true, 'edit', value)}}>
+                        <span onClick={(e) => {e.stopPropagation(); setDailyVisible(true, 'edit', value)}}>
                             <Icon type='edit' />
                         </span></div>
             }else{
@@ -102,7 +101,6 @@ class MyDaily extends Component{
     render(){
         const columns = createColumns()
         const { visible, taskList, method, record  } = this.props
-        console.log(this.props)
         let isTodayPosted = false
         if(this.props.myDailyList.length){
             this.props.myDailyList.map(function(daily){
@@ -111,7 +109,6 @@ class MyDaily extends Component{
                 }
             })
         }
-        console.log(isTodayPosted)
         return (
             <div className='my-daily'>
                 <Button 

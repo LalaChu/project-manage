@@ -20,7 +20,6 @@ import LoginContainer from './containers/Login'
 import RegisterContainer from './containers/Register'
 
 let store = configStore()
-console.log(store.getState())
 render(
     <Provider store={store}>
         <Router history={browserHistory}>

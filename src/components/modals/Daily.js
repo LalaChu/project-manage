@@ -62,7 +62,6 @@ class DailyForm extends Component{
         })
     }
     render(){
-        console.log(this.props)
         const formLayout = {
             labelCol: {span : 6},
             wrapperCol: {span: 14}
@@ -81,9 +80,9 @@ class DailyForm extends Component{
         let handleBeforeUpload = this.handleBeforeUpload
         let disabled = method === 'view' ? true : false
         let upload
-        if(method !== 'add' && this.props.record){
+        if(method === 'view' && this.props.record){
             let fileId = this.props.record.documentId
-            if(fileId === undefined){
+            if(fileId === undefined || fileId === ''){
                 upload = ''
             }else{
                 upload = <FormItem 
@@ -96,17 +95,29 @@ class DailyForm extends Component{
             }
 
         }else{
+            let defaultFileList = []
+            if(method === 'edit' && this.props.record.documentId){
+                defaultFileList.push({
+                    uid: 1,
+                    name: '日报文件.doc',
+                    status: 'done',
+                    url: `/public/upload/daily/${this.props.record.documentId}.doc`
+                })
+            }
+            console.log('---------defaultFileList,', defaultFileList)
             upload = <FormItem 
                         {...formLayout}
                         label='相关文件'
                         hasFeedback={!disabled}>
                         {getFieldDecorator('file')(
                             <Upload
+                               fileList ={defaultFileList}
+                                defaultFileList={defaultFileList}
                                 beforeUpload={handleBeforeUpload}
                                 onChange={handleUploadSuccess}
                                 action={'/file'}
-                                disabled={disabled}>
-                                <Button>
+                                >
+                                <Button disabled={defaultFileList.length > 0 ? true : false}>
                                 <Icon type="upload" />上传文件
                                 </Button>
                             </Upload>)}

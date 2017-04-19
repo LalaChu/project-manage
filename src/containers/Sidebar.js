@@ -15,7 +15,6 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogout: (e) => {
-            console.log('tets')
             dispatch(fetchLogout())
         },
         getCurUser: () => {
