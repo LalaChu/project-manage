@@ -800,6 +800,36 @@ router.post('/myDailyList', function(req, res){
         }
     })
 })
+router.delete('/dailyFile', function(req, res){
+    var info = req.body;
+    var user = req.user._id;
+    var filePath = path.join(__dirname, `../../public/upload/daily/${info.documentId}.doc`);
+    Documents.findByIdAndRemove(info.documentId, function(err){
+        if(err){
+            res.send({result: err})
+        }else{
+            fs.unlink(filePath, function(err){
+                if(err){
+                    res.send({result: err})
+                }else{
+                    Daily.find({staffId: mongoose.Types.ObjectId(user), documentId: info.documentId}).exec(function(err, list){
+                        if(err){
+                            res.send({result: err})
+                        }else{
+                            list[0].set({documentId: ''}).save(function(err){
+                                if(err){
+                                    res.send({result: err})
+                                }else{
+                                    res.send({result: 'success'})
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
+})
 
 module.exports = function (app) {
     app.use('/', router);

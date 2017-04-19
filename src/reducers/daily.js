@@ -26,6 +26,13 @@ const DailyState = (state = initialState, action ) => {
                 needFetch: action.status === Status.ERROR ? true : false,
                 myDailyList: action.myDailyList
             }
+        case DailyAction.DELETE_DAILY_FILE:
+            return {
+                ...state,
+                status: action.status,
+                needFetch: action.status === Status.SUCCESS ? true : false,
+                msg: action.msg
+            }
         default:
             return state
     }

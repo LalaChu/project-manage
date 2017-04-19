@@ -62,3 +62,34 @@ export const fetchMyDaily = () => {
                 
     }
 }
+
+const deleteDailyFile = (status, msg) => {
+    return {
+        type: DailyAction.DELETE_DAILY_FILE,
+        status,
+        msg
+    }
+}
+
+export const fetchDeleteDailyFile = (info) => {
+    var init = {
+        method: 'DELETE',
+        body: JSON.stringify(info),
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(deleteDailyFile(Status.LOADING, ''))
+        return fetch('/dailyFile',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(deleteDailyFile(Status.SUCCESS, 'success'))
+                    // dispatch(addDaily('',''))
+                    // dispatch(UIAction.setDailyVisible(false, ''))
+                    
+                }).catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}

@@ -21,8 +21,22 @@ class DailyForm extends Component{
     constructor(){
         super()
         this.state = {
-            id: '',
-            buttonDisabled: false
+            fileList: [],
+            buttonDisabled: false,
+            id: ''
+        }
+    }
+    componentWillUpdate(nextProps,nextState){
+        if(this.props.record && nextProps.record && this.props.record.documentId !== nextProps.record.documentId){
+        // if(nextState !== this.state && nextProps.record && nextProps.record.documentId){
+            this.setState({fileList: [
+                {
+                    uid: 1,
+                    name: '日报文件.doc',
+                    status: 'done',
+                    url: `/public/upload/daily/${nextProps.record.documentId}.doc`
+                }
+            ]})
         }
     }
     handleAdd = () => {
@@ -48,18 +62,22 @@ class DailyForm extends Component{
         })
     }
     handleUploadSuccess = (e) => {
-        // console.log(e.file.response)
         if(e.file.response){
             this.setState({
                 id: e.file.response.result.id,
                 buttonDisabled: false
             })
         }
+        this.setState({fileList: e.fileList})
     }
     handleBeforeUpload = () => {
         this.setState({
             buttonDisabled: true
         })
+    }
+    handleRemoveFile = () => {
+        const {record, removeFile} = this.props
+        removeFile(record)
     }
     render(){
         const formLayout = {
@@ -95,29 +113,20 @@ class DailyForm extends Component{
             }
 
         }else{
-            let defaultFileList = []
-            if(method === 'edit' && this.props.record.documentId){
-                defaultFileList.push({
-                    uid: 1,
-                    name: '日报文件.doc',
-                    status: 'done',
-                    url: `/public/upload/daily/${this.props.record.documentId}.doc`
-                })
-            }
-            console.log('---------defaultFileList,', defaultFileList)
             upload = <FormItem 
                         {...formLayout}
                         label='相关文件'
                         hasFeedback={!disabled}>
                         {getFieldDecorator('file')(
                             <Upload
-                               fileList ={defaultFileList}
-                                defaultFileList={defaultFileList}
+                                onRemove={this.handleRemoveFile}
+                                fileList ={this.state.fileList}
+                                defaultFileList={this.state.fileList}
                                 beforeUpload={handleBeforeUpload}
                                 onChange={handleUploadSuccess}
                                 action={'/file'}
                                 >
-                                <Button disabled={defaultFileList.length > 0 ? true : false}>
+                                <Button disabled={this.state.fileList.length > 0 ? true : false}>
                                 <Icon type="upload" />上传文件
                                 </Button>
                             </Upload>)}

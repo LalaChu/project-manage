@@ -33,6 +33,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         fetchMyDaily: () => {
             dispatch(DailyAction.fetchMyDaily())
+        },
+        deleteDailyFile: (info) => {
+            dispatch(DailyAction.fetchDeleteDailyFile(info))
         }
     }
 }
