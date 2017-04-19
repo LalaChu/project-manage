@@ -69,17 +69,35 @@ class MyDaily extends Component{
         if(!value.hasOwnProperty('_id')){
             return ''
         }else{
+            let edit 
+            if(date.isSame(moment(new Date()), 'day')){
+                edit = <div className='date-box-manage'>
+                        <span onClick={(e) => {setDailyVisible(true, 'edit', value)}}>
+                            <Icon type='edit' />
+                        </span></div>
+            }else{
+                edit = ''
+            }
             return (
             <div className='date-box'>
                 <span className='list-dot'>●</span><span>{value.title}</span>
-                <div className='date-box-manage'>
-                    <span style={{borderRight: '1px solid #ddd'}} onClick={(e) => {setDailyVisible(true, 'view', value)}}><Icon type='eye-o' /></span>
-                    <span onClick={(e) => {setDailyVisible(true, 'edit', value)}}><Icon type='edit' /></span>
-                </div>
-                
+                {edit}
             </div>)
         }
         
+    }
+    handleViewDaily = (date) => {
+        let value = {}
+        this.props.myDailyList.map(function(daily){
+            if(date.isSame(moment(daily.date),'day')){
+                value = daily
+            }
+        })
+         if(!value.hasOwnProperty('_id')){
+            return ''
+        }else{
+            this.props.setDailyVisible(true, 'view', value)
+        }
     }
     render(){
         const columns = createColumns()
@@ -102,7 +120,8 @@ class MyDaily extends Component{
                     className='add-item'>
                     <Icon type="plus" />{isTodayPosted ? '今天已提交过日报' : '添加日报'}
                 </Button>
-                <Calendar 
+                <Calendar
+                    onSelect={this.handleViewDaily}
                     dateCellRender={this.handleRenderDate}/>
                 <DailyModal
                     record={record}

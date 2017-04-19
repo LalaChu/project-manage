@@ -259,6 +259,6 @@ input[type=file]{
     padding-top: 2px;
     text-align: center;
     display: inline-block;
-    width: 50%;
+    width: 100%;
     font-size: 0.9em;
 }

@@ -36,7 +36,8 @@ class DailyForm extends Component{
                         ...values,
                         documentId: this.state.id
                     });
-                }else{
+                }else if(method === 'view'){
+                    this.props.onCancel()
                     // this.props.onEdit({
                     //     ...record,
                     //     ...values
