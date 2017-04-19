@@ -789,6 +789,52 @@ router.post('/daily', function(req, res){
         }
     })
 })
+
+router.put('/daily', function(req, res){
+    var info = req.body;
+    res.setHeader("Content-Type","application/json");
+    Daily.findById(info._id, function(err, daily){
+        daily.set('content', info.content);
+        daily.set('title', info.title);
+        if(daily.documentId !== info.documentId){
+            daily.set('documentId', info.documentId)
+            Documents.findById(info.documentId, function(err, file){
+                file.set('name', `${req.user.name}--${moment(new Date()).format('YYYY年MM月DD日')}--日报文件`);
+                var oldPath = path.join(__dirname, `../../public/upload/${file._id.toString()}.${file.type}`);
+                var targetPath = path.join(__dirname, `../../public/upload/daily/${file._id.toString()}.${file.type}`);
+                fs.rename(oldPath, targetPath, function(err){
+                    if(err){
+                        res.send({result: err})
+                    }else{
+                        file.save(function(err){
+                            if(err){
+                                res.send({result: err});
+                            }else{
+                                daily.save(function(err){
+                                    if(err){
+                                        res.send({result: err})
+                                    }else{
+                                        res.send({result: 'success'})
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
+            })
+        }else{
+            daily.save(function(err){
+                if(err){
+                    res.send({result: err})
+                }else{
+                    res.send({result: 'success'})
+                }
+            })
+        }
+    })
+    
+})
+
 router.post('/myDailyList', function(req, res){
     var user = req.user._id;
     res.setHeader("Content-Type","application/json");

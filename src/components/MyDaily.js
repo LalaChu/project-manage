@@ -121,6 +121,7 @@ class MyDaily extends Component{
                     onSelect={this.handleViewDaily}
                     dateCellRender={this.handleRenderDate}/>
                 <DailyModal
+                    onEdit={this.props.updateDaily}
                     removeFile={this.props.deleteDailyFile}
                     record={record}
                     method={method}

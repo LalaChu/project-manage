@@ -26,25 +26,26 @@ class DailyForm extends Component{
             id: ''
         }
     }
-    componentWillUpdate(nextProps,nextState){
-        if(this.props.record && nextProps.record && this.props.record.documentId !== nextProps.record.documentId){
-        // if(nextState !== this.state && nextProps.record && nextProps.record.documentId){
+    componentDidUpdate(prevProps,prevState){
+        console.log(prevProps)
+        if( prevProps.record != undefined && this.props.record && prevProps.record.documentId !== this.props.record.documentId){
+            console.log(prevProps)
             this.setState({fileList: [
                 {
                     uid: 1,
                     name: '日报文件.doc',
                     status: 'done',
-                    url: `/public/upload/daily/${nextProps.record.documentId}.doc`
+                    url: `/public/upload/daily/${this.props.record.documentId}.doc`,
                 }
-            ]})
+                ],
+                id: prevState.id
+            })
         }
     }
     handleAdd = () => {
-        console.log(this.props)
-        const { method, form, onAdd } = this.props
+        const { method, form, onAdd, onEdit, record } = this.props
         form.validateFieldsAndScroll((err,values) => {
             if(!err){
-                console.log(method)
                 if(method === 'add'){
                     onAdd({
                         ...values,
@@ -52,10 +53,12 @@ class DailyForm extends Component{
                     });
                 }else if(method === 'view'){
                     this.props.onCancel()
-                    // this.props.onEdit({
-                    //     ...record,
-                    //     ...values
-                    // })
+                }else{
+                    onEdit({
+                        ...record,
+                        ...values,
+                        documentId: this.state.id === '' ? this.props.record.documentId : this.state.id
+                    })
                 }
                 
             }
