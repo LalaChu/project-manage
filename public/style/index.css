@@ -115,12 +115,10 @@ table .anticon{
     font-size: 16px;
 }
 
-.my-daily{
+.my-daily,.document, .all-daily{
     padding: 10px;
 }
-.document{
-    padding: 10px;
-}
+
 .document-bread{
     display: block;
     text-align: left;
@@ -261,4 +259,34 @@ input[type=file]{
     display: inline-block;
     width: 100%;
     font-size: 0.9em;
+}
+.all-daily{
+    text-align: center;
+}
+.daily-stats{
+    display: inline-block;
+    width: 30%;
+}
+.all-daily-list{
+    width: 70%;
+    display: inline-block;
+}
+.daily-pie{
+    width: 100%;
+    height: 300px;
+}
+.daily-calendar{
+    width: 80%;
+    max-width: 250px;
+    min-width: 200px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    margin: 40px auto 0 auto;
+}
+.daily-header{
+    text-align: left;
+    margin-bottom: 40px;
+}
+.recharts-wrapper{
+    margin: 0 auto;
 }
