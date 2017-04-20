@@ -5,7 +5,11 @@ import { PieChart, Pie, Legend } from 'recharts'
 import createColumns from '../tableStructure/allDaily'
 
 class AllDaily extends Component{
+    componentWillMount(){
+        this.props.getDailyList()
+    }
     render(){
+        const { dailyList } = this.props 
         const data01 = [{name: 'Group A', value: 400}, {name: 'Group B', value: 300},
                   {name: 'Group C', value: 300}, {name: 'Group D', value: 200},
                   {name: 'Group E', value: 278}, {name: 'Group F', value: 189}]
@@ -24,6 +28,7 @@ class AllDaily extends Component{
                 <section className='all-daily-list'>
                     <Table 
                     size='middle'
+                    dataSource={dailyList}
                     columns={columns} 
                     bordered
                     rowKey='_id'/>

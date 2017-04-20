@@ -126,3 +126,33 @@ export const fetchUpdateDaily = (info) => {
                 
     }
 }
+
+const getAllDaily = (status, list) => {
+    return {
+        type: DailyAction.GET_DAILY,
+        status,
+        allDailyList: list
+    }
+}
+
+export const fetchAllDaily = () => {
+    var init = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        redirect: 'follow'
+    }
+    return function(dispatch){
+        dispatch(getAllDaily(Status.LOADING, []))
+        return fetch('/allDaily',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(getAllDaily(Status.SUCCESS, json.result))
+                    // dispatch(addDaily('',''))
+                    // dispatch(UIAction.setDailyVisible(false, ''))
+                    
+                }).catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}

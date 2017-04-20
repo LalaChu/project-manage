@@ -40,6 +40,13 @@ const DailyState = (state = initialState, action ) => {
                 needFetch: action.status === Status.SUCCESS ? true : false,
                 msg: action.msg
             }
+        case DailyAction.GET_DAILY:
+            return {
+                ...state,
+                status: action.status,
+                needFetch: action.status === Status.ERROR ? true : false,
+                dailyList: action.allDailyList
+            }
         default:
             return state
     }

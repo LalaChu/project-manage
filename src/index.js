@@ -11,7 +11,7 @@ import { Provider } from 'react-redux'
 import configStore from './store'
 import DepartmentContainer from './containers/Department'
 import StaffContainer from './containers/Staff'
-import AllDaily from './components/AllDaily'
+import AllDailyContainer from './containers/Daily'
 import DailyContainer from './containers/MyDaily'
 import DocumentContainer from './containers/Document'
 import NeedApproval from './components/NeedApproval'
@@ -36,7 +36,7 @@ render(
                     <Route path='stuff' component={StaffContainer} />
                 </Route>
                 <Route path='daily' exact render={()=>{( <Redirect to='/daily/all' />)}}>
-                    <Route path='all' component={AllDaily} />
+                    <Route path='all' component={AllDailyContainer} />
                     <Route path='my' component={DailyContainer} />
                 </Route>
                 <Route path='approval' exact render={()=>{( <Redirect to='/approval/need' />)}}>
