@@ -262,14 +262,20 @@ input[type=file]{
 }
 .all-daily{
     text-align: center;
+    height: 100%;
 }
 .daily-stats{
+    position: absolute;
+    left: 20px;
     display: inline-block;
     width: 30%;
 }
 .all-daily-list{
-    width: 70%;
+    width: calc(70% - 50px);
     display: inline-block;
+    height: 100%;
+    position: absolute;
+    right: 30px;
 }
 .daily-pie{
     width: 100%;

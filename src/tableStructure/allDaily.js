@@ -46,7 +46,7 @@ const createColumns = function(edit, remove){
                   </div>
                 )
               }
-            }];
+            }]
 }
 
 export default createColumns
