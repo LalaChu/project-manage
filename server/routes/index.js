@@ -796,6 +796,7 @@ router.put('/daily', function(req, res){
     Daily.findById(info._id, function(err, daily){
         daily.set('content', info.content);
         daily.set('title', info.title);
+        daily.set('taskId', info.taskId);
         if(daily.documentId !== info.documentId){
             daily.set('documentId', info.documentId)
             Documents.findById(info.documentId, function(err, file){
