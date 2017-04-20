@@ -757,7 +757,8 @@ router.post('/daily', function(req, res){
     var info = req.body;
     res.setHeader("Content-Type","application/json");
     info.date = moment(new Date());
-    info.staffId = req.user._id;
+    info.staffId = new mongoose.Types.ObjectId(req.user._id);
+    info.taskId = new mongoose.Types.ObjectId(info.taskId);
     var daily = new Daily(info);
     daily.save(function(err){
         if(err){
@@ -796,7 +797,7 @@ router.put('/daily', function(req, res){
     Daily.findById(info._id, function(err, daily){
         daily.set('content', info.content);
         daily.set('title', info.title);
-        daily.set('taskId', info.taskId);
+        daily.set('taskId', new mongoose.Types.ObjectId(info.taskId));
         if(daily.documentId !== info.documentId){
             daily.set('documentId', info.documentId)
             Documents.findById(info.documentId, function(err, file){
@@ -874,6 +875,17 @@ router.delete('/dailyFile', function(req, res){
                     })
                 }
             })
+        }
+    })
+})
+router.post('/allDaily', function(req,res){
+    Daily.find()
+    .populate('staffId')
+    .exec(function(err, list){
+        if(err){
+            res.send({result: err})
+        }else{
+            res.send({result: list})
         }
     })
 })
