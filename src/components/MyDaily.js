@@ -114,7 +114,7 @@ class MyDaily extends Component{
                 <Button 
                     disabled={isTodayPosted}
                     onClick={this.handleClick}
-                    className='add-item'>
+                    className='add-daily'>
                     <Icon type="plus" />{isTodayPosted ? '今天已提交过日报' : '添加日报'}
                 </Button>
                 <Calendar

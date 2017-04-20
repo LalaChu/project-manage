@@ -880,7 +880,7 @@ router.delete('/dailyFile', function(req, res){
 })
 router.post('/allDaily', function(req,res){
     Daily.find()
-    .populate('staffId')
+    .populate('staffId taskId')
     .exec(function(err, list){
         if(err){
             res.send({result: err})

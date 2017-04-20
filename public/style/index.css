@@ -31,9 +31,9 @@ body, html, #root, .ant-layout, .ant-layout-sider{
 
 .add-item{
     margin-bottom: 5px;
-    position: absolute;
-    left: 20px;
-    top: 21px;
+    position: relative;
+    left: 0;
+    top: 0;
 }
 .select-row{
     padding: 30px 25px 25px 25px;
@@ -295,4 +295,10 @@ input[type=file]{
 }
 .recharts-wrapper{
     margin: 0 auto;
+}
+.add-daily{
+    position: absolute;
+    top: 20px;
+    left: 21px;
+    margin-bottom: 5px;
 }
