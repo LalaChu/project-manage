@@ -115,6 +115,8 @@ export const fetchUpdateDaily = (info) => {
                 .then((response) => { return response.json()})
                 .then(json =>{ 
                     dispatch(updateDaily(Status.SUCCESS, 'success'))
+                    dispatch(addDaily('',''))
+                    dispatch(UIAction.setDailyVisible(false, ''))
                     // dispatch(addDaily('',''))
                     // dispatch(UIAction.setDailyVisible(false, ''))
                     
