@@ -6,7 +6,11 @@ import createColumns from '../tableStructure/allDaily'
 
 class AllDaily extends Component{
     componentWillMount(){
-        this.props.getDailyList()
+        this.props.getDailyList({date: ''})
+    }
+    handleSelectDate = (date) => {
+        console.log(date.toString())
+        this.props.getDailyList({date: date.toString()})
     }
     render(){
         const { dailyList } = this.props 
@@ -22,7 +26,10 @@ class AllDaily extends Component{
                         <Pie isAnimationActive={false} data={data01} outerRadius={80} fill="#8884d8" label/>
                     </PieChart>
                     <section className='daily-calendar'>
-                        <Calendar fullscreen={false} />
+                        <Calendar
+                            onSelect={this.handleSelectDate} 
+                            fullscreen={false} 
+                            />
                     </section>
                 </section>
                 <section className='all-daily-list'>

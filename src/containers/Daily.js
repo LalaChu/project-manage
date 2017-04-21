@@ -13,8 +13,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        getDailyList: () => {
-            dispatch(DailyAction.fetchAllDaily())
+        getDailyList: (date) => {
+            dispatch(DailyAction.fetchAllDaily(date))
         } 
     }
 }

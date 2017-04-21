@@ -135,9 +135,10 @@ const getAllDaily = (status, list) => {
     }
 }
 
-export const fetchAllDaily = () => {
+export const fetchAllDaily = (date) => {
     var init = {
         method: 'POST',
+        body: JSON.stringify(date),
         headers: {'Content-Type': 'application/json'},
         redirect: 'follow'
     }

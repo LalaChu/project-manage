@@ -879,7 +879,15 @@ router.delete('/dailyFile', function(req, res){
     })
 })
 router.post('/allDaily', function(req,res){
-    Daily.find()
+    var info = req.body;
+    var date = (new Date()).toString();
+    if(info.date){
+        date = info.date;
+    }
+    var datearr = date.split(' ');
+    var finaldate = datearr.slice(0, 4).join(' ');
+    var regExp = new RegExp(finaldate, 'i')
+    Daily.find({date: regExp})
     .populate('staffId taskId')
     .exec(function(err, list){
         if(err){
