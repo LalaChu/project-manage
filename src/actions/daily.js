@@ -127,27 +127,30 @@ export const fetchUpdateDaily = (info) => {
     }
 }
 
-const getAllDaily = (status, list) => {
+const getAllDaily = (status, list, date) => {
     return {
         type: DailyAction.GET_DAILY,
         status,
-        allDailyList: list
+        allDailyList: list.list,
+        allNum: list.allNum,
+        dailyNum: list.dailyNum,
+        date: date
     }
 }
 
-export const fetchAllDaily = (date) => {
+export const fetchAllDaily = (info) => {
     var init = {
         method: 'POST',
-        body: JSON.stringify(date),
+        body: JSON.stringify(info),
         headers: {'Content-Type': 'application/json'},
         redirect: 'follow'
     }
     return function(dispatch){
-        dispatch(getAllDaily(Status.LOADING, []))
+        dispatch(getAllDaily(Status.LOADING, {list: [], allNum: 0, dailyNum: 0}, info.date))
         return fetch('/allDaily',init)
                 .then((response) => { return response.json()})
                 .then(json =>{ 
-                    dispatch(getAllDaily(Status.SUCCESS, json.result))
+                    dispatch(getAllDaily(Status.SUCCESS, json.result, info.date))
                     // dispatch(addDaily('',''))
                     // dispatch(UIAction.setDailyVisible(false, ''))
                     

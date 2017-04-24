@@ -145,7 +145,7 @@ const TaskModal = Form.create({mapPropsToFields:function(props){
         startTime: {value: props.record.startTime ? moment(props.record.startTime, 'YYYY-MM-DD') : ''},
         endTime: {value: props.record.endTime ? moment(props.record.endTime, 'YYYY-MM-DD') : ''},
         description: {value: props.record.description},
-        parentId: {value: parentId.length ? parentId[1] || parentId[0] : '' },
+        parentId: {value: parentId && parentId.length ? parentId[1] || parentId[0] : '' },
     }
 }})(TaskForm)
 

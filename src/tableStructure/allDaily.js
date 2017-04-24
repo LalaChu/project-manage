@@ -8,6 +8,9 @@ const createColumns = function(edit, remove){
               dataIndex: 'staffId',
               key: 'staffId',
               render: (text, record) => {
+                if(text[0] === undefined){
+                  return ''
+                }
                 return text[0].name
               }
             },{
@@ -19,6 +22,9 @@ const createColumns = function(edit, remove){
               dataIndex: 'taskId',
               key: 'taskId',
               render: (text, record) => {
+                if(text[0] === undefined){
+                  return ''
+                }
                 return text[0].name
               }
             }, {

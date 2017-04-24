@@ -63,6 +63,7 @@ router.post('/logout',function(req, res){
 
 router.post('/addStaff',function(req, res){
     var staff = new Staff(req.body);
+    staff.set('date', (new Date()).toString().substr(5))
     staff.save(function(err){
         res.setHeader("Content-Type","application/json");
         if(err){
@@ -893,7 +894,20 @@ router.post('/allDaily', function(req,res){
         if(err){
             res.send({result: err})
         }else{
-            res.send({result: list})
+            console.log(date)
+            Staff.find({date:{ $lt: date.substr(5)}})
+            .exec(function(err, staff){
+                if(err){
+                    res.send({result: err})
+                }else{
+                    result = {
+                        list,
+                        allNum: staff.length,
+                        dailyNum: list.length 
+                    }
+                    res.send({result: result})
+                }
+            })
         }
     })
 })

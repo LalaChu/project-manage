@@ -10,6 +10,7 @@ var staff = new Schema({
     telephone: {type: String, unique: true},
     departmentId: {type: Array},
     authority: String,
+    date: String
 },{
     collection: 'staff'
 });

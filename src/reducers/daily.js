@@ -7,7 +7,9 @@ let initialState = {
     myDailyList: [],
     status:'',
     msg:'',
-    needFetch:true 
+    needFetch:true,
+    allNum: 0,
+    dailyNum: 0
 }
 
 const DailyState = (state = initialState, action ) => {
@@ -45,7 +47,10 @@ const DailyState = (state = initialState, action ) => {
                 ...state,
                 status: action.status,
                 needFetch: action.status === Status.ERROR ? true : false,
-                dailyList: action.allDailyList
+                dailyList: action.allDailyList,
+                date: action.date,
+                dailyNum: action.dailyNum,
+                allNum: action.allNum
             }
         default:
             return state

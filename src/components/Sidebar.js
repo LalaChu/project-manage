@@ -42,12 +42,12 @@ class Sidebar extends Component{
                     <Menu.Item key='document'>
                         <Link to='/document'>文档管理</Link>
                     </Menu.Item>
-                    <SubMenu key='approval' title={<Link className='submenu-title' to='/approval/need'>审批</Link>}>
+                    <SubMenu key='approval' title={<Link className='submenu-title' to='/approval/need'>质量审查</Link>}>
                         <Menu.Item key='need'>
-                            <Link to='/approval/need'>待我审批</Link>
+                            <Link to='/approval/need'>待我审查</Link>
                         </Menu.Item>
                         <Menu.Item key='start'>
-                            <Link to='/approval/start'>我发起的</Link>
+                            <Link to='/approval/start'>我的工作</Link>
                         </Menu.Item>
                     </SubMenu>
                     <SubMenu key='daily' title={<Link className='submenu-title' to='/daily/all'>日报</Link>}>
