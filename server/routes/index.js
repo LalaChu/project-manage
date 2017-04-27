@@ -446,7 +446,7 @@ router.delete('/project',function(req,res){
 })
 
 router.post('/taskList', function(req, res){
-    Task.find().exec(function(err,doc){
+    Task.find().populate('manageId creator').exec(function(err,doc){
         res.setHeader("Content-Type","application/json");
         if(err){
             res.send({"result":err});
@@ -457,6 +457,8 @@ router.post('/taskList', function(req, res){
 })
 router.post('/task',function(req,res){
     var task = new Task(req.body);
+    task.set('manageId', new mongoose.Types.ObjectId(req.body.manageId));
+    task.set('creator', new mongoose.Types.ObjectId(req.user._id))
     task.save(function(err){
         res.setHeader("Content-Type","application/json");
         if(err){
@@ -480,7 +482,7 @@ router.put('/task',function(req,res){
     
         Task.findById(info._id,function(err, task){
             task.name = info.name;
-            task.manageId = info.manageId;
+            task.manageId = new mongoose.Types.ObjectId(info.manageId);
             task.startTime = info.startTime;
             task.endTime = info.endTime;
             task.description = info.description;

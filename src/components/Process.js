@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
-import ReactGantt from 'gantt-for-react'
 import moment from 'moment'
-
+import Gantt from './Gantt'
 
 class Process extends Component{
+    componentWillMount(){
+        this.props.fetchTask()
+    }
     render(){
-
+        const {taskList} = this.props
         return (
-            <div>this is process
+            <div className='process'>
+                <Gantt 
+                list={taskList}/>
             </div>
         )
     }

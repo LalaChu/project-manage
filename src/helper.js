@@ -1,3 +1,4 @@
+import moment from 'moment'
 export const addKeyColumns = function(data){
     return data.map((e) => {
         return {
@@ -62,4 +63,17 @@ export const getFolderNameByPath = function(tree, path){
     })
     return findName
     // return 'dddd'
+}
+
+export const getMaxAndMinDate = function(list){
+    let max = moment(list[0].endTime)
+    let min = moment(list[0].startTime)
+    list.map(function(item){
+        min = moment.min(moment(item.startTime), min)
+        max = moment.max(moment(item.endTime), max)
+    })
+    return {
+        min,
+        max
+    }
 }

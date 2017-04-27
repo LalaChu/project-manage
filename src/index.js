@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import App from './components/App'
 import View from './components/View'
 import Personal from './components/Personal'
-import Process from './components/Process'
+import ProcessContainer from './containers/Process'
 import ProjectContainer from './containers/Project'
 import { Router, Route, browserHistory, IndexRoute, Redirect, Switch } from 'react-router'
 import '../public/style/index.css'
@@ -15,7 +15,7 @@ import AllDailyContainer from './containers/Daily'
 import DailyContainer from './containers/MyDaily'
 import DocumentContainer from './containers/Document'
 import NeedApproval from './components/NeedApproval'
-import StartApproval from './components/StartApproval'
+import StartContainer from './containers/StartApproval'
 import LoginContainer from './containers/Login'
 import RegisterContainer from './containers/Register'
 
@@ -28,7 +28,7 @@ render(
                 <IndexRoute component={View}></IndexRoute>
                 <Route path='view' component={View} />
                 <Route path='personal' component={Personal} />
-                <Route path='process' component={Process} />
+                <Route path='process' component={ProcessContainer} />
                 <Route path='project' component={ProjectContainer} />
                 <Route path='document' component={DocumentContainer}/>
                 <Route path='organization' exact render={()=>{( <Redirect to='/organization/department' />)}}>
@@ -41,7 +41,7 @@ render(
                 </Route>
                 <Route path='approval' exact render={()=>{( <Redirect to='/approval/need' />)}}>
                     <Route path='need' component={NeedApproval} />
-                    <Route path='start' component={StartApproval} />
+                    <Route path='start' component={StartContainer} />
                 </Route>
                 {/*<Route component={View}></Route>*/}
             </Route>
