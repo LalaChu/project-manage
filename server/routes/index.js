@@ -63,7 +63,7 @@ router.post('/logout',function(req, res){
 
 router.post('/addStaff',function(req, res){
     var staff = new Staff(req.body);
-    staff.set('date', (new Date()).toString().substr(5))
+    staff.set('date', (new Date()).toString().substr(4))
     staff.save(function(err){
         res.setHeader("Content-Type","application/json");
         if(err){
@@ -482,7 +482,7 @@ router.put('/task',function(req,res){
     
         Task.findById(info._id,function(err, task){
             task.name = info.name;
-            task.manageId = new mongoose.Types.ObjectId(info.manageId);
+            task.manageId = new mongoose.Types.ObjectId(info.manageId[0]);
             task.startTime = info.startTime;
             task.endTime = info.endTime;
             task.description = info.description;
@@ -897,7 +897,7 @@ router.post('/allDaily', function(req,res){
             res.send({result: err})
         }else{
             console.log(date)
-            Staff.find({date:{ $lt: date.substr(5)}})
+            Staff.find({date:{ $lt: date.substr(4)}})
             .exec(function(err, staff){
                 if(err){
                     res.send({result: err})

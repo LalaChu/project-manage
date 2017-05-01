@@ -314,3 +314,35 @@ input[type=file]{
     background-color: #eee;
     border-radius: 160px;
 }
+.process .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+    padding: 16px 5px;
+}
+.process .ant-table-scroll .ant-table-fixed .ant-table-tbody > tr > td{
+    border-right: none;
+}
+.process-day{
+    border-right: 1px solid #e9e9e9;
+    text-align: center;
+    width: 36px;
+    display: table-cell;
+}
+.process-day:last-child, .process-week:last-child{
+    border-right: none;
+}
+.process-week{
+    width: 245px;
+    display: table-cell;
+    border-right: 1px solid #e9e9e9;
+    border-bottom: 1px solid #e9e9e9;
+    text-align: center;
+}
+.gantt-time-table{
+    margin: -16px -8px;
+    height: 60px;
+    line-height: 30px;
+}
+.process-bar{
+    display: inline-block;
+    background-color: green;
+    height: 15px;
+}
