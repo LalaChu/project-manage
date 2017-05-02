@@ -32,9 +32,6 @@ class TaskForm extends Component{
                 }else{
                     values.parentId = []
                 }
-                if(values.manageId){
-                    values.manageId = [ values.manageId ]
-                }
                 if(method === 'add'){
                     this.props.onAdd(values)
                 }else{

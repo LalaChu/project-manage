@@ -16,14 +16,14 @@ const createColumns = function(edit, remove){
               dataIndex: 'manageId',
               key: 'manageId',
               render: (text) => {
-                return text[0].name
+                return text.name
               }
             }, {
               title: '创建人',
               dataIndex: 'creator',
               key: 'creator',
               render: (text) => {
-                return text[0].name
+                return text.name
               }
             }, {
               title: '开始时间',

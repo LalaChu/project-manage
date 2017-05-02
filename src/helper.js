@@ -77,3 +77,13 @@ export const getMaxAndMinDate = function(list){
         max
     }
 }
+
+export const getStateWord = function(state){
+    if(state === 'TOBESTARTED'){
+        return '未开始'
+    }else if(state === 'DOING'){
+        return '进行中'
+    }else{
+        return 'dddd'
+    }
+}

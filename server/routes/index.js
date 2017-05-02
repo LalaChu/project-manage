@@ -16,6 +16,7 @@ var multipartMiddleware = multipart();
 var path = require('path');
 var moment = require('moment');
 var removePath = require('child_process');
+var ProjectState = require('../constants');
 
 
 router.get('*', function(req, res, next){
@@ -458,7 +459,10 @@ router.post('/taskList', function(req, res){
 router.post('/task',function(req,res){
     var task = new Task(req.body);
     task.set('manageId', new mongoose.Types.ObjectId(req.body.manageId));
-    task.set('creator', new mongoose.Types.ObjectId(req.user._id))
+    task.set('creator', new mongoose.Types.ObjectId(req.user._id));
+    if(moment(task.get('startTime')).isBefore(new Date())){
+        task.set('state', ProjectState.doing)
+    }
     task.save(function(err){
         res.setHeader("Content-Type","application/json");
         if(err){
@@ -482,7 +486,7 @@ router.put('/task',function(req,res){
     
         Task.findById(info._id,function(err, task){
             task.name = info.name;
-            task.manageId = new mongoose.Types.ObjectId(info.manageId[0]);
+            task.manageId = new mongoose.Types.ObjectId(info.manageId);
             task.startTime = info.startTime;
             task.endTime = info.endTime;
             task.description = info.description;
