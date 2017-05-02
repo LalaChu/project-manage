@@ -10,7 +10,7 @@ var daily = new Schema({
     type: String,
     documentId: String,
     date:String,
-    staffId: [{type: Schema.Types.ObjectId, ref: 'staff'}]
+    staffId: {type: Schema.Types.ObjectId, ref: 'staff'}
 },{
     collection: 'daily'
 });

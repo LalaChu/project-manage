@@ -300,7 +300,7 @@ router.post('/projectList', function(req, res){
         if(err){
             res.send({"result":err});
         }else{
-            Task.find().exec(function(err, tasks){
+            Task.find().populate('creator manageId').exec(function(err, tasks){
                 if(err){
                     res.send({"result": err})
                 }else{

@@ -32,6 +32,9 @@ class TaskForm extends Component{
                 }else{
                     values.parentId = []
                 }
+                if(values.manageId){
+                    values.manageId = [ values.manageId ]
+                }
                 if(method === 'add'){
                     this.props.onAdd(values)
                 }else{
@@ -43,6 +46,22 @@ class TaskForm extends Component{
                 
             }
         })
+    }
+    checkEndTime = (rule, value, callback) => {
+        const {form} = this.props
+        if(value && form.getFieldValue('endTime') && !moment(value).isBefore(form.getFieldValue('endTime'))){
+            callback('开始时间不得晚于结束时间')
+        } else{
+            callback()
+        }
+    }
+    checkStartTime = (rule, value, callback) => {
+        const {form} = this.props
+        if(value && form.getFieldValue('startTime') && !moment(value).isAfter(form.getFieldValue('startTime'))){
+            callback('结束时间不得早于开始时间')
+        } else{
+            callback()
+        }
     }
     render(){
         const formLayout = {
@@ -104,7 +123,7 @@ class TaskForm extends Component{
                             <FormItem 
                                 hasFeedback>
                                 {getFieldDecorator('startTime',{
-                                    rules:[{required:true, message: '名称不能为空'}]
+                                    rules:[{required:true, message: '请选择开始时间'},{validator: this.checkEndTime}]
                                 })(<DatePicker />)}
                             </FormItem>
                         </Col>
@@ -113,7 +132,7 @@ class TaskForm extends Component{
                             <FormItem 
                                 hasFeedback>
                                 {getFieldDecorator('endTime',{
-                                    rules:[{required:true, message: '名称不能为空'}]
+                                    rules:[{required:true, message: '请选择结束时间'},{validator: this.checkStartTime}]
                                 })(<DatePicker />)}
                             </FormItem>
                         </Col>
@@ -137,6 +156,7 @@ const TaskModal = Form.create({mapPropsToFields:function(props){
         return {}
     }
     let parentId = props.record.parentId
+    console.log(props)
     return {
         name: {value: props.record.name},
         state: {value: props.record.state},

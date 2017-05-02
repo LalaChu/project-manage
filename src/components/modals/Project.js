@@ -96,7 +96,6 @@ class ProjectForm extends Component{
 }
 
 const ProjectModal = Form.create({mapPropsToFields:function(props){
-    console.log(props)
     if(!props.record){
         return {}
     }

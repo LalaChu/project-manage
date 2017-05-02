@@ -8,14 +8,14 @@ var task = new Schema({
     name: String,
     startTime: String,
     endTime: String,
-    manageId: [{type: Schema.Types.ObjectId, ref: 'staff'}],
+    manageId: {type: Schema.Types.ObjectId, ref: 'staff'},
     reviewerId: String,
     state: {type: String, default: ProjectState.toBeStarted},
     startCheckTime: String,
     type:{type:String, default: 'task'},
     parentId: Array,
     description: String,
-    creator: [{type: Schema.Types.ObjectId, ref: 'staff'}]
+    creator: {type: Schema.Types.ObjectId, ref: 'staff'}
 },{
     collection: 'task'
 });

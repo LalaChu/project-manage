@@ -8,7 +8,7 @@ var category = new Schema({
     name: String,
     startTime: String,
     endTime: String,
-    manageId: String,
+    manageId: {type: Schema.Types.ObjectId, ref: 'staff'},
     state: {type: String, default: ProjectState.toBeStarted},
     parentId: String,
     type:{type:String, default: 'category'},
