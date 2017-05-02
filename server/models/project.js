@@ -19,7 +19,7 @@ var project = new Schema({
     name: String,
     startTime: String,
     endTime: String,
-    manageId: String,
+    manageId: {type: Schema.Types.ObjectId, ref: 'staff'},
     state: {type: String, default: ProjectState.toBeStarted},
     categories: [category],
     type:{type:String, default: 'project'},

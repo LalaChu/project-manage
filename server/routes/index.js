@@ -296,7 +296,7 @@ router.post('/test',function(req, res){
 })
 
 router.post('/projectList', function(req, res){
-    Project.find().exec(function(err,projects){
+    Project.find().populate('manageId').exec(function(err,projects){
         res.setHeader("Content-Type","application/json");
         if(err){
             res.send({"result":err});
@@ -363,6 +363,7 @@ router.post('/project',function(req,res){
         }
     }
     var project = new Project(req.body);
+    project.set('manageId', mongoose.Types.ObjectId(req.body.manageId))
     if(req.body.parentId){
         project.addTo(req.body.parentId, req.body, callback)
     }else{

@@ -31,6 +31,22 @@ class ProjectForm extends Component{
             }
         })
     }
+    checkEndTime = (rule, value, callback) => {
+        const {form} = this.props
+        if(value && form.getFieldValue('endTime') && !moment(value).isBefore(form.getFieldValue('endTime'))){
+            callback('开始时间不得晚于结束时间')
+        } else{
+            callback()
+        }
+    }
+    checkStartTime = (rule, value, callback) => {
+        const {form} = this.props
+        if(value && form.getFieldValue('startTime') && !moment(value).isAfter(form.getFieldValue('startTime'))){
+            callback('结束时间不得早于开始时间')
+        } else{
+            callback()
+        }
+    }
     render(){
         const formLayout = {
             labelCol: {span : 6},
@@ -71,7 +87,7 @@ class ProjectForm extends Component{
                             <FormItem 
                                 hasFeedback>
                                 {getFieldDecorator('startTime',{
-                                    rules:[{required:true, message: '开始时间'}]
+                                    rules:[{required:true, message: '请选择开始时间'},{validator: this.checkEndTime}]
                                 })(<DatePicker />)}
                             </FormItem>
                         </Col>
@@ -79,7 +95,9 @@ class ProjectForm extends Component{
                         <Col span='6'>
                             <FormItem 
                                 hasFeedback>
-                                {getFieldDecorator('endTime')(<DatePicker />)}
+                                {getFieldDecorator('endTime',{
+                                    rules:[{required:true, message: '请选择结束时间'},{validator: this.checkStartTime}]
+                                })(<DatePicker />)}
                             </FormItem>
                         </Col>
                     </FormItem>
