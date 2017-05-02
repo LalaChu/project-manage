@@ -28,7 +28,7 @@ const createColumns = function(edit, remove){
               key: 'state',
               render: (text) => {
                 return  <Tooltip title={getStateWord(text)}>
-                          <div className={`project-state-block ${text.toLowerCase()}`}></div>
+                          <div className={`project-state-block project-state-block-${text.toLowerCase()}`}></div>
                         </Tooltip>
               }
             }, {

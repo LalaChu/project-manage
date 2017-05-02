@@ -351,9 +351,9 @@ input[type=file]{
     height: 20px;
     border-radius: 20px;
 }
-.tobestarted{
+.process-bar-tobestarted, .project-state-block-tobestarted{
     background-color: #ddd;
 }
-.doing{
+.process-bar-doing, .project-state-block-doing{
     background-color: #00a854;
 }

@@ -1,7 +1,8 @@
 import React from 'react'
 import Icon from 'antd/lib/icon'
+import Tooltip from 'antd/lib/tooltip'
 import moment from 'moment'
-import {getMaxAndMinDate} from '../helper'
+import {getMaxAndMinDate, getStateWord} from '../helper'
 
 const createColumns = function(list){
     let date = list && list.length > 0 ? getMaxAndMinDate(list) : '' 
@@ -69,7 +70,12 @@ const createColumns = function(list){
               dataIndex: 'state',
               key: 'state',
               fixed: 'left',
-              width: 100
+              width: 100,
+              render: (text) => {
+                return  <Tooltip title={getStateWord(text)}>
+                          <div className={`project-state-block project-state-block-${text.toLowerCase()}`}></div>
+                        </Tooltip>
+              }
             }, {
               title: '负责人',
               dataIndex: 'manageId',
@@ -94,7 +100,7 @@ const createColumns = function(list){
                   leftMargin = parseInt((startDate.getTime() - minDate.getTime())/(24*3600*1000)) * 36 - 41
                   width =  parseInt((endDate.getTime() - startDate.getTime())/(24*3600*1000)) * 36
                 }
-                return <div className='process-bar' style={{marginLeft: leftMargin + 'px', width: width + 'px'}}></div>
+                return <div className={`process-bar process-bar-${record.state.toLowerCase()}`} style={{marginLeft: leftMargin + 'px', width: width + 'px'}}></div>
               },
             }]
     return {
