@@ -29,6 +29,13 @@ const createColumns = function(list){
       // let date = getMaxAndMinDate(list)
       let endMonday = date.max.day('1')
       let startModay = date.min.day('1')
+      let endTime = new Date(endMonday)
+      let startTime = new Date(startModay)
+      let subdays =parseInt((endTime.getTime() - startTime.getTime())/(24*3600*1000))
+      if(subdays < 30){
+        startModay.subtract(31-subdays, 'day')
+        startModay = moment(startModay).day(1)
+      }
       for( i = 0 ; endMonday.isAfter(startModay) ; i++ ){
         let week = <td key={endMonday.format('x') + 'week'} colSpan={7} className='process-week'>{endMonday.format('YYYY MM DD')}</td>
         weeks.push(week)
@@ -70,7 +77,7 @@ const createColumns = function(list){
               fixed: 'left',
               width: 100,
               render: (text) => {
-                return text[0].name
+                return text.name
               }
             },{
               title: dataDiv,

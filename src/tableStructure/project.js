@@ -13,6 +13,15 @@ const createColumns = function(edit, remove){
               title: '类型',
               dataIndex: 'type',
               key: 'type',
+              render: (text) => {
+                if(text === 'project'){
+                  return '项目'
+                }else if(text === 'category'){
+                  return '工作分类'
+                }else{
+                  return '具体工作'
+                } 
+              }
             }, {
               title: '状态',
               dataIndex: 'state',
