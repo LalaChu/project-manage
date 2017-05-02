@@ -18,6 +18,10 @@ var moment = require('moment');
 var removePath = require('child_process');
 var ProjectState = require('../constants');
 
+// router.all('*', function(req, res, next){
+//     console.log('dddd')
+//     return next
+// })
 
 router.get('*', function(req, res, next){
     if(req.isAuthenticated()){
@@ -296,7 +300,7 @@ router.post('/test',function(req, res){
 })
 
 router.post('/projectList', function(req, res){
-    Project.find().populate('manageId').exec(function(err,projects){
+    Project.find().populate('manageId categories.manageId').exec(function(err,projects){
         res.setHeader("Content-Type","application/json");
         if(err){
             res.send({"result":err});
@@ -333,21 +337,7 @@ router.post('/projectList', function(req, res){
                             list.push(task);
                         }
                     })
-                    var findName = function(item,id){
-                        return item._id === id
-                    }
-                    Staff.find().exec(function(err, staffs){
-                        list = list.map(function(item){
-                            var temp = item;
-                            staffs.map(function(staff){
-                                if(staff._id.toString() === temp.manageId){
-                                    temp.manageName = staff.name
-                                }
-                            })
-                            return temp
-                        })
-                        res.send({"result":list});
-                    })
+                    res.send({"result":list});
                 }
             })
         }
@@ -389,16 +379,16 @@ router.put('/project',function(req,res){
             { "$set" : 
                 {
                     "categories.$.name": info.name, 
-                    "categories.$.manageId": info.manageId,
                     "categories.$.description": info.description,
                     "categories.$.startTime": info.startTime,  
                     "categories.$.endTime": info.endTime, 
+                    "categories.$.manageId": mongoose.Types.ObjectId(info.manageId), 
                 }
             }, function(err, doc){callback(err)})
     }else{
         Project.findById(info._id,function(err, proj){
             proj.name = info.name;
-            proj.manageId = info.manageId;
+            proj.manageId = mongoose.Types.ObjectId(info.manageId);
             proj.startTime = info.startTime;
             proj.endTime = info.endTime;
             proj.description = info.description;
