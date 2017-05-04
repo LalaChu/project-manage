@@ -357,3 +357,6 @@ input[type=file]{
 .process-bar-doing, .project-state-block-doing{
     background-color: #00a854;
 }
+.process-bar-delay, .project-state-block-delay{
+    background-color: red;
+}

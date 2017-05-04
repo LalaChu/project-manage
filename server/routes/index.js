@@ -17,11 +17,77 @@ var path = require('path');
 var moment = require('moment');
 var removePath = require('child_process');
 var ProjectState = require('../constants');
+var schedule = require('node-schedule');
 
-// router.all('*', function(req, res, next){
-//     console.log('dddd')
-//     return next
-// })
+//定时任务
+
+// var j = schedule.scheduleJob({hour: 0 , minute: 0, second: 0}, function(){
+   
+// });
+
+// Department.update(
+//             {"_id": info.parentId, "children._id":mongoose.Types.ObjectId(info._id)},
+//             { "$set" : 
+//                 {
+//                     "children.$.name": info.name, 
+//                     "children.$.manageId": info.manageId
+//                 }
+//             }, function(err, doc){callback(err)})
+
+var j = schedule.scheduleJob({second: 0}, function(){
+    var date = moment(new Date()).format().split('T')[0];
+    // var endDate = moment(new)
+    console.log(date)
+    Task.updateMany({startTime: { $lte: date}, state: ProjectState.toBeStarted}, 
+                    {state: ProjectState.doing},
+                    {multi: true}, 
+                    function(test){
+                        console.log('任务进行中的状态---更新成功')
+                    }
+    )
+    Task.updateMany({endTime: { $lt: date}, state: {$ne: ProjectState.toBeReviewed}}, 
+                    {state: ProjectState.delay},
+                    {multi: true}, 
+                    function(test){
+                        console.log('任务延期的状态---更新成功')
+                    }
+    )
+    //update sub project
+    Project.updateMany({"categories.startTime": { $lte: date}, 
+                        "categories.state": ProjectState.toBeStarted}, 
+                    {"$set": {
+                        "categories.$.state": ProjectState.doing
+                    }},
+                    {multi: true}, 
+                    function(test){
+                        console.log('工作分类进行中的状态---更新成功')
+                    }
+    )
+    Project.updateMany({"categories.endTime": { $lt: date}}, 
+                    {"$set": {
+                        "categories.$.state": ProjectState.delay
+                    }},
+                    {multi: true}, 
+                    function(test){
+                        console.log('工作分类延期的状态---更新成功')
+                    }
+    )
+    //update project
+    Project.updateMany({startTime: { $lte: date}, state: ProjectState.toBeStarted}, 
+                    {state: ProjectState.doing},
+                    {multi: true}, 
+                    function(test){
+                        console.log('项目进行中的状态---更新成功')
+                    }
+    )
+    Project.updateMany({endTime: { $lt: date} },{state: ProjectState.delay},
+                    {multi: true}, 
+                    function(test){
+                        console.log('项目延期的状态--更新成功')
+                    }
+    )
+});
+
 
 router.get('*', function(req, res, next){
     if(req.isAuthenticated()){

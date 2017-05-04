@@ -83,6 +83,8 @@ export const getStateWord = function(state){
         return '未开始'
     }else if(state === 'DOING'){
         return '进行中'
+    }else if(state === 'DELAY'){
+        return '已延期'
     }else{
         return 'dddd'
     }

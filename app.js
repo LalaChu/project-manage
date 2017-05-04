@@ -56,6 +56,9 @@ app.use('/public',express.static(path.join(__dirname, '/public')));
 app.locals.env = process.env.NODE_ENV || 'dev';
 app.locals.reload = true;
 
+
+
+
 if (isDev) {
 
     // static assets served by webpack-dev-middleware & webpack-hot-middleware for development
