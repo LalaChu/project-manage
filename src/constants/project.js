@@ -13,3 +13,8 @@ export const EDIT_TASK = "EDIT_TASK"
 export const REMOVE_TASK = "REMOVE_TASK"
 
 export const GET_TASK = 'GET_TASK'
+export const GET_MY_TASK = 'GET_MY_TASK'
+export const GET_MY_CHECK = 'GET_MY_CHECK'
+
+export const START_CHECK = 'START_CHECK'
+export const CHECK_TASK = 'CHECK_TASK'

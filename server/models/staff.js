@@ -6,7 +6,7 @@ var Department = require('./department')
 var staff = new Schema({
     email: {type: String, unique: true},
     name: String,
-    password: String,
+    password: {type: String, default: '123456'},
     telephone: {type: String, unique: true},
     departmentId: {type: Array},
     authority: String,

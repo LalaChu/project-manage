@@ -358,5 +358,8 @@ input[type=file]{
     background-color: #00a854;
 }
 .process-bar-delay, .project-state-block-delay{
-    background-color: red;
+    background-color: #ea4335;
+}
+.process-bar-tobereviewed, .project-state-block-tobereviewed{
+    background-color: #fbbc05;
 }

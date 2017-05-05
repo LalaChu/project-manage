@@ -6,17 +6,24 @@ class StartApproval extends Component{
     componentWillMount(){
         this.props.fetchTask()
     }
+    componentDidUpdate(){
+        const { needFetch, fetchTask } = this.props
+        if(needFetch){
+            fetchTask()
+        }
+    }
     render(){
 
-        let columns = createColumns()
-        const {taskList} = this.props
+        
+        const {myTask, startCheck} = this.props
+        let columns = createColumns(startCheck)
         return (
             <div className='start-approval'>
                 <Table 
                     rowKey='_id'
                     bordered={true}
                     columns={columns}
-                    dataSource={taskList} />
+                    dataSource={myTask} />
             </div>
         )
     }

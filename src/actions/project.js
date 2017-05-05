@@ -251,3 +251,122 @@ export const fetchTaskList = (info) => {
                 
     }
 }
+
+const getMyTask = (status, list) => {
+    return {
+        type: projectAction.GET_MY_TASK,
+        status,
+        myTask: list
+    }
+}
+
+export const fetchMyTaskList = (info) => {
+    return function(dispatch){
+        dispatch(getMyTask(Status.LOADING, []))
+        var init = {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            redirect: 'follow'
+        }
+        return fetch('/myTask',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(getMyTask(Status.SUCCESS, json.result))
+                    // dispatch(getTask('', ''))
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}
+
+const getMyCheck = (status, list) => {
+    return {
+        type: projectAction.GET_MY_CHECK,
+        status,
+        myCheck: list
+    }
+}
+
+export const fetchCheckList = (info) => {
+    return function(dispatch){
+        dispatch(getMyCheck(Status.LOADING, []))
+        var init = {
+            method: 'post',
+            body: JSON.stringify(info),
+            headers: {'Content-Type': 'application/json'},
+            redirect: 'follow'
+        }
+        return fetch('/checkList',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(getMyCheck(Status.SUCCESS, json.result))
+                    // dispatch(getTask('', ''))
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}
+
+const startCheck = (status, msg) => {
+    return {
+        type: projectAction.START_CHECK,
+        status,
+        msg,
+    }
+}
+
+export const fetchStartCheck = (info) => {
+    return function(dispatch){
+        dispatch(startCheck(Status.LOADING, ''))
+        var init = {
+            method: 'post',
+            body: JSON.stringify(info),
+            headers: {'Content-Type': 'application/json'},
+            redirect: 'follow'
+        }
+        return fetch('/taskStartCheck',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(startCheck(Status.SUCCESS, 'success'))
+                    dispatch(startCheck('', ''))
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}
+
+const checkTask = (status, msg) => {
+    return {
+        type: projectAction.CHECK_TASK,
+        status,
+        msg,
+    }
+}
+
+export const fetchCheckTask = (info) => {
+    return function(dispatch){
+        dispatch(checkTask(Status.LOADING, ''))
+        var init = {
+            method: 'post',
+            body: JSON.stringify(info),
+            headers: {'Content-Type': 'application/json'},
+            redirect: 'follow'
+        }
+        return fetch('/taskReview',init)
+                .then((response) => { return response.json()})
+                .then(json =>{ 
+                    dispatch(checkTask(Status.SUCCESS, 'success'))
+                    dispatch(checkTask('', ''))
+                })
+                .catch(function(err){
+                    console.log(err)
+                })
+                
+    }
+}

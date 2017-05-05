@@ -6,17 +6,22 @@ import * as TaskAction from '../actions/project'
 
 const mapStateToProps = (state, ownProps) => {
     const {ProjectState: {
-        taskList
+        myTask,
+        needFetch
     }} = state
     return {
-        taskList
+        myTask,
+        needFetch
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchTask: () => {
-            dispatch(TaskAction.fetchTaskList())
-        } 
+            dispatch(TaskAction.fetchMyTaskList())
+        },
+        startCheck: (info) => {
+            dispatch(TaskAction.fetchStartCheck(info))
+        }
     }
 }
 

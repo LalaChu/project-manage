@@ -4,7 +4,7 @@ import moment from 'moment'
 import Tooltip from 'antd/lib/tooltip'
 import {getStateWord} from '../helper'
 
-const createColumns = function(edit, remove){
+const createColumns = function(check, remove){
     return [{
               title: '名称',
               dataIndex: 'name',
@@ -13,9 +13,10 @@ const createColumns = function(edit, remove){
               title: '状态',
               dataIndex: 'state',
               key: 'state',
-              render: (text) => {
-                return  <Tooltip title={getStateWord(text)}>
-                          <div className={`project-state-block project-state-block-${text.toLowerCase()}`}></div>
+              render: (text, record) => {
+                let state = record.checkState !== undefined && record.checkState !== '' ? record.checkState : text
+                return  <Tooltip title={getStateWord(state)}>
+                          <div className={`project-state-block project-state-block-${state.toLowerCase()}`}></div>
                         </Tooltip>
               }
             }, {
@@ -50,11 +51,12 @@ const createColumns = function(edit, remove){
               title: '操作',
               key: 'operation',
               render: (text, record) => {
+                let disableCheck = text === 'DONE' || record.checkState === 'TOBEREVIEWED' ? true : false
                 return (
                   <div className='icon-manage'>
-                      <a onClick={() => {edit(record)}}>提交审查</a>
+                      <a onClick={() => {check(record)}} disabled={disableCheck}>提交审查</a>
                       <a className='spin'>|</a>
-                      <a onClick={() => {remove(record)}}>查看审查</a>
+                      <a onClick={() => {remove(record)}} disabled={!disableCheck}>查看审查</a>
                   </div>
                 )
               }

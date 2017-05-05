@@ -20,23 +20,8 @@ var ProjectState = require('../constants');
 var schedule = require('node-schedule');
 
 //定时任务
-
-// var j = schedule.scheduleJob({hour: 0 , minute: 0, second: 0}, function(){
-   
-// });
-
-// Department.update(
-//             {"_id": info.parentId, "children._id":mongoose.Types.ObjectId(info._id)},
-//             { "$set" : 
-//                 {
-//                     "children.$.name": info.name, 
-//                     "children.$.manageId": info.manageId
-//                 }
-//             }, function(err, doc){callback(err)})
-
-var j = schedule.scheduleJob({second: 0}, function(){
+var j = schedule.scheduleJob({hour: 0, minute: 0 ,second: 0}, function(){
     var date = moment(new Date()).format().split('T')[0];
-    // var endDate = moment(new)
     console.log(date)
     Task.updateMany({startTime: { $lte: date}, state: ProjectState.toBeStarted}, 
                     {state: ProjectState.doing},
@@ -134,7 +119,7 @@ router.post('/logout',function(req, res){
 
 router.post('/addStaff',function(req, res){
     var staff = new Staff(req.body);
-    staff.set('date', (new Date()).toString().substr(4))
+    staff.set('date', moment(new Date()).format())
     staff.save(function(err){
         res.setHeader("Content-Type","application/json");
         if(err){
@@ -513,6 +498,26 @@ router.post('/taskList', function(req, res){
         }
     })
 })
+router.post('/myTask', function(req, res){
+    Task.find({manageId: req.user._id}).populate('manageId creator').exec(function(err,doc){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": doc});
+        }
+    })
+})
+router.post('/checkList', function(req, res){
+    Task.find({creator: req.user._id, checkState: ProjectState.toBeReviewed}).populate('manageId creator').exec(function(err,doc){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": doc});
+        }
+    })
+})
 router.post('/task',function(req,res){
     var task = new Task(req.body);
     task.set('manageId', new mongoose.Types.ObjectId(req.body.manageId));
@@ -540,17 +545,82 @@ router.put('/task',function(req,res){
         }
     }
     var info = req.body;
-    
-        Task.findById(info._id,function(err, task){
-            task.name = info.name;
-            task.manageId = new mongoose.Types.ObjectId(info.manageId);
-            task.startTime = info.startTime;
-            task.endTime = info.endTime;
-            task.description = info.description;
-            task.parentId = info.parentId;
-            task.save(callback(err));
-        })
+    Task.findById(info._id,function(err, task){
+        task.name = info.name;
+        task.manageId = new mongoose.Types.ObjectId(info.manageId);
+        task.startTime = info.startTime;
+        task.endTime = info.endTime;
+        task.description = info.description;
+        task.parentId = info.parentId;
+        task.save(callback(err));
+    })
 })
+
+router.post('/taskStartCheck', function(req, res){
+    var info = req.body;
+    Task.findById(info._id, function(err, task){
+        task.set('checkState', ProjectState.toBeReviewed)
+        task.set('startCheckTime', moment(new Date()).format())
+        task.save(function(err){
+            if(err){
+                res.send({result: err})
+            }else{
+                res.send({result: 'success'})
+            }
+        })
+    })
+})
+router.post('/taskReview', function(req, res){
+    var info = req.body
+    function callback(err){
+        res.setHeader("Content-Type","application/json");
+        if(err){
+            res.send({"result":err});
+        }else{
+            res.send({"result": 'success'});
+        }
+    }
+    Task.findById(info._id, function(err, task){
+        if(info.state === ProjectState.notPassed){
+            task.set('checkState', ProjectState.notPassed)
+            task.set('updateCheckTime', moment(new Date()).format())
+            task.save(callback(err))
+        }else{
+            task.set('state', ProjectState.done)
+            task.set('checkState', ProjectState.done)
+            task.set('updateCheckTime', moment(new Date()).format())
+            if(task.parentId.length === 0){
+                task.save(callback(err))
+            }else{
+                Task.find({parentId: task.parentId[0], state: {$ne: ProjectState.done}}, function(err, tasks){
+                        Project.findById(task.parentId[0], function(err, proj){
+                            var subProj = ''
+                           if(tasks.length <= 1){
+                               proj.set('state', ProjectState.done)
+                           }else{
+                               if(task.parentId.length === 2){
+                                   var subProj = proj.categories.id(task.parentId[1])
+                                   subProj.set('state',ProjectState.done)
+                               }
+                           }
+                            proj.save(function(err){
+                                if(err){
+                                    res.send({result: err})
+                                }else{
+                                    if(subProj !== ''){
+                                        subProj.save(callback(err))
+                                    }else{
+                                        res.send({result: 'success'})
+                                    }
+                                }
+                            })
+                        })
+                })
+            }
+        }
+    })
+})
+
 
 router.delete('/task',function(req,res){
     Task.findByIdAndRemove(req.body._id, function(err){
@@ -562,8 +632,6 @@ router.delete('/task',function(req,res){
         }
     })
 })
-
-
 
 router.post('/fileList',function(req,res){
     var info = req.body;
