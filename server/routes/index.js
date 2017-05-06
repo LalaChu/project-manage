@@ -678,7 +678,7 @@ router.post('/folder', function(req,res){
         var parentPath = parent ? parent.path : path.join(__dirname, '/../../public/upload');
         info.creator = req.user.name;
         var folder = new Path(info);
-        folder.set('createTime',moment(new Date()))
+        folder.set('createTime',moment(new Date()).format())
         folder.save(function(err, msg){
             if(err){
                 res.send({result: err});
@@ -798,7 +798,7 @@ router.post('/file', multipartMiddleware, function(req,res){
     var folderPath = path.join(__dirname, '../../public/upload')
     var targetUrl = path.join(folderPath, filename);
     var document = new Documents(info);
-    document.set('createTime', moment(new Date()));
+    document.set('createTime', moment(new Date()).format());
     document.save(function(err, msg){
         if(err){
             res.send({result: err})
@@ -888,7 +888,7 @@ router.delete('/file', function(req, res){
 router.post('/daily', function(req, res){
     var info = req.body;
     res.setHeader("Content-Type","application/json");
-    info.date = moment(new Date());
+    info.date = moment(new Date()).format();
     info.staffId = new mongoose.Types.ObjectId(req.user._id);
     info.taskId = new mongoose.Types.ObjectId(info.taskId);
     var daily = new Daily(info);
@@ -1041,6 +1041,23 @@ router.post('/allDaily', function(req,res){
             })
         }
     })
+})
+
+router.post('/message',function(req, res){
+    var result = [];
+    var date = moment(new Date()).format();
+    var datearr = date.split('T');
+    var regExp = new RegExp(datearr[0], 'i')
+    Daily.find({date: regExp})
+         .populate('staffId')
+         .exec(function(err, list){
+             if(err){
+                 res.send({result: err})
+             }else{
+                 result = list;
+                 res.send({result: list})
+             }
+         })
 })
 
 module.exports = function (app) {

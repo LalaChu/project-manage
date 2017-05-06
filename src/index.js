@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import App from './components/App'
-import View from './components/View'
+import ViewContainer from './containers/View'
 import Personal from './components/Personal'
 import ProcessContainer from './containers/Process'
 import ProjectContainer from './containers/Project'
@@ -25,8 +25,8 @@ render(
         <Router history={browserHistory}>
             {/*<Switch>*/}
             <Route path='/' component={App}>
-                <IndexRoute component={View}></IndexRoute>
-                <Route path='view' component={View} />
+                <IndexRoute component={ViewContainer}></IndexRoute>
+                <Route path='view' component={ViewContainer} />
                 <Route path='personal' component={Personal} />
                 <Route path='process' component={ProcessContainer} />
                 <Route path='project' component={ProjectContainer} />

@@ -4,6 +4,10 @@ import Timeline from 'antd/lib/timeline'
 const TimeItem = Timeline.Item
 
 class View extends Component{
+    componentWillMount(){
+        // console.log('dddd')
+        this.props.fetchMessage()
+    }
     render(){
         return (
             <div className='view'>
