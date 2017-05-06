@@ -355,11 +355,14 @@ input[type=file]{
     background-color: #ddd;
 }
 .process-bar-doing, .project-state-block-doing{
-    background-color: #00a854;
+    background-color: #108ee9;
 }
 .process-bar-delay, .project-state-block-delay{
     background-color: #ea4335;
 }
 .process-bar-tobereviewed, .project-state-block-tobereviewed{
     background-color: #fbbc05;
+}
+.process-bar-done, .project-state-block-done{
+    background-color: #00a854;
 }

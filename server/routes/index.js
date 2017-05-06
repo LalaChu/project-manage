@@ -581,7 +581,7 @@ router.post('/taskReview', function(req, res){
         }
     }
     Task.findById(info._id, function(err, task){
-        if(info.state === ProjectState.notPassed){
+        if(info.checkState === ProjectState.notPassed){
             task.set('checkState', ProjectState.notPassed)
             task.set('updateCheckTime', moment(new Date()).format())
             task.save(callback(err))

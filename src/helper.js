@@ -87,6 +87,8 @@ export const getStateWord = function(state){
         return '已延期'
     }else if(state === 'TOBEREVIEWED'){
         return '待审核'
+    }else if(state === 'DONE'){
+        return '已完成'
     }else{
         return 'dddd'
     }
