@@ -16,7 +16,6 @@ class Sidebar extends Component{
     render(){
         let openKeys = this.props.openNow === '' ? [] :[this.props.openNow] 
         const { user } = this.props
-        console.log(this.props.currentMenu)
         return (
             <Sider>
                 <div className='user-info'>
