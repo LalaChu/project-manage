@@ -51,7 +51,8 @@ const createColumns = function(check, remove){
               title: '操作',
               key: 'operation',
               render: (text, record) => {
-                let disableCheck = text === 'DONE' || record.checkState === 'TOBEREVIEWED' ? true : false
+                console.log(text)
+                let disableCheck = record.state === 'DONE' || record.checkState === 'TOBEREVIEWED' ? true : false
                 return (
                   <div className='icon-manage'>
                       <a onClick={() => {check(record)}} disabled={disableCheck}>提交审查</a>

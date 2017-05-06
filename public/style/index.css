@@ -366,3 +366,6 @@ input[type=file]{
 .process-bar-done, .project-state-block-done{
     background-color: #00a854;
 }
+.process-bar-notpassed, .project-state-block-notpassed{
+    background-color: #ddd;
+}

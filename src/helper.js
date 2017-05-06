@@ -88,8 +88,8 @@ export const getStateWord = function(state){
     }else if(state === 'TOBEREVIEWED'){
         return '待审核'
     }else if(state === 'DONE'){
-        return '已完成'
-    }else{
-        return 'dddd'
+        return '已完成／审核通过'
+    }else if(state === 'NOTPASSED'){
+        return '未通过审核'
     }
 }

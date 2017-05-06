@@ -16,6 +16,7 @@ class Sidebar extends Component{
     render(){
         let openKeys = this.props.openNow === '' ? [] :[this.props.openNow] 
         const { user } = this.props
+        console.log(this.props.currentMenu)
         return (
             <Sider>
                 <div className='user-info'>
@@ -31,13 +32,13 @@ class Sidebar extends Component{
                     mode='inline'
                     >
                     <Menu.Item key='view'>
-                        <Link to='/view'>首页</Link>
+                        <Link to='/view'>个人中心</Link>
                     </Menu.Item>
                     <Menu.Item key='process'>
-                        <Link to='/process'>进度</Link>
+                        <Link to='/process'>项目进度</Link>
                     </Menu.Item>
                     <Menu.Item key='project'>
-                        <Link to='/project'>项目</Link>
+                        <Link to='/project'>项目结构</Link>
                     </Menu.Item>
                     <Menu.Item key='document'>
                         <Link to='/document'>文档管理</Link>
@@ -66,8 +67,8 @@ class Sidebar extends Component{
                             <Link to='/organization/stuff'>员工管理</Link>
                         </Menu.Item>
                     </SubMenu>
-                    <Menu.Item key='self'>
-                        <Link to='/personal'>个人中心</Link>
+                    <Menu.Item key='personal'>
+                        <Link to='/personal'>我的资料</Link>
                     </Menu.Item>
                     <Menu.Item key='logout'>
                         <span className='logout' onClick={this.handleLogout}>退出系统</span> 

@@ -509,7 +509,7 @@ router.post('/myTask', function(req, res){
     })
 })
 router.post('/checkList', function(req, res){
-    Task.find({creator: req.user._id, checkState: ProjectState.toBeReviewed}).populate('manageId creator').exec(function(err,doc){
+    Task.find({creator: req.user._id, checkState: {$exists: true}}).populate('manageId creator').exec(function(err,doc){
         res.setHeader("Content-Type","application/json");
         if(err){
             res.send({"result":err});
