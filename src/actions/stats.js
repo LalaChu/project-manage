@@ -15,7 +15,7 @@ export const fetchMessage = () => {
         redirect: 'follow'
     }
     return function(dispatch){
-        dispatch(getMessage(Status.LOADING, ''))
+        dispatch(getMessage(Status.LOADING, []))
         return fetch('/message',init)
                 .then((response) => {
                     response.json().then(function(json){

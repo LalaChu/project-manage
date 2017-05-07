@@ -376,21 +376,66 @@ input[type=file]{
     text-align: left;
 }
 .view-info{
+    position: absolute;
     // background-color: #eee;
     width: 70%;
     // height: 100%;
     display: inline-block;
-    padding-right: 10px;
+    padding-right: 20px;
 }
 .view-message{
+    position: absolute;
+    left: 70%;
     padding-left: 8px;
     // background-color: #111;
     display: inline-block;
-    width: 30%;
+    width: calc(30% - 10px);
     height: 100%;
     // height: 100%;
     border-left: #ddd 1px solid;
 }
 .view-message-title{
-    margin-bottom: 20px;
+    width: auto;
+    border-bottom: none;
+    // margin-bottom: 20px;
+}
+.stats-info{
+    padding: 0px 5px 10px 5px;
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    height: 140px;
+    width: 32.4%;
+    margin: 0 0.7%;
+}
+.stats-icon{
+    display: inline-block;
+    font-size: 6em;
+}
+.stats-description{
+    display: inline-block;
+    padding-left: 10px;
+    // font-size: 5em;
+}
+.stats-description span{
+    display: block;
+    // font-size: 5em;
+}
+.stats-progress{
+    // margin-top: 10px;
+    padding: 0 8px;
+}
+
+.stats-info:first-child{
+    margin-left: 0;
+}
+.stats-info:last-child{
+    margin-right: 0;
+}
+.stats-title{
+    font-size: 1.5em;
+    // line-height: 70px;
+}
+.stats-number{
+    font-size: 2em;
 }

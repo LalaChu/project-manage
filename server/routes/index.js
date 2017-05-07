@@ -24,14 +24,14 @@ var j = schedule.scheduleJob({hour: 0, minute: 0 ,second: 0}, function(){
     var date = moment(new Date()).format().split('T')[0];
     console.log(date)
     Task.updateMany({startTime: { $lte: date}, state: ProjectState.toBeStarted}, 
-                    {state: ProjectState.doing},
+                    {state: ProjectState.doing, updateTime: moment(new Date()).format(),lastManage: '系统更新'},
                     {multi: true}, 
                     function(test){
                         console.log('任务进行中的状态---更新成功')
                     }
     )
     Task.updateMany({endTime: { $lt: date}, state: {$ne: ProjectState.toBeReviewed}}, 
-                    {state: ProjectState.delay},
+                    {state: ProjectState.delay, updateTime: moment(new Date()).format(), lastManage: '系统更新'},
                     {multi: true}, 
                     function(test){
                         console.log('任务延期的状态---更新成功')
@@ -509,7 +509,7 @@ router.post('/myTask', function(req, res){
     })
 })
 router.post('/checkList', function(req, res){
-    Task.find({creator: req.user._id, checkState: {$exists: true}}).populate('manageId creator').exec(function(err,doc){
+    Task.find({creator: req.user._id, checkState: {$ne: ''}}).populate('manageId creator').exec(function(err,doc){
         res.setHeader("Content-Type","application/json");
         if(err){
             res.send({"result":err});
@@ -522,6 +522,8 @@ router.post('/task',function(req,res){
     var task = new Task(req.body);
     task.set('manageId', new mongoose.Types.ObjectId(req.body.manageId));
     task.set('creator', new mongoose.Types.ObjectId(req.user._id));
+    task.set('updateTime', moment(new Date()).format())
+    task.set('lastManage', '创建')
     if(moment(task.get('startTime')).isBefore(new Date())){
         task.set('state', ProjectState.doing)
     }
@@ -546,6 +548,8 @@ router.put('/task',function(req,res){
     }
     var info = req.body;
     Task.findById(info._id,function(err, task){
+        task.updateTime = moment(new Date()).format()
+        task.lastManage = '更新'
         task.name = info.name;
         task.manageId = new mongoose.Types.ObjectId(info.manageId);
         task.startTime = info.startTime;
@@ -589,6 +593,8 @@ router.post('/taskReview', function(req, res){
             task.set('state', ProjectState.done)
             task.set('checkState', ProjectState.done)
             task.set('updateCheckTime', moment(new Date()).format())
+            task.set('updateTime', moment(new Date()).format())
+            task.set('lastManage', '完成')
             if(task.parentId.length === 0){
                 task.save(callback(err))
             }else{
@@ -1048,8 +1054,9 @@ router.post('/message',function(req, res){
     var date = moment(new Date()).format();
     var datearr = date.split('T');
     var regExp = new RegExp(datearr[0], 'i')
-    Daily.find({date: regExp})
-         .populate('staffId')
+    Task.find({updateTime: regExp})
+         .populate('creator')
+         .sort({date: 'asc'})
          .exec(function(err, list){
              if(err){
                  res.send({result: err})
