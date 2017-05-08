@@ -133,17 +133,45 @@ router.post('/addStaff',function(req, res){
 router.put('/staff',function(req, res){
     var info = req.body;
     Staff.findById(info._id, function(err, person){
+        let avatarBefore = person.avatar
         for(var e in info){
             person[e] = info[e]
         }
-        person.save(function(err){
-            res.setHeader("Content-Type","application/json");
-            if(err){
-                res.send({"result":err});
-            }else{
-                res.send({"result": 'success'});
+        if(person.avatar){
+            var folderPath = path.join(__dirname, '../../public/')
+            var filePath = folderPath + `img/${person.avatar}`
+            var targetUrl = path.join(folderPath + 'avatar/', person.avatar);
+            fs.readFile(filePath,function(err,data){
+                if(err){
+                    res.send(err)
+                    return;
+                }
+                fs.writeFile(targetUrl, data, function(err){
+                    if(err){
+                        res.send({result: err})
+                    }else{
+                        person.save(function(err){
+                            if(err){
+                                res.send({"result":err});
+                            }else{
+                                res.send({"result": 'success'});
+                            }
+                        })
+                        
+                    }
+                })
+            })
+        }else{
+            person.avatar = avatarBefore 
+            person.save(function(err){
+                if(err){
+                        res.send({"result":err});
+                    }else{
+                        res.send({"result": 'success'});
+                    }
+                })
             }
-        })
+        
     })
 })
 router.delete('/staff',function(req,res){
@@ -1066,6 +1094,32 @@ router.post('/message',function(req, res){
              }
          })
 })
+
+router.post('/avatar', multipartMiddleware, function(req,res){
+    // var info = {};
+    // info.creator = req.user.name;
+    var filePath = req.files.avatar.path;
+    var filename = path.basename(filePath);
+    res.setHeader("Content-Type","application/json");
+    var type = filename.split('.')[1];
+    var folderPath = path.join(__dirname, '../../public/img')
+    var targetUrl = path.join(folderPath, req.user._id + '.' + type);
+    fs.readFile(filePath,function(err,data){
+        if(err){
+            res.send(err)
+            return;
+        }
+        fs.writeFile(targetUrl, data, function(err){
+            if(err){
+                res.send({result: err})
+            }else{
+                res.send({result: req.user._id + '.' + type})
+            }
+        })
+    })
+})
+
+
 
 module.exports = function (app) {
     app.use('/', router);

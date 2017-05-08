@@ -1,10 +1,12 @@
 import * as staffAction from '../constants/staff'
+import * as Status from '../constants/status'
 
 let initialState = {
     user: {},
     status: '',
     list: [],
-    msg: ''
+    msg: '',
+    needFetch: false
 }
 
 const StaffState = (state = initialState, action ) => {
@@ -30,7 +32,8 @@ const StaffState = (state = initialState, action ) => {
             return {
                 ...state,
                 status: action.status,
-                msg: action.msg
+                msg: action.msg,
+                needFetch: action.status === Status.SUCCESS ? true : false
             }
         case staffAction.FETCH_STAFF:
             return {
@@ -49,7 +52,8 @@ const StaffState = (state = initialState, action ) => {
             return {
                 ...state,
                 status: action.status,
-                user: action.user
+                user: action.user,
+                needFetch: action.status !== Status.ERROR ? false : true
             }
         default:
             return state

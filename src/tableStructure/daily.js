@@ -1,6 +1,5 @@
 import React from 'react'
 import Icon from 'antd/lib/icon'
-import moment from 'moment'
 
 const createColumns = function(edit, remove){
     return [{

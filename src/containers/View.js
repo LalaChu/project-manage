@@ -1,17 +1,28 @@
 import { connect } from 'react-redux'
 import * as UIType from '../actions/components'
+import moment from 'moment'
 // import * as Status from '../constants/status'
 import View from '../components/View'
 import * as StatsAction from '../actions/stats'
 import * as ProjectAction from '../actions/project'
+import * as DailyAction from '../actions/daily'
 
 const mapStateToProps = (state, ownProps) => {
     const {
             StatsState, 
+            DailyState:{
+                myDailyList
+            },
             ProjectState: {
                 myCheck,
                 myTask
             }} = state
+    let isTodayPosted = 0
+    myDailyList.map(function(daily){
+        if(moment(daily.date).isSame(moment(new Date()), 'day')){
+            isTodayPosted = 1
+        }
+    })
     let checkCount = myCheck.length
     let checkDone = 0
     myCheck.map(function(check){
@@ -31,7 +42,9 @@ const mapStateToProps = (state, ownProps) => {
         checkCount,
         checkDone,
         taskCount,
-        taskDone
+        taskDone,
+        myTask,
+        isTodayPosted
     }
 }
 const mapDispatchToProps = (dispatch) => {
@@ -43,6 +56,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchStats: () => {
             dispatch(ProjectAction.fetchMyTaskList())
             dispatch(ProjectAction.fetchCheckList())
+            dispatch(DailyAction.fetchMyDaily())
         }
     }
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import App from './components/App'
 import ViewContainer from './containers/View'
-import Personal from './components/Personal'
+import PersonalContainer from './containers/Personal'
 import ProcessContainer from './containers/Process'
 import ProjectContainer from './containers/Project'
 import { Router, Route, browserHistory, IndexRoute, Redirect, Switch } from 'react-router'
@@ -27,7 +27,7 @@ render(
             <Route path='/' component={App}>
                 <IndexRoute component={ViewContainer}></IndexRoute>
                 <Route path='view' component={ViewContainer} />
-                <Route path='personal' component={Personal} />
+                <Route path='personal' component={PersonalContainer} />
                 <Route path='process' component={ProcessContainer} />
                 <Route path='project' component={ProjectContainer} />
                 <Route path='document' component={DocumentContainer}/>

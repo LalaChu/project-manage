@@ -439,3 +439,40 @@ input[type=file]{
 .stats-number{
     font-size: 2em;
 }
+.view-task-list{
+    border-top: 1px dotted #ddd;
+    margin-top: 20px;
+    padding-top: 10px;
+}
+.view-task-list-title{
+    color: rgba(0, 0, 0, 0.43);
+    font-weight: normal;
+}
+.view-task-item{
+    height:35px;
+    line-height: 35px;
+}
+.personal{
+    padding: 10px;
+    height: 100%;
+}
+.personal-form{
+    padding-top: 50px;
+}
+.personal .avatar{
+    width: 130px;
+    height: 130px;
+    border-radius: 130px;
+}
+
+.personal .ant-form-item-control{
+    text-align: left;
+}
+.personal .ant-col-5{
+    text-align: center !important;
+
+}
+
+.personal-avatar-label .ant-col-5{
+    line-height: 130px;
+}

@@ -13,6 +13,11 @@ class Sidebar extends Component{
     handleLogout = () => {
         this.props.onLogout();
     }
+    // componentWillUpdate = () => {
+    //     if(this.props.needFetch){
+    //         this.props.getCurUser()
+    //     }
+    // }
     render(){
         let openKeys = this.props.openNow === '' ? [] :[this.props.openNow] 
         const { user } = this.props
@@ -20,7 +25,10 @@ class Sidebar extends Component{
             <Sider>
                 <div className='user-info'>
                     <div className='user-avatar'>
-                        <img src='/public/img/test.JPG'></img>
+                        {
+                            user.avatar === '' ? <div>ddd</div> : <img src={`/public/avatar/${user.avatar}?t=${Math.random()}`}></img>
+                        }
+                        
                         <span className='user-name'>尊敬的{user.name}，您好！</span>
                     </div>
                 </div>
