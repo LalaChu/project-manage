@@ -17,6 +17,11 @@ class PersonalForm extends Component{
         }
         console.log(this.props)
     }
+    // componentWillUpdate(){
+    //     if(this.props.needFetch){
+    //         this.props.
+    //     }
+    // }
 //     handleChange = (info) => {
 //     if (info.file.status === 'done') {
 //       // Get this url from response in real world.

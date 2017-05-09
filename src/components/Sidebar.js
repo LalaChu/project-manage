@@ -13,11 +13,11 @@ class Sidebar extends Component{
     handleLogout = () => {
         this.props.onLogout();
     }
-    // componentWillUpdate = () => {
-    //     if(this.props.needFetch){
-    //         this.props.getCurUser()
-    //     }
-    // }
+    componentWillUpdate = () => {
+        if(this.props.needFetch){
+            this.props.getCurUser()
+        }
+    }
     render(){
         let openKeys = this.props.openNow === '' ? [] :[this.props.openNow] 
         const { user } = this.props
