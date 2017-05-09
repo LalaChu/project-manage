@@ -113,16 +113,14 @@ class CategoryForm extends Component{
 }
 
 const CategoryModal = Form.create({mapPropsToFields:function(props){
-    console.log(props)
     if(!props.record){
         return {}
     }
-    console.log(props.record)
     return {
         name: {value: props.record.name},
         state: {value: props.record.state},
         type: {value: props.record.telephone},
-        manageId: {value: props.record.manageId},
+        manageId: {value: props.record.manageId._id},
         parentId: {value: props.record.parentId},
         startTime: {value: props.record.startTime ? moment(props.record.startTime, 'YYYY-MM-DD') : ''},
         endTime: {value: props.record.endTime ? moment(props.record.endTime, 'YYYY-MM-DD') : ''},

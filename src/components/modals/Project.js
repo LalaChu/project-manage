@@ -121,7 +121,7 @@ const ProjectModal = Form.create({mapPropsToFields:function(props){
         name: {value: props.record.name},
         state: {value: props.record.state},
         type: {value: props.record.telephone},
-        manageId: {value: props.record.manageId},
+        manageId: {value: props.record.manageId._id},
         startTime: {value: props.record.startTime ? moment(props.record.startTime, 'YYYY-MM-DD') : ''},
         endTime: {value: props.record.endTime ? moment(props.record.endTime, 'YYYY-MM-DD') : ''},
         description: {value: props.record.description}
