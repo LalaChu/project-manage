@@ -18,7 +18,7 @@ class StatsInfo extends Component{
                     <span className='stats-number'>{num}/{count}</span>
                 </div>
                 
-                <Progress className='stats-progress' percent={num/count*100} strokeWidth={15}/>
+                <Progress className='stats-progress' percent={ count ? num/count*100 : 0} strokeWidth={15}/>
             </div>
         )
     }

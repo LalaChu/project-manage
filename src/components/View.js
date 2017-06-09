@@ -23,12 +23,12 @@ class View extends Component{
                 tasklist.push(<Task key={task._id} title={task.name} state={task.state}/>)
             }
         })
-        console.log(tasklist)
+        console.log(taskCount && taskDone, checkCount, taskDone, checkDone)
         return (
             <div className='view'>
                 <section className='view-info'>
                     <div>
-                        <StatsInfo title='我的任务' icon='file-text' count={taskCount} num={taskDone}/>
+                        <StatsInfo title='我的任务' icon='file-text' count={taskCount} num={taskDone }/>
                         <StatsInfo title='我的审查' icon='bars' count={checkCount} num={checkDone}/>
                         <StatsInfo title='今日日报' icon='book' count='1' num={isTodayPosted}/>
                     </div>

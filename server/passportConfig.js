@@ -17,8 +17,6 @@ passport.use(new LocalStrategy(
     // 在编写 User.findUniqueUserByUsername 时，包含两个参数，一个是 username
     // 一个是我们现在所传入的回调函数，我们将获取到的用户信息传递给我们的回调函数
     Staff.findOne({"telephone": username}, function (err, user) {
-      // console.log('email:', username);
-      // console.log('user:',user);
       if (err) {
         console.log('出现错误.');
         return done(err);
@@ -39,11 +37,9 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser(function (user, done) {
-  // console.log('serializeUser')
   done(null, user.telephone);
 });
 passport.deserializeUser(function (username, done) {
-  // console.log('deserializeUser')
   Staff.findOne({"telephone":username}, function (err, user) {
     if (err) {
       return done(err);
