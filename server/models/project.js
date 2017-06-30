@@ -30,7 +30,9 @@ var project = new Schema({
 
 project.methods.addTo = function(id, obj, cb){
     mongoose.model('project').findById(mongoose.Types.ObjectId(id), function(err, tar){
+        obj.set('type', 'category');
         tar.categories.push(obj);
+        
         tar.save(cb)
     })
 }

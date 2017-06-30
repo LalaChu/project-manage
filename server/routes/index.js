@@ -433,8 +433,11 @@ router.post('/project',function(req,res){
     }
     var project = new Project(req.body);
     project.set('manageId', mongoose.Types.ObjectId(req.body.manageId))
+    if(moment(project.get('startTime')).isBefore(new Date())){
+        project.set('state', ProjectState.doing)
+    }
     if(req.body.parentId){
-        project.addTo(req.body.parentId, req.body, callback)
+        project.addTo(req.body.parentId, project, callback)
     }else{
         project.save(function(err){
             callback(err);
@@ -1046,13 +1049,13 @@ router.delete('/dailyFile', function(req, res){
 })
 router.post('/allDaily', function(req,res){
     var info = req.body;
-    var date = (new Date()).toString();
+    var date = moment(new Date()).format();
+    console.log(date)
     if(info.date){
         date = info.date;
     }
-    var datearr = date.split(' ');
-    var finaldate = datearr.slice(0, 4).join(' ');
-    var regExp = new RegExp(finaldate, 'i')
+    var datearr = date.split('T');
+    var regExp = new RegExp(datearr[0], 'i')
     Daily.find({date: regExp})
     .populate('staffId taskId')
     .exec(function(err, list){
@@ -1060,7 +1063,7 @@ router.post('/allDaily', function(req,res){
             res.send({result: err})
         }else{
             console.log(date)
-            Staff.find({date:{ $lt: date.substr(4)}})
+            Staff.find({date:{ $lt: date}})
             .exec(function(err, staff){
                 if(err){
                     res.send({result: err})

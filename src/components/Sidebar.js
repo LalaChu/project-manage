@@ -26,7 +26,7 @@ class Sidebar extends Component{
                 <div className='user-info'>
                     <div className='user-avatar'>
                         {
-                            user.avatar === '' ? <div>ddd</div> : <img src={`/public/avatar/${user.avatar}?t=${Math.random()}`}></img>
+                            user.avatar === '' ? <img src='/public/img/test.JPG' className="avatar"/> : <img src={`/public/avatar/${user.avatar}?t=${Math.random()}`}></img>
                         }
                         
                         <span className='user-name'>尊敬的{user.name}，您好！</span>

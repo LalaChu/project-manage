@@ -4,6 +4,7 @@ import Card from 'antd/lib/card'
 import Col from 'antd/lib/col'
 import Row from 'antd/lib/row'
 import Icon from 'antd/lib/icon'
+import Popover from 'antd/lib/popover'
 
 class ItemTypeSelect extends Component{
     handleCancel = () => {
@@ -30,22 +31,28 @@ class ItemTypeSelect extends Component{
                 footer={null}>
                 <Row className='select-row'>
                     <Col span='8'>
-                        <Card onClick={this.handleProjectSelect}
-                            className='select-card'>
-                            <Icon type="folder" className='select-icon'/>
-                        </Card>
+                        <Popover content='添加项目'>
+                            <Card onClick={this.handleProjectSelect}
+                                className='select-card'>
+                                <Icon type="folder" className='select-icon'/>
+                            </Card>
+                        </Popover>
                     </Col>
                     <Col span='8'>
-                        <Card onClick={this.handleCategorySelect}
-                            className='select-card'>
-                            <Icon type="copy" className='select-icon'/>
-                        </Card>
+                        <Popover content='添加工作分类'>
+                            <Card onClick={this.handleCategorySelect}
+                                className='select-card'>
+                                <Icon type="copy" className='select-icon'/>
+                            </Card>
+                        </Popover>
                     </Col>
                     <Col span='8'>
-                        <Card onClick={this.handleTaskSelect}
-                            className='select-card'>
-                            <Icon type="file-text" className='select-icon'/>
-                        </Card>
+                        <Popover content='添加具体工作'>
+                            <Card onClick={this.handleTaskSelect}
+                                className='select-card'>
+                                <Icon type="file-text" className='select-icon'/>
+                            </Card>
+                        </Popover>
                     </Col>
                 </Row>
             </Modal>

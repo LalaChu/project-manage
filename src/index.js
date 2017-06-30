@@ -23,7 +23,6 @@ let store = configStore()
 render(
     <Provider store={store}>
         <Router history={browserHistory}>
-            {/*<Switch>*/}
             <Route path='/' component={App}>
                 <IndexRoute component={ViewContainer}></IndexRoute>
                 <Route path='view' component={ViewContainer} />
@@ -43,12 +42,9 @@ render(
                     <Route path='need' component={ApprovalContainer} />
                     <Route path='start' component={StartContainer} />
                 </Route>
-                {/*<Route component={View}></Route>*/}
             </Route>
             <Route path='/login' component={LoginContainer} />
             <Route path='/register' component={RegisterContainer} />
-            {/*<Redirect from='/' to='/view'></Redirect>*/}
-            {/*</Switch>*/}
         </Router>
     </Provider>,
     document.getElementById('root')

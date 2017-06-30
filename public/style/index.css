@@ -342,7 +342,7 @@ input[type=file]{
     line-height: 30px;
 }
 .process-bar{
-    display: inline-block;
+    display: inherit;
     background-color: green;
     height: 15px;
 }
@@ -475,4 +475,9 @@ input[type=file]{
 
 .personal-avatar-label .ant-col-5{
     line-height: 130px;
+}
+
+.view-task-item-icon{
+    color: #108ee9;
+    margin-right: 10px;
 }

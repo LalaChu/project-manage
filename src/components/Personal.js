@@ -111,7 +111,7 @@ class PersonalForm extends Component{
                             accept={'image/*'}
                         >
                             {
-                                user.avatar === '' ? <div>dddd</div>
+                                user.avatar === '' ? <img src='/public/img/test.JPG' className="avatar"/>
                                 : <img src={ this.state.filename!=='' && this.state.filename ? `/public/img/${this.state.filename}?t=${Math.random()}` : `/public/avatar/${user.avatar}?t=${Math.random()}`} alt="" className="avatar" /> 
                             }</Upload>
                     </FormItem>

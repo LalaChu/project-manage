@@ -5,7 +5,7 @@ import moment from 'moment'
 import {getMaxAndMinDate, getStateWord} from '../helper'
 
 const createColumns = function(list){
-    let date = list && list.length > 0 ? getMaxAndMinDate(list) : '' 
+    let date = list && list.length > 0 ? getMaxAndMinDate(list) : ''  
     let month = []
     let i , j
     let weeks = []
@@ -28,6 +28,7 @@ const createColumns = function(list){
       }
     }else{
       // let date = getMaxAndMinDate(list)
+      console.log(date)
       let endMonday = date.max.day('1')
       let startModay = date.min.day('1')
       let endTime = new Date(endMonday)
@@ -99,10 +100,12 @@ const createColumns = function(list){
                   let endDate = new Date(record.endTime)
                   leftMargin = parseInt((startDate.getTime() - minDate.getTime())/(24*3600*1000)) * 36 - 41
                   width =  parseInt((endDate.getTime() - startDate.getTime())/(24*3600*1000)) * 36
+                  console.log(width)
                 }
-                return <div className={`process-bar process-bar-${record.state.toLowerCase()}`} style={{marginLeft: leftMargin + 'px', width: width + 'px'}}></div>
+                return <div className={`process-bar process-bar-${record.state.toLowerCase()}`} style={{marginLeft: leftMargin + 'px', width: width + 'px'}}> </div>
               },
             }]
+    console.log((i)* (j)* 36 + 300)
     return {
       columns: other,
       width: (i)* (j)* 36 + 300
